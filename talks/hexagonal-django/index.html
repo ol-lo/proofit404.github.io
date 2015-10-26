@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="reveal.css">
         <link rel="stylesheet" type="text/css" href="white.css" id="theme">
+        <link rel="stylesheet" type="text/css" href="github.css">
         <title>Hexagonal Django Talk</title>
     </head>
     <body>
@@ -69,7 +70,9 @@
              history: true,
              senter: true,
              transition: "slide",
-             dependencies: {}
+             dependencies: [
+                 { src: 'highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+             ]
          });
         </script>
     </body>
