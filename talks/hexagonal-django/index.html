@@ -51,7 +51,7 @@ def make_report(request, pk):
                     </pre>
                 </section>
                 <section>
-                    А ещё положил логику в шаблоны, чё ей там будет.
+                    А ещё положил логику в шаблоны, чё ей там будет...
                     <pre>
                         <code class="hljs">
 {% for i, j, k in rows %}
@@ -65,10 +65,45 @@ def make_report(request, pk):
                     </pre>
                 </section>
                 <section>
-                    !!! картинка/таблица с нормальным результатом !!!
+                    И все вроде бы работает
+                    <table>
+                        <tr>
+                            <td>Customer</td>
+                            <td>Orders number</td>
+                            <td>In total</td>
+                        </tr>
+                        <tr>
+                            <td>Jane</td>
+                            <td>2</td>
+                            <td>120$</td>
+                        </tr>
+                        <tr>
+                            <td>Ted</td>
+                            <td>7</td>
+                            <td>3053$</td>
+                        </tr>
+                    </table>
+                    !!! align !!!
                 </section>
                 <section>
-                    !!! картинка/таблица с отрицатьельным итого !!!
+                    До первого изменения в another_report
+                    <table>
+                        <tr>
+                            <td>Customer</td>
+                            <td>Orders number</td>
+                            <td>In total</td>
+                        </tr>
+                        <tr>
+                            <td>Jane</td>
+                            <td>2</td>
+                            <td>-2453261524615246.0$</td>
+                        </tr>
+                        <tr>
+                            <td>Ted</td>
+                            <td>7</td>
+                            <td>-75027372473246375246375.0$</td>
+                        </tr>
+                        !!! align !!!
                 </section>
             </div>
         </div>
