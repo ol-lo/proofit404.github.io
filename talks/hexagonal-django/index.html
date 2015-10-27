@@ -84,7 +84,8 @@ def make_report(request, pk):
              senter: true,
              transition: "slide",
              dependencies: [
-                 { src: 'highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                 { src: 'highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                 { src: 'notes.js', async: true }
              ]
          });
         </script>
