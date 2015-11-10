@@ -47,7 +47,7 @@
                     <h1>Плохой код больно бьет про продакшену :(</h1>
                 </section>
                 <section>
-                    Кому-то было лень писать custom manager
+                    <h4>Кому-то было лень писать custom manager</h4>
                     <pre>
                         <code class="hljs">
 def make_report(request, pk):
@@ -60,7 +60,7 @@ def make_report(request, pk):
                     </pre>
                 </section>
                 <section>
-                    А ещё положил логику в шаблоны, чё ей там будет...
+                    <h4>А ещё положил логику в шаблоны, чё ей там будет...</h4>
                     <pre>
                         <code class="hljs">
 {% for i, j, k in rows %}
@@ -74,7 +74,7 @@ def make_report(request, pk):
                     </pre>
                 </section>
                 <section>
-                    И все вроде бы работает
+                    <h4>И все вроде бы работает</h4>
                     <table>
                         <tr>
                             <td style="text-align: center;">Customer</td>
@@ -94,7 +94,7 @@ def make_report(request, pk):
                     </table>
                 </section>
                 <section>
-                    До первого изменения в another_report
+                    <h4>До первого изменения в another_report</h4>
                     <table>
                         <tr>
                             <td style="text-align: center;">Customer</td>
@@ -115,7 +115,7 @@ def make_report(request, pk):
                 </section>
                 <section>
                     <h2>Не все так просто</h2>
-                    Каждое конкретное решение в зависимости от контекста может быть и паттерном и антипаттерном
+                    <p>Каждое конкретное решение в зависимости от контекста может быть и паттерном и антипаттерном</p>
                 </section>
                 <section>
                     <h2>Код плохой, если при работе над ним чуствуешь себя вот так</h2>
@@ -149,7 +149,10 @@ def make_report(request, pk):
                             </a>
                         </h3>
                         <p>
-                            As codebases grow it becomes difficult to make any cast-iron guarantees that you really are enforcing application-level data integrity.
+                            As codebases grow it becomes difficult to
+                            make any cast-iron guarantees that you
+                            really are enforcing application-level
+                            data integrity.
                         </p>
                     </div>
                     <aside class="notes">
