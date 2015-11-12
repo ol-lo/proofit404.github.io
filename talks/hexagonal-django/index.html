@@ -168,12 +168,45 @@ def make_report(request, pk):
                     </aside>
                 </section>
                 <section>
-                    !!! convert to notes for some slide !!!
-                    <h2>Итого</h2>
-                    <ul>
-                        <li style="text-align: left;">Не надо смешивать слои абстракции</li>
-                        <li style="text-align: left;">Слоёв не должно быть слишком много или мало</li>
-                    </ul>
+                    <h1>Архитектурные стили</h1>
+                    <aside class="notes">
+                        Архитектура - это части, их взаимодействие и ограничения<br>
+                        Карпускулярные и жесткие системы
+                    </aside>
+                </section>
+                <section>
+                    <h3>Pipeline architecture</h3>
+                    <img src="pics/pipeline.jpg" style="border: none; box-shadow: none;">
+                    <aside class="notes">
+                        Гомогенная<br>
+                        Взаимозаменяемость компонент<br>
+                        Нет проблемы роста<br>
+                        Microservices
+                    </aside>
+                </section>
+                <section>
+                    <h3>Layered architecture</h3>
+                    <img src="pics/onion.png" style="border: none; box-shadow: none;">
+                    <aside class="notes">
+                        Иерархическая<br>
+                        Пропуск слоев недопускается<br>
+                        Проблема роста<br>
+                        Слоёв не должно быть слишком много или мало
+                    </aside>
+                </section>
+                <section>
+                    <h4>MVC фреймворки хорошо подходят для CRUD приложений</h4>
+                    <pre>
+                        <code class="hljs">
+class PublisherList(ListView):
+    model = Publisher
+    context_object_name = 'publishers'
+
+class PublisherDetail(DetailView):
+    queryset = Publisher.objects.all()
+    context_object_name = 'publisher'
+                        </code>
+                    </pre>
                 </section>
             </div>
         </div>
