@@ -117,11 +117,18 @@ def make_report(request, pk):
                 <section>
                     <h2>Не все так просто</h2>
                     <p>Каждое конкретное решение в зависимости от контекста может быть и паттерном и антипаттерном</p>
+                    <aside class="notes">
+                        Успешность архитектуры - простота выполнения каждого тикета
+                    </aside>
                 </section>
                 <section>
                     <h2>Код плохой, если при работе над ним чувствуешь себя вот так</h2>
                 </section>
                 <section data-background="pics/die-hard.jpg" data-background-size="contain">
+                    <aside class="notes">
+                        Вентиляционные шахты<br>
+                        Прыжки с горящих небоскрёбов
+                    </aside>
                 </section>
                 <section>
                     <h2>Код хороший, если каждый тикет выглядит вот так</h2>
@@ -327,6 +334,9 @@ class PublisherDetail(DetailView):
                             </div>
                         </div>
                     </div>
+                    <aside class="notes">
+                        Структура кода соответствует цели проекта
+                    </aside>
                 </section>
                 <section>
                     <h1>Pros:</h1>
