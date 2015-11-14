@@ -353,6 +353,47 @@ class Products(ProductGateway):
                     </aside>
                 </section>
                 <section>
+                    <h1>Boundaries</h1>
+                    <pre>
+                        <code class="hljs">
+class PurchaseBoundary(Boundary):
+
+    use_case = Purchase()
+    products = Products()
+    failure = Failure()
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        Делает dependencies injection<br>
+                        Делегирует attribute access для @boundary_method
+                    </aside>
+                </section>
+                <section>
+                    <h1>Presenters</h1>
+                    <pre>
+                        <code class="hljs">
+class Failure(Presenter):
+
+    def product_not_available(self):
+
+        return render_to_response('products/not_available.html')
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h1>Controllers</h1>
+                    <pre>
+                        <code class="hljs">
+class PurchaseView(UseCaseView):
+
+    boundary = PurchaseBoundary()
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        Можно добавлять в роутинг
+                    </aside>
+                </section>
+                <section>
                     <h1>Как начать в уже существующем проекте?</h1>
                     <aside class="notes">
                         Я вообще не верю в stop the world refactoring
