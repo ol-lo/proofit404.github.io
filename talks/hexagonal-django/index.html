@@ -268,6 +268,49 @@ class American(Money):
                     </aside>
                 </section>
                 <section>
+                    <h1>Use Case</h1>
+                    <pre>
+                        <code class="hljs">
+class Purchase(UseCase):
+
+    @boundary_method
+    def start(user_name, product_name):
+
+        user = self.get_user(user_name)
+        product = self.get_product(product_name)
+        if product.available_for(user):
+            self.success.ask_for_confirmation()
+        else:
+            self.failure.impossible_purchase()
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        <b>UseCase</b> показывает цель и скрывает детали<br>
+                        Про <b>web</b> вообще ничего не сказано<br>
+                        <b>success</b> и <b>failure</b> это output boundaries<br>
+                        <b>product.available_for</b> проверяет возраст например
+                    </aside>
+                </section>
+                <section>
+                    <h1>Use case</h1>
+                    <pre>
+                        <code class="hljs">
+def get_product(self, product_name):
+
+    try:
+        product = self.products.by_name(product_name)
+    except NotAvailable:
+        self.failure.product_not_available()
+    else:
+        return product
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        <b>products</b> это entity gateway
+                        <b>NotAvailable</b> это исключение уровня приложения
+                    </aside>
+                </section>
+                <section>
                     <h1>Как начать в уже существующем проекте?</h1>
                     <aside class="notes">
                         Я вообще не верю в stop the world refactoring
