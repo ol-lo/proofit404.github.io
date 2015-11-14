@@ -251,6 +251,23 @@ class PublisherDetail(DetailView):
                     <img src="pics/djangopony.png" style="border: none; box-shadow: none;">
                 </section>
                 <section>
+                    <h1>Entity</h1>
+                    <pre>
+                        <code class="hljs">
+class American(Money):
+
+    def __add__(self, other):
+
+        return self.__class__(
+            self.dollars + other.dollars,
+            self.cents + other.cents)
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        Конверсию выполняет другой класс
+                    </aside>
+                </section>
+                <section>
                     <h1>Как начать в уже существующем проекте?</h1>
                     <aside class="notes">
                         Я вообще не верю в stop the world refactoring
