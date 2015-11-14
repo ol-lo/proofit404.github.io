@@ -311,6 +311,47 @@ def get_product(self, product_name):
                     </aside>
                 </section>
                 <section>
+                    <h1>Entity Gateway</h1>
+                    <pre>
+                        <code class="hljs">
+class ProductGateway(Gateway):
+
+    @entity(Product)
+    def by_name(product_name):
+
+        raise NotImplementedError
+
+    def not_available_error():
+
+        raise NotAvailable
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        <b>not_available_error</b> не перезаписывается<br>
+                        Внутри <b>Gateway</b> обрабатывается декоратор <b>entity</b>
+                    </aside>
+                </section>
+                <section>
+                    <h1>Implementation</h1>
+                    <pre>
+                        <code class="hljs">
+class Products(ProductGateway):
+
+    def by_name(product_name):
+
+        product_row = ProductModel.objects.get(name=product_name)
+        if product_row.amount < 1:
+            self.not_available_error()
+        else:
+            return {'price': product_row.price}
+                        </code>
+                    </pre>
+                    <aside class="notes">
+                        <b>amount</b> это служебное поле<br>
+                        Instance модели не пересекает границу
+                    </aside>
+                </section>
+                <section>
                     <h1>Как начать в уже существующем проекте?</h1>
                     <aside class="notes">
                         Я вообще не верю в stop the world refactoring
