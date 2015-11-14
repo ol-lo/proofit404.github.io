@@ -278,7 +278,7 @@ class Purchase(UseCase):
 
         user = self.get_user(user_name)
         product = self.get_product(product_name)
-        if product.available_for(user):
+        if product.allowed_for(user):
             self.success.ask_for_confirmation()
         else:
             self.failure.impossible_purchase()
@@ -288,7 +288,7 @@ class Purchase(UseCase):
                         <b>UseCase</b> показывает цель и скрывает детали<br>
                         Про <b>web</b> вообще ничего не сказано<br>
                         <b>success</b> и <b>failure</b> это output boundaries<br>
-                        <b>product.available_for</b> проверяет возраст например
+                        <b>product.allowed_for</b> например проверяет возраст
                     </aside>
                 </section>
                 <section>
