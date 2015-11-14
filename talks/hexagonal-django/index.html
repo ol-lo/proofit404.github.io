@@ -219,7 +219,24 @@ class PublisherDetail(DetailView):
                     </pre>
                     <aside class="notes">
                         <b>Fat models</b> если что-то начинает толстеть -
-                        значит мы слишком многого от него хотим
+                        значит мы слишком многого от него хотим<br>
+                        Каких слоев добавить в MVC?
+                    </aside>
+                </section>
+                <section>
+                    <h2>Гексагональная архитектура</h2>
+                    <small>Позволяет взаимодействовать с приложением как
+                    пользователю, так и программам, автоматическим
+                    тестам, скриптам пакетной обработки. Также
+                    позволяет приложению быть разработанным и
+                    оттестированным без каких-либо дополнительных
+                    устройств или баз данных.</small>
+                </section>
+                <section data-background="pics/the-hexagon.jpg" data-background-size="contain">
+                    <aside class="notes">
+                        <b>Domain</b> цена заказа<br>
+                        <b>Application</b> выбор шаблона нотификации<br>
+                        <b>Framework</b> реализация
                     </aside>
                 </section>
                 <section>
