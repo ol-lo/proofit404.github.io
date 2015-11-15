@@ -398,6 +398,29 @@ class PurchaseView(UseCaseView):
                     </aside>
                 </section>
                 <section>
+                    <h1>Pros:</h1>
+                    <ul>
+                        <li>Сохраняется связь с доменной областью</li>
+                        <li>Изоляция зависимостей</li>
+                        <li>Очень быстрые тесты</li>
+                    </ul>
+                    <aside class="notes">
+                        Решается проблема входа в проект (newcomer читает redmine)<br>
+                        Отсутствие неявных связей (хрупкость и жесткость повержены)<br>
+                        Независимое тестирование (минимальные использование db и selenium)
+                    </aside>
+                </section>
+                <section>
+                    <h1>Cons:</h1>
+                    <ul>
+                        <li>Сложнее чем MVC для понимания</li>
+                        <li>Придется подумать, как использовать существующие инструменты</li>
+                    </ul>
+                    <aside class="notes">
+                        Хочешь сделать что-то?  Сделай это сам!
+                    </aside>
+                </section>
+                <section>
                     <h1>Как начать в уже существующем проекте?</h1>
                     <aside class="notes">
                         Я вообще не верю в stop the world refactoring
@@ -510,29 +533,6 @@ class PurchaseView(UseCaseView):
                     </div>
                     <aside class="notes">
                         Структура кода соответствует цели проекта
-                    </aside>
-                </section>
-                <section>
-                    <h1>Pros:</h1>
-                    <ul>
-                        <li>Сохраняется связь с доменной областью</li>
-                        <li>Изоляция зависимостей</li>
-                        <li>Очень быстрые тесты</li>
-                    </ul>
-                    <aside class="notes">
-                        Решается проблема входа в проект (newcomer читает redmine)<br>
-                        Отсутствие неявных связей (хрупкость и жесткость повержены)<br>
-                        Независимое тестирование (минимальные использование db и selenium)
-                    </aside>
-                </section>
-                <section>
-                    <h1>Cons:</h1>
-                    <ul>
-                        <li>Сложнее чем MVC для понимания</li>
-                        <li>Придется подумать, как использовать существующие инструменты</li>
-                    </ul>
-                    <aside class="notes">
-                        Хочешь сделать что-то?  Сделай это сам!
                     </aside>
                 </section>
                 <section data-background="pics/holywar.jpg">
