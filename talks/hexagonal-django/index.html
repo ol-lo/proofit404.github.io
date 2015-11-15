@@ -119,7 +119,11 @@ def make_report(request, pk):
                 </section>
                 <section>
                     <h2>Не все так просто</h2>
-                    <p>Каждое конкретное решение в зависимости от контекста может быть и паттерном и антипаттерном</p>
+                    <p>В зависимости от контекста код</p>
+                    <ul>
+                        <li>решает проблему</li>
+                        <li>сам становится проблемой</li>
+                    </ul>
                     <aside class="notes">
                         Успешность архитектуры - простота выполнения каждого тикета
                     </aside>
@@ -219,7 +223,7 @@ class PublisherDetail(DetailView):
                     </pre>
                     <aside class="notes">
                         <b>Fat models</b> если что-то начинает толстеть -
-                        значит мы слишком многого от него хотим<br>
+                        значит мы слишком многого от этого хотим<br>
                         Каких слоев добавить в MVC?
                     </aside>
                 </section>
@@ -258,7 +262,7 @@ class Order:
 
     def calculate_price(self):
 
-        return sum(product.price for product in self.items)
+        return sum(product.price for product in self.bucket)
                         </code>
                     </pre>
                     <aside class="notes">
