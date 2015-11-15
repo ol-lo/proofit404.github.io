@@ -377,6 +377,9 @@ class Failure(Presenter):
         return render_to_response('products/not_available.html')
                         </code>
                     </pre>
+                    <aside class="notes">
+                        restframework сюда же
+                    </aside>
                 </section>
                 <section>
                     <h1>Controllers</h1>
@@ -388,7 +391,10 @@ class PurchaseView(UseCaseView):
                         </code>
                     </pre>
                     <aside class="notes">
-                        Можно добавлять в роутинг
+                        Можно добавлять в routing<br>
+                        Делает из request.POST dict<br>
+                        Неважно пришел user из запроса или из auth middleware<br>
+                        Можно декорировать csrf
                     </aside>
                 </section>
                 <section>
