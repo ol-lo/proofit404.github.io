@@ -254,17 +254,15 @@ class PublisherDetail(DetailView):
                     <h1>Entity</h1>
                     <pre>
                         <code class="hljs">
-class American(Money):
+class Order:
 
-    def __add__(self, other):
+    def calculate_price(self):
 
-        return self.__class__(
-            self.dollars + other.dollars,
-            self.cents + other.cents)
+        return sum(product.price for product in self.items)
                         </code>
                     </pre>
                     <aside class="notes">
-                        Конверсию выполняет другой класс
+                        Бизнес объекты и их взаимосвязи
                     </aside>
                 </section>
                 <section>
