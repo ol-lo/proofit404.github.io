@@ -159,6 +159,53 @@ class MyTest(AsyncTestCase):
                         </code>
                     </pre>
                 </section>
+                <section>
+                    <h2>Pytest suite</h2>
+                    <pre>
+                        <code class="hljs">
+@pytest.fixture
+def redis():
+    pass
+
+def async_test(f):
+    def wrapper(**kwargs):
+        @asyncio.coroutine
+        def coroutine(kwargs):
+            if 'redis' in kwargs:
+                kwargs['redis'] = yield from create_redis()
+            yield from asyncio.coroutine(f)(**kwargs)
+        loop = asyncio.new_event_loop()
+        loop.run_until_complete(coroutine(kwargs))
+    return wrapper
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Pytest config</h2>
+                    <pre>
+                        <code class="hljs">
+def pytest_pyfunc_call(pyfuncitem):
+
+    path = pyfuncitem.location[0]
+    funcargs = pyfuncitem.funcargs
+    argnames = pyfuncitem._fixtureinfo.argnames
+    testargs = {arg: funcargs[arg] for arg in argnames}
+    async_test(pyfuncitem.obj)(**testargs)
+    return True
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Test rewritten</h2>
+                    <pre>
+                        <code class="hljs">
+def test_my_test(redis):
+    yield from redis.set('foo', 'bar')
+    result = yield from redis.get('foo')
+    assert result == b'bar'
+                        </code>
+                    </pre>
+                </section>
             </div>
         </div>
         <script type="text/javascript" src="lib/js/head.min.js"></script>
