@@ -54,8 +54,15 @@ loop.run_until_complete(coroutine)
                         <code class="hljs">
 class MyTest(TestCase):
 
+    def setUp(self):
+
+        self.db = StrictRedis()
+
     def test_my_test(self):
-        self.assertTrue(False)
+
+        self.db.set('foo', 'bar')
+        result = self.db.get('foo')
+        self.assertEqual('bar', result)
                         </code>
                     </pre>
                 </section>
@@ -63,8 +70,14 @@ class MyTest(TestCase):
                     <h2>pytest</h2>
                     <pre>
                         <code class="hljs">
-def test_my_test():
-    assert False
+@pytest.fixture
+def redis():
+    return StrictRedis()
+
+def test_my_test(redis):
+    redis.set('foo', 'bar')
+    result = redis.get('foo')
+    assert result == 'bar'
                         </code>
                     </pre>
                 </section>
