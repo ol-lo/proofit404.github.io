@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="css/reveal.css">
         <link rel="stylesheet" type="text/css" href="css/theme/white.css" id="theme">
+        <link rel="stylesheet" type="text/css" href="lib/css/github.css">
         <link rel="stylesheet" type="text/css" href="css/customize.css">
         <title>Testing Asynchronous Applications</title>
     </head>
@@ -24,6 +25,17 @@
                     <img src="pics/tornado.png" alt="tornado">
                     <img src="pics/twisted.png" alt="twisted">
                 </section>
+                <section>
+                    <h2>Unittest</h2>
+                    <pre>
+                        <code class="hljs">
+class MyTest(TestCase):
+
+    def test_my_test(self):
+        self.assertTrue(False)
+                        </code>
+                    </pre>
+                </section>
             </div>
         </div>
         <script type="text/javascript" src="lib/js/head.min.js"></script>
@@ -35,7 +47,9 @@
              history: true,
              senter: true,
              transition: "slide",
-             dependencies: []
+             dependencies: [
+                 { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+             ]
          });
         </script>
     </body>
