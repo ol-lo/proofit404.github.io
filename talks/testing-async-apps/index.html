@@ -112,6 +112,40 @@ class MyTest(TestCase):
                         <li>Неудобная подготовка окружения</li>
                     </ul>
                 </section>
+                <section>
+                    <h2>Async Test Suite</h2>
+                    <pre>
+                        <code class="hljs">
+class AsyncTestCase(TestCase):
+
+    def run(self, result=None):
+        # ...
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.setUp())
+        loop.run_until_complete(testMethod())
+        loop.run_until_complete(self.tearDown())
+        # ...
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Test rewritten</h2>
+                    <pre>
+                        <code class="hljs">
+class MyTest(AsyncTestCase):
+
+    def setUp(self):
+
+        self.db = yield from create_redis(('localhost', 6379))
+
+    def test_my_test(self):
+
+        yield from self.db.set('foo', 'bar')
+        result = yield from self.db.get('foo')
+        self.assertEqual(b'bar', result)
+                        </code>
+                    </pre>
+                </section>
             </div>
         </div>
         <script type="text/javascript" src="lib/js/head.min.js"></script>
