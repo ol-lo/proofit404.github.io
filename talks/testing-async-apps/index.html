@@ -26,6 +26,29 @@
                     <img src="pics/twisted.png" alt="twisted">
                 </section>
                 <section>
+                    <h2>asyncio</h2>
+                    <pre>
+                        <code class="hljs">
+@asyncio.coroutine
+def fetch_page(session, url):
+    response = yield from session.get(url)
+    assert response.status == 200
+    return (yield from response.text())
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Event loop</h2>
+                    <pre>
+                        <code class="hljs">
+loop = asyncio.get_event_loop()
+session = aiohttp.ClientSession()
+coroutine = fetch_page(session, 'https://www.python.org')
+loop.run_until_complete(coroutine)
+                        </code>
+                    </pre>
+                </section>
+                <section>
                     <h2>Unittest</h2>
                     <pre>
                         <code class="hljs">
@@ -33,6 +56,15 @@ class MyTest(TestCase):
 
     def test_my_test(self):
         self.assertTrue(False)
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>pytest</h2>
+                    <pre>
+                        <code class="hljs">
+def test_my_test():
+    assert False
                         </code>
                     </pre>
                 </section>
