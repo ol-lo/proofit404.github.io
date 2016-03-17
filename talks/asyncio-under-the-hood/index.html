@@ -19,16 +19,6 @@
           <h1>О чём вообще речь?</h1>
         </section>
         <section>
-          <h2>Agenda</h2>
-          <ul>
-            <li>Какак писать в socket</li>
-            <li>Что такое асинхронный код</li>
-            <li>Что такое неблокирующий ввод/вывод</li>
-            <li>Зачем всё это нужно</li>
-            <li>Как сейчас это модно готовить</li>
-          </ul>
-        </section>
-        <section>
           <h2>Synchronous code</h2>
           <pre>
             <code class="hljs">
@@ -49,6 +39,65 @@ while True:
 &lt;/button&gt;
             </code>
           </pre>
+        </section>
+        <section>
+          <h2>Redis handler</h2>
+          <pre>
+            <code class="hljs">
+def apply(redis, num):
+    key = b'foo' + num
+    redis.execute_command('set', key, num)
+    result = redis.execute_command('get', key)
+    assert result == num
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>Run test</h2>
+          <pre>
+            <code class="hljs">
+def do():
+    redis = StrictRedis()
+    start = time()
+    for x in range(10000):
+        apply(redis, str(x).encode())
+    end = time()
+    print('Time spent:', end - start)
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>aioredis handler</h2>
+          <pre>
+            <code class="hljs">
+@asyncio.coroutine
+def apply(redis, num):
+    key = b'foo' + num
+    yield from redis.execute(b'set', key, num)
+    result = yield from redis.execute(b'get', key)
+    assert result == num
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>Run asynchronous test</h2>
+          <section>
+            <pre>
+              <code class="hljs">
+@asyncio.coroutine
+def do(loop):
+    redis = yield from create_connection(('localhost', 6379), loop=loop)
+    start = loop.time()
+    tasks = [asyncio.ensure_future(apply(redis, str(x).encode()))
+             for x in range(10000)]
+    yield from asyncio.wait(tasks)
+    end = loop.time()
+    print('Time spent:', end - start)
+    redis.close()
+    yield from redis.wait_closed()
+              </code>
+            </pre>
+          </section>
         </section>
         <section>
           <h2>Results so far</h2>
