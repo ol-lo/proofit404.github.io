@@ -41,6 +41,45 @@ while True:
           </pre>
         </section>
         <section>
+          <h1>Overview</h1>
+        </section>
+        <section>
+          <h2>asyncio concepts</h2>
+          <ul>
+            <li>Event loop</li>
+            <li>Futures + Callbacks</li>
+            <li>Tasks + Coroutines</li>
+            <li>Transports + Streams</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Event loop</h2>
+          <ul>
+            <li>I/O multiplexing</li>
+            <li>Event dispatching</li>
+          </ul>
+          <aside class="notes">
+            I/O multiplexing means allowing the programmer to examine
+            and block on multiple I/O streams, being notified whenever any one
+            of the streams is active so that it can process data on
+            that stream.
+          </aside>
+        </section>
+        <section>
+          <h2>Event loop</h2>
+          <pre>
+            <code class="hljs">
+def display_date(loop):
+    loop.stop()
+
+loop = asyncio.get_event_loop()
+loop.call_soon(display_date, loop)
+loop.run_forever()
+loop.close()
+            </code>
+          </pre>
+        </section>
+        <section>
           <h2>Redis handler</h2>
           <pre>
             <code class="hljs">
@@ -107,6 +146,26 @@ $ python synctest.py
 Time spent: 10.756768226623535
 $ python asynctest.py
 Time spent: 11.661769957999695
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h1>Under the hood</h1>
+        </section>
+        <section>
+          <h2>Event loop</h2>
+          <pre>
+            <code class="hljs">
+def read(conn, mask):
+    print(conn.recv(1000))
+
+selector = selectors.DefaultSelector()
+sock = socket.socket()  # bind, listen, etc
+sock.setblocking(False)
+selector.register(sock, EVENT_READ, read)
+
+for key, mask in selector.select():
+    key.data(key.fileobj, mask)
             </code>
           </pre>
         </section>
