@@ -21,7 +21,7 @@
         <section>
           <h2>Synchronous code</h2>
           <pre>
-            <code class="hljs">
+            <code class="hljs python">
 while True:
     if click_happens():
         process_click()
@@ -33,7 +33,7 @@ while True:
         <section>
           <h2>Asynchronous code</h2>
           <pre>
-            <code class="hljs">
+            <code class="hljs html">
 &lt;button onclick="alert('Hello');"&gt;
     Push it!
 &lt;/button&gt;
@@ -55,7 +55,7 @@ while True:
         <section>
           <h2>Event loop</h2>
           <pre>
-            <code class="hljs">
+            <code class="hljs python">
 def display_date(loop):
     loop.stop()
 
@@ -75,7 +75,7 @@ loop.close()
         <section>
           <h2>Coroutines</h2>
           <pre>
-            <code class="hljs">
+            <code class="hljs python">
 async def compute(x, y):
     print("Compute %s + %s ..." % (x, y))
     await asyncio.sleep(1.0)
@@ -98,7 +98,7 @@ loop.close()
         <section>
           <h2>Redis handler</h2>
           <pre>
-            <code class="hljs">
+            <code class="hljs python">
 def apply(redis, num):
     key = b'foo' + num
     redis.execute_command('set', key, num)
@@ -110,7 +110,7 @@ def apply(redis, num):
         <section>
           <h2>Run test</h2>
           <pre>
-            <code class="hljs">
+            <code class="hljs python">
 def do():
     redis = StrictRedis()
     start = time()
@@ -124,7 +124,7 @@ def do():
         <section>
           <h2>aioredis handler</h2>
           <pre>
-            <code class="hljs">
+            <code class="hljs python">
 async def apply(redis, num):
     key = b'foo' + num
     await redis.execute(b'set', key, num)
@@ -137,7 +137,7 @@ async def apply(redis, num):
           <h2>Run asynchronous test</h2>
           <section>
             <pre>
-              <code class="hljs">
+              <code class="hljs python">
 async def do(loop):
     redis = await create_connection(('localhost', 6379))
     start = loop.time()
@@ -155,7 +155,7 @@ async def do(loop):
         <section>
           <h2>Results so far</h2>
           <pre>
-            <code class="hljs">
+            <code class="hljs python">
 $ python synctest.py
 Time spent: 10.756768226623535
 $ python asynctest.py
@@ -169,7 +169,7 @@ Time spent: 11.661769957999695
         <section>
           <h2>Event loop</h2>
           <pre>
-            <code class="hljs">
+            <code class="hljs python">
 def read(conn, mask):
     print(conn.recv(1000))
 
