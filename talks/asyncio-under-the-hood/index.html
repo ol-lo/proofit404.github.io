@@ -16,7 +16,7 @@
           <h3>@proofit404</h3>
         </section>
         <section>
-          <h1>О чём вообще речь?</h1>
+          <h1>What is it all about?</h1>
         </section>
         <section>
           <h2>Synchronous code</h2>
@@ -27,7 +27,7 @@ while True:
         process_click()
     else:
         time.sleep(0.05)
-              </code>
+            </code>
           </pre>
         </section>
         <section>
@@ -54,19 +54,6 @@ while True:
         </section>
         <section>
           <h2>Event loop</h2>
-          <ul>
-            <li>I/O multiplexing</li>
-            <li>Event dispatching</li>
-          </ul>
-          <aside class="notes">
-            I/O multiplexing means allowing the programmer to examine
-            and block on multiple I/O streams, being notified whenever any one
-            of the streams is active so that it can process data on
-            that stream.
-          </aside>
-        </section>
-        <section>
-          <h2>Event loop</h2>
           <pre>
             <code class="hljs">
 def display_date(loop):
@@ -78,6 +65,35 @@ loop.run_forever()
 loop.close()
             </code>
           </pre>
+          <aside class="notes">
+            <ul>
+              <li>I/O multiplexing - examine and block on multiple I/O streams</li>
+              <li>Event dispatching</li>
+            </ul>
+          </aside>
+        </section>
+        <section>
+          <h2>Coroutines</h2>
+          <pre>
+            <code class="hljs">
+async def compute(x, y):
+    print("Compute %s + %s ..." % (x, y))
+    await asyncio.sleep(1.0)
+    return x + y
+
+async def print_sum(x, y):
+    result = await compute(x, y)
+    print("%s + %s = %s" % (x, y, result))
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(print_sum(1, 2))
+loop.close()
+            </code>
+          </pre>
+        </section>
+        <section data-background="pics/tulip_coro.png" data-background-size="contain"></section>
+        <section>
+          <h1>How about a real world example?</h1>
         </section>
         <section>
           <h2>Redis handler</h2>
@@ -125,7 +141,7 @@ def apply(redis, num):
               <code class="hljs">
 @asyncio.coroutine
 def do(loop):
-    redis = yield from create_connection(('localhost', 6379), loop=loop)
+    redis = yield from create_connection(('localhost', 6379))
     start = loop.time()
     tasks = [asyncio.ensure_future(apply(redis, str(x).encode()))
              for x in range(10000)]
