@@ -224,6 +224,22 @@ for key, mask in selector.select():
             </code>
           </pre>
         </section>
+        <section>
+          <h2>Monotonic clock</h2>
+          <pre>
+            <code class="hljs python">
+import time
+time.monotonic()
+            </code>
+          </pre>
+          <aside class="notes">
+            <ul>
+              <li>Count CPU tics</li>
+              <li>Can't go back</li>
+              <li>NTP can change system time and we fuck up callback schedule</li>
+            </ul>
+          </aside>
+        </section>
       </div>
     </div>
     <script src="lib/js/head.min.js"></script>
