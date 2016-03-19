@@ -73,6 +73,25 @@ loop.close()
           </aside>
         </section>
         <section>
+          <h2>Futures</h2>
+          <pre>
+            <code class="hljs python">
+loop = asyncio.get_event_loop()
+
+def done(future):
+    print('The future is done')
+    loop.stop()
+
+future = asyncio.Future()
+future.add_done_callback(done)
+
+loop.call_soon(future.set_result, 1)
+loop.run_forever()
+loop.close()
+            </code>
+          </pre>
+        </section>
+        <section>
           <h2>Coroutines</h2>
           <pre>
             <code class="hljs python">
