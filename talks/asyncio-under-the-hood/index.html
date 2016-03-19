@@ -256,6 +256,74 @@ class Future:
           </pre>
         </section>
         <section>
+          <h1>Write your own library</h1>
+        </section>
+        <section>
+          <h2>aioredis create connection</h2>
+          <pre>
+            <code class="hljs python">
+async def create_connection(address):
+    host, port = address
+    reader, writer = await asyncio.open_connection(host, port)
+    conn = RedisConnection(reader, writer)
+    return conn
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>aioredis connection</h2>
+          <pre>
+            <code class="hljs python">
+class RedisConnection:
+
+    def __init__(self, reader, writer):
+        self._reader = reader
+        self._writer = writer
+        self._waiters = deque()
+        self._parser = hiredis.Reader()
+        self._reader_task = asyncio.ensure_future(self._read_data())
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>Execute</h2>
+          <pre>
+            <code class="hljs python">
+def execute(self, command, *args):
+    fut = asyncio.Future()
+    self._writer.write(encode_command(command, *args))
+    self._waiters.append(fut)
+    return fut
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>Reader</h2>
+          <pre>
+            <code class="hljs python">
+async def _read_data(self):
+    while not self._reader.at_eof():
+        data = await self._reader.read(MAX_CHUNK_SIZE)
+        self._parser.feed(data)
+        while True:
+            obj = self._parser.gets()
+            if obj is False:
+                break
+            self._process_data(obj)
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>Process data</h2>
+          <pre>
+            <code class="hljs python">
+def _process_data(self, obj):
+    waiter = self._waiters.popleft()
+    waiter.set_result(obj)
+            </code>
+          </pre>
+        </section>
+        <section>
           <h2>Troubleshooting</h2>
           <ul>
             <li>Coroutine object never scheduled</li>
