@@ -56,11 +56,11 @@ while True:
           <h2>Event loop</h2>
           <pre>
             <code class="hljs python">
-def display_date(loop):
+def stop_loop(loop):
     loop.stop()
 
 loop = asyncio.get_event_loop()
-loop.call_soon(display_date, loop)
+loop.call_soon(stop_loop, loop)
 loop.run_forever()
 loop.close()
             </code>
