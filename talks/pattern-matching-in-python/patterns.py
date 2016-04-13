@@ -35,6 +35,10 @@ class Signature:
 
 class Expression:
 
+    def __gt__(self, other):
+
+        return GreaterPredicate(other)
+
     def __getitem__(self, item):
 
         return HeadPredicate(item)
@@ -50,6 +54,13 @@ class Predicate:
 
         self.args = args
         self.kwargs = kwargs
+
+
+class GreaterPredicate(Predicate):
+
+    def __eq__(self, other):
+
+        return isinstance(other, type(self.args[0])) and other > self.args[0]
 
 
 class HeadPredicate(Predicate):
@@ -76,9 +87,30 @@ assert test(1) == 'one'
 assert test(2) == 'two'
 
 
-# List test.
+# Greater test.
+
 
 _ = Expression()
+x = Expression()
+
+
+@match(x > 5)
+def greater_test(x):
+    return '{} greater then five'.format(x)
+
+
+@match(_)
+def greater_test(x):
+    return '{} less then or equal to five'.format(x)
+
+
+assert greater_test(7) == '7 greater then five'
+assert greater_test(1) == '1 less then or equal to five'
+
+
+# List test.
+
+
 lst = Expression()
 
 
