@@ -1,3 +1,10 @@
+# TODO:
+# * import any expression instances from this module
+# * tree example
+# * fold should not relay on integers
+# * ordered search for signatures (not for loop)
+
+
 def match(*expressions, **keyword_expressions):
 
     def decorator(f):
