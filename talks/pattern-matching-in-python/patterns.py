@@ -3,6 +3,7 @@
 # * tree example
 # * fold should not relay on integers
 # * ordered search for signatures (not for loop)
+# * replace seq[0] with head and tail unboxing
 
 
 def match(*expressions, **keyword_expressions):
