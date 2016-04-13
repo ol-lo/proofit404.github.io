@@ -42,21 +42,17 @@ assert greater_test(1) == '1 less then or equal to five'
 # List test.
 
 
-lst = Expression()
+l = Expression()
 
 
 @match(_, [])
-def fold(f, lst):
+def fold(f, seq):
     return 0
 
 
-@match(_, lst[0])
-def fold(f, lst):
-    return f(lst[0], fold(f, lst[1:]))
+@match(_, l[0])
+def fold(f, seq):
+    return f(seq[0], fold(f, seq[1:]))
 
 
-def add(x, y):
-    return x + y
-
-
-assert fold(add, [1, 2, 3, 4, 5]) == 15
+assert fold(lambda x, y: x + y, [1, 2, 3, 4, 5]) == 15
