@@ -1,4 +1,4 @@
-from patterns import match, Expression
+from patterns import match, _, x, l
 
 
 # Simple test.
@@ -21,10 +21,6 @@ assert test(2) == 'two'
 # Greater test.
 
 
-_ = Expression()
-x = Expression()
-
-
 @match(x > 5)
 def greater_test(x):
     return '{} greater then five'.format(x)
@@ -40,9 +36,6 @@ assert greater_test(1) == '1 less then or equal to five'
 
 
 # List test.
-
-
-l = Expression()
 
 
 @match(_, [])

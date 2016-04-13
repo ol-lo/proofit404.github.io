@@ -1,9 +1,12 @@
 # TODO:
-# * import any expression instances from this module
 # * tree example
 # * fold should not relay on integers
 # * ordered search for signatures (not for loop)
 # * replace seq[0] with head and tail unboxing
+
+
+import sys
+from types import ModuleType
 
 
 def match(*expressions, **keyword_expressions):
@@ -75,3 +78,18 @@ class HeadPredicate(Predicate):
     def __eq__(self, other):
 
         return isinstance(other, list) and len(other) >= self.args[0] + 1
+
+
+class module(ModuleType):
+
+    def __getattr__(self, name):
+
+        if name == 'match':
+            return match
+        else:
+            return Expression()
+
+
+old_module = sys.modules['patterns']
+
+new_module = sys.modules['patterns'] = module('patterns')
