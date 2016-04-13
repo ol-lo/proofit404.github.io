@@ -1,60 +1,62 @@
-class Declaration:
+def match(*expressions, **keyword_expressions):
 
-    def __getitem__(self, item):
-        if isinstance(item, slice):
-            return item
+    def decorator(f):
+
+        if f.__name__ not in globals():
+            def wrapper(*args, **kwargs):
+                for signature, f in wrapper.signatures:
+                    if signature == (args, kwargs):
+                        return f(*args, **kwargs)
+                else:
+                    raise Exception('Can not find appropriate pattern')
+            wrapper.signatures = []
         else:
-            return slice(item, None, None)
+            wrapper = globals()[f.__name__]
+
+        signature = Signature(*expressions, **keyword_expressions)
+        wrapper.signatures.append((signature, f))
+        return wrapper
+
+    return decorator
 
 
-class Expression:
+class Signature:
 
     def __init__(self, *args, **kwargs):
 
         self.args = args
         self.kwargs = kwargs
 
-    def match(self, *args, **kwargs):
+    def __eq__(self, other):
 
-        return self.match_args(args) and kwargs == self.kwargs
-
-    def match_args(self, args):
-
-        if len(self.args) != len(args):
-            return False
-        for num, arg in enumerate(self.args):
-            if arg is any:
-                continue
-            elif isinstance(arg, slice):
-                try:
-                    args[num][arg.start]
-                except KeyError:
-                    return False
-            elif arg != args[num]:
-                return False
-        else:
-            return True
+        args, kwargs = other
+        return args == self.args and kwargs == self.kwargs
 
 
-def match(*exp, **kwexp):
+class Expression:
 
-    def decorator(f):
+    def __getitem__(self, item):
 
-        if f.__name__ not in globals():
-            def wrapper(*args, **kwargs):
-                for expression, f in wrapper.patterns:
-                    if expression.match(*args, **kwargs):
-                        return f(*args, **kwargs)
-                else:
-                    raise Exception('Can not find appropriate pattern')
-            wrapper.patterns = []
-        else:
-            wrapper = globals()[f.__name__]
+        return HeadPredicate(item)
 
-        wrapper.patterns.append((Expression(*exp, **kwexp), f))
-        return wrapper
+    def __eq__(self, other):
 
-    return decorator
+        return True
+
+
+class Predicate:
+
+    def __init__(self, *args, **kwargs):
+
+        self.args = args
+        self.kwargs = kwargs
+
+
+class HeadPredicate(Predicate):
+
+    def __eq__(self, other):
+
+        return isinstance(other, list) and len(other) >= self.args[0] + 1
 
 
 # Simple test.
@@ -76,16 +78,16 @@ assert test(2) == 'two'
 
 # List test.
 
+_ = Expression()
+lst = Expression()
 
-lst = Declaration()
 
-
-@match(any, [])
+@match(_, [])
 def fold(f, lst):
     return 0
 
 
-@match(any, lst[0])
+@match(_, lst[0])
 def fold(f, lst):
     return f(lst[0], fold(f, lst[1:]))
 
