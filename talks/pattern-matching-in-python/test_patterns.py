@@ -43,9 +43,9 @@ def fold(f, seq):
     return 0
 
 
-@match(_, l[0])
-def fold(f, seq):
-    return f(seq[0], fold(f, seq[1:]))
+@match(_, l[0], l[1:])
+def fold(f, head, tail):
+    return f(head, fold(f, tail))
 
 
 assert fold(lambda x, y: x + y, [1, 2, 3, 4, 5]) == 15
