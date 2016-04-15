@@ -45,7 +45,7 @@ class Signature:
         def getkey(predicate):
             if hasattr(predicate, 'name'):
                 return predicate.name
-        return [(key, list(ps))
+        return [(key, tuple(ps))
                 for key, ps in itertools.groupby(self.args, getkey)]
 
     @property
@@ -59,6 +59,9 @@ class Signature:
                   isinstance(predicates[0], IndexPredicate) and
                   isinstance(predicates[1], SlicePredicate)):
                 sign += (HeadTailPredicate(key, predicates[0].args[0]),)
+            elif (len(predicates) > 1 and
+                  all(map(lambda p: isinstance(p, Expression), predicates))):
+                sign += predicates
             else:
                 raise Exception('Can not interpret predicates')
 
