@@ -1,6 +1,5 @@
 # TODO:
 # * tree example
-# * fold should not relay on integers
 # * ordered search for signatures (not for loop)
 
 

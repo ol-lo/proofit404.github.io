@@ -38,14 +38,15 @@ assert greater_test(1) == '1 less then or equal to five'
 # List test.
 
 
-@match(_, [])
-def fold(f, seq):
-    return 0
+@match(_, _, [])
+def foldr(f, initial, seq):
+    return initial
 
 
-@match(_, l[0], l[1:])
-def fold(f, head, tail):
-    return f(head, fold(f, tail))
+@match(_, _, l[0], l[1:])
+def foldr(f, initial, head, tail):
+    return f(head, foldr(f, initial, tail))
 
 
-assert fold(lambda x, y: x + y, [1, 2, 3, 4, 5]) == 15
+assert foldr(lambda x, y: x + y, 0, [1, 2, 3, 4, 5]) == 15
+assert foldr(lambda x, y: x * y, 1, [1, 2, 3, 4, 5]) == 120
