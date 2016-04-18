@@ -16,6 +16,25 @@
                     <h3>@proofit404</h3>
                 </section>
                 <section>
+                    <h1>Let's do it in Python!</h1>
+                </section>
+                <section>
+                    <h2>So how it looks like?</h2>
+                    <pre>
+                        <code class="hljs python">
+from patterns import match
+
+@match(1)
+def test(x):
+    return 'one'
+
+@match(2)
+def test(x):
+    return 'two'
+                        </code>
+                    </pre>
+                </section>
+                <section>
                     <h1>Thanks!</h1>
                 </section>
             </div>
@@ -30,7 +49,7 @@
              center: true,
              transition: 'slide',
              dependencies: [
-                 /* { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }, */
+                 { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                  { src: 'plugin/notes/notes.js', async: true }
              ]
          });
