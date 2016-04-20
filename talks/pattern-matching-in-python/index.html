@@ -19,6 +19,45 @@
                     <h1>Ocaml</h1>
                 </section>
                 <section>
+                    <h2>The Hard Way</h2>
+                    <pre>
+                        <code class="hljs ocaml">
+# let x = 1;;
+
+# x;;
+- : int = 1
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Even harder</h2>
+                    <pre>
+                        <code class="hljs ocaml">
+# let add x y = x + y;;
+
+# add 1 2;;
+- : int = 3
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>How far we can go?</h2>
+                    <pre>
+                        <code class="hljs ocaml">
+# let rec factorial x =
+  if x = 1
+  then 1
+  else x * factorial (x - 1);;
+
+# factorial 5;;
+- : int = 120
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h1>Algebraic Data Types</h1>
+                </section>
+                <section>
                     <h2>Fold right</h2>
                     <pre>
                         <code class="hljs ocaml">
