@@ -31,6 +31,53 @@ def test(x):
 @match(2)
 def test(x):
     return 'two'
+
+>>> test(1)
+'one'
+>>> test(2)
+'two'
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Expressions</h2>
+                    <pre>
+                        <code class="hljs python">
+from patterns import match, x, _
+
+@match(x > 5)
+def greater_test(x):
+    return '%s greater then five' % x
+
+@match(_)
+def greater_test(x):
+    return '%s less then or equal to five' % x
+
+>>> greater_test(7)
+'7 greater then five'
+>>> greater_test(1)
+'1 less then or equal to five'
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Fold right</h2>
+                    <pre>
+                        <code class="hljs python">
+from patterns import match, l, _
+
+@match(_, _, [])
+def foldr(f, initial, seq):
+    return initial
+
+@match(_, _, l[0], l[1:])
+def foldr(f, initial, head, tail):
+    return f(head, foldr(f, initial, tail))
+
+>>> foldr(lambda x, y: x + y, 0, [1, 2, 3, 4, 5])
+15
+>>> foldr(lambda x, y: x * y, 1, [1, 2, 3, 4, 5])
+120
                         </code>
                     </pre>
                 </section>
