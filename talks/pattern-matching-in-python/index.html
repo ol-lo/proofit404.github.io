@@ -16,6 +16,25 @@
                     <h3>@proofit404</h3>
                 </section>
                 <section>
+                    <h1>Ocaml</h1>
+                </section>
+                <section>
+                    <h2>Fold right</h2>
+                    <pre>
+                        <code class="hljs ocaml">
+# let rec foldr f initial l =
+  match l with
+    | [] -> initial
+    | head :: tail -> f head (foldr f initial tail);;
+
+# foldr ( + ) 0 [1; 2; 3; 4; 5];;
+- : int = 15
+# foldr ( * ) 1 [1; 2; 3; 4; 5];;
+- : int = 120
+                        </code>
+                    </pre>
+                </section>
+                <section>
                     <h1>Let's do it in Python!</h1>
                 </section>
                 <section>
