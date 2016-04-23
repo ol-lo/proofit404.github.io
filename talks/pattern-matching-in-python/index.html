@@ -58,6 +58,20 @@
                     <h1>Algebraic Data Types</h1>
                 </section>
                 <section>
+                    <h2>List</h2>
+                    <pre>
+                        <code class="hljs ocaml">
+# type list = Cons * list | Nil;;
+
+# let mylist = Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, Nil)))));;
+
+# let mylist = 1 :: 2 :: 3 :: 4 :: 5 :: [];;
+
+# let mylist = [1; 2; 3; 4; 5];;
+                        </code>
+                    </pre>
+                </section>
+                <section>
                     <h2>Fold right</h2>
                     <pre>
                         <code class="hljs ocaml">
