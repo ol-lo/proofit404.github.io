@@ -139,6 +139,74 @@ def test(x):
                     </pre>
                 </section>
                 <section>
+                    <h2>Match decorator</h2>
+                    <pre>
+                        <code class="hljs python">
+def match(*expressions):
+
+    def decorator(f):
+        if f.__name__ not in f.__globals__:
+            def wrapper(*args):
+                ...
+        else:
+            wrapper = f.__globals__[f.__name__]
+        ...
+        return wrapper
+
+    return decorator
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Store signatures</h2>
+                    <pre>
+                        <code class="hljs python">
+def wrapper(*args):
+    ...
+
+wrapper.signatures = []
+
+signature = Signature(*expressions)
+
+wrapper.signatures.append((signature, f))
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Signature</h2>
+                    <pre>
+                        <code class="hljs python">
+class Signature:
+
+    def __init__(self, *args):
+
+        self.args = args
+
+    def __eq__(self, args):
+
+        return args == self.args
+
+    def arguments(self, args):
+
+        return args
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Analyze call</h2>
+                    <pre>
+                        <code class="hljs python">
+def wrapper(*args):
+    for signature, f in wrapper.signatures:
+        if signature == args:
+            return f(*signature.arguments(args))
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h1>Introduce expressions</h1>
+                </section>
+                <section>
                     <h2>Expressions</h2>
                     <pre>
                         <code class="hljs python">
