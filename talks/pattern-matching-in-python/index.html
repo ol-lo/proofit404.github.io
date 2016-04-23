@@ -307,6 +307,86 @@ def foldr(f, initial, head, tail):
                     </pre>
                 </section>
                 <section>
+                    <h2>Expression</h2>
+                    <pre>
+                        <code class="hljs python">
+class Expression:
+
+    def __getitem__(self, item):
+
+        if isinstance(item, int):
+            return IndexPredicate(self.name, item)
+        elif isinstance(item, slice):
+            return SlicePredicate(self.name, item)
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Predicates</h2>
+                    <pre>
+                        <code class="hljs python">
+class IndexPredicate(Predicate):
+
+    pass
+
+class SlicePredicate(Predicate):
+
+    pass
+
+class HeadTailPredicate(Predicate):
+
+    def __eq__(self, other):
+
+        return (isinstance(other, list) and
+                len(other) >= self.args[0] + 1)
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Signature equality</h2>
+                    <pre>
+                        <code class="hljs python">
+class Signature:
+
+    def __eq__(self, args):
+
+       signature = ()
+       for key, predicates in itertools.groupby(self.args):
+           ...
+           if (len(predicates) == 2 and
+               isinstance(predicates[0], IndexPredicate) and
+               isinstance(predicates[1], SlicePredicate)):
+                   item = predicates[0].args[0]
+                   signature += (HeadTailPredicate(key, item),)
+           ...
+       return args == signature
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Signature call</h2>
+                    <pre>
+                        <code class="hljs python">
+class Signature:
+
+    def arguments(self, args):
+
+        call = ()
+        for key, predicates in itertools.groupby(self.args):
+            arg = next(args)
+            ...
+            if isinstance(predicate, HeadTailPredicate):
+                item = predicate.args[0]
+                call += (arg[item], arg[item + 1:])
+            ...
+        return call
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h1>Don't Try This at Home!</h1>
+                </section>
+                <section>
                     <h1>Thanks!</h1>
                 </section>
             </div>
