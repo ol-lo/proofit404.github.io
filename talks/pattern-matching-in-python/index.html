@@ -76,7 +76,7 @@
                     <pre>
                         <code class="hljs ocaml">
 # let rec foldr f initial l =
-  match l with
+    match l with
     | [] -> initial
     | head :: tail -> f head (foldr f initial tail);;
 
@@ -84,6 +84,33 @@
 - : int = 15
 # foldr ( * ) 1 [1; 2; 3; 4; 5];;
 - : int = 120
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Tree</h2>
+                    <pre>
+                        <code class="hljs ocaml">
+# type tree = Leaf of int
+            | Node of tree * tree;;
+
+# let mytree = Node(Node(Leaf(0), Leaf(2)), Node(Leaf(3), Leaf(4)));;
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Predicate search</h2>
+                    <pre>
+                        <code class="hljs ocaml">
+# let rec have_in_tree test tree =
+    match tree with
+    | Leaf x -> test x
+    | Node (left, right) ->
+       have_in_tree test left
+       || have_in_tree test right;;
+
+# have_in_tree (fun x -> x = 0) mytree;;
+- : bool = true
                         </code>
                     </pre>
                 </section>
