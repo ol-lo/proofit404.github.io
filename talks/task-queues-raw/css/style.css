@@ -98,3 +98,10 @@ i, em { font-style: italic }
 }
 
 .impress-enabled .step.active { opacity: 1 }
+
+/* Own element styles. */
+
+.nickname-icon {
+    width: 10vw;
+    height: 10vw;
+}
