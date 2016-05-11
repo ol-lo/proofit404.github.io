@@ -2,17 +2,23 @@ import os
 
 from celery import Celery
 
-app = Celery(__name__)
+if os.getenv('USE_RABBITMQ'):
+    kwargs = {
+        'broker': 'amqp://pyconru:pyconru@localhost:5672/pyconru',
+        'backend': 'redis://localhost:6379/0'
+    }
+
+if os.getenv('USE_REDIS'):
+    kwargs = {
+        'broker': 'redis://localhost:6380/0',
+        'backend': 'redis://localhost:6381/0',
+    }
+
+app = Celery(__name__, **kwargs)
+
+del kwargs
 
 
 @app.task
 def add(x, y):
     return x + y
-
-
-if os.getenv('redis_broker'):
-    app.conf.broker_url = 'redis://localhost:6379/0'
-    app.conf.result_backend = 'redis://localhost:6379/1'
-else:
-    app.conf.broker_url = 'amqp://guest:guest@localhost:5672/pyconru/'
-    app.conf.result_backend = 'redis://localhost:6379/2'
