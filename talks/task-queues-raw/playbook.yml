@@ -7,6 +7,12 @@
       apt_repository: repo='deb http://ppa.launchpad.net/chris-lea/redis-server/ubuntu precise main'
     - name: install redis
       apt: name=redis-server=3:3.0.7-1chl1~precise1
+    - name: check if old redis server is running
+      stat: path=/etc/init.d/redis-server
+      register: redis_server
+    - name: stop old redis server
+      service: name=redis-server state=stopped enabled=no
+      when: redis_server.stat.exists
     - name: remove old redis configs
       file: dest="{{ item }}" state=absent
       with_items:
