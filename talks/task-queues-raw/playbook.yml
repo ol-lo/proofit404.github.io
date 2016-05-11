@@ -24,6 +24,8 @@
         - 6379
         - 6380
         - 6381
+      notify:
+        - restart redis instance
     - name: create redis instance working directories
       file: dest="/var/lib/redis/{{ item }}" state=directory
       with_items:
@@ -32,6 +34,15 @@
         - 6381
     - name: create redis instance init scripts
       template: src=etc/redis.init dest="/etc/init.d/redis-server-{{ item }}" mode=0755
+      with_items:
+        - 6379
+        - 6380
+        - 6381
+      notify:
+        - restart redis instance
+  handlers:
+    - name: restart redis instance
+      service: name="redis-server-{{ item }}" enabled=yes state=restarted
       with_items:
         - 6379
         - 6380
