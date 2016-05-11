@@ -1,0 +1,3 @@
+#!/bin/bash
+
+USE_RABBITMQ=t celery -A app worker -n rabbitmq_worker.%h
