@@ -1,0 +1,1 @@
+* how global pub/sub work in the redis cluster?
