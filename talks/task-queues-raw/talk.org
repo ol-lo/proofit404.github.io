@@ -1,1 +1,45 @@
-* how global pub/sub work in the redis cluster?
+* TODO how global pub/sub work in the redis cluster?
+
+* AMQP properties?
+
+* Redis broker implementation
+
+** Name of queue equals name of list in the redis
+
+** Whole message serialized and pushed in it
+
+** It has properties field with members correlated with AMQP message properties
+
+** It also has body field containing base64 encoded JSON byte string corresponding to AMQP message payload
+
+   #+BEGIN_SRC python :session Python
+     import base64
+     x = 'eyJ1dGMiOiB0cnVlLCAiY2FsbGJhY2tzIjogbnVsbCwgInRhc2tzZXQiOiBudWxsLCAidGltZWxpbWl0IjogW251bGwsIG51bGxdLCAiY2hvcmQiOiBudWxsLCAiYXJncyI6IFsxLCAyXSwgImV4cGlyZXMiOiBudWxsLCAidGFzayI6ICJhcHAuYWRkIiwgImt3YXJncyI6IHt9LCAiZXJyYmFja3MiOiBudWxsLCAiaWQiOiAiN2M3MTlkN2YtOGU3NC00N2YzLTk0ODktODU5MTc3MzZiYzgyIiwgInJldHJpZXMiOiAwLCAiZXRhIjogbnVsbH0='
+     base64.decodebytes(x.encode())
+   #+END_SRC
+
+   #+RESULTS:
+   : b'{"utc": true, "callbacks": null, "taskset": null, "timelimit": [null, null], "chord": null, "args": [1, 2], "expires": null, "task": "app.add", "kwargs": {}, "errbacks": null, "id": "7c719d7f-8e74-47f3-9489-85917736bc82", "retries": 0, "eta": null}'
+
+** If all serialization settings changed to pickle it still contains JSON document with body field in base64 string
+
+   #+BEGIN_SRC python :session Python
+     import base64
+     x = 'gAJ9cQAoWAIAAABpZHEBWCQAAAAyNWY2ZWI0Ny1hZjgyLTQ0ZmYtYmY3Yy1kM2YzMjc0NDJjODdxAlgDAAAAdXRjcQOIWAcAAABleHBpcmVzcQROWAMAAABldGFxBU5YBQAAAGNob3JkcQZOWAQAAAB0YXNrcQdYBwAAAGFwcC5hZGRxCFgHAAAAdGFza3NldHEJTlgGAAAAa3dhcmdzcQp9cQtYBAAAAGFyZ3NxDEsBSwKGcQ1YCAAAAGVycmJhY2tzcQ5OWAkAAAB0aW1lbGltaXRxD05OhnEQWAcAAAByZXRyaWVzcRFLAFgJAAAAY2FsbGJhY2tzcRJOdS4='
+     base64.decodebytes(x.encode())
+   #+END_SRC
+
+   #+RESULTS:
+   : b'\x80\x02}q\x00(X\x02\x00\x00\x00idq\x01X$\x00\x00\x0025f6eb47-af82-44ff-bf7c-d3f327442c87q\x02X\x03\x00\x00\x00utcq\x03\x88X\x07\x00\x00\x00expiresq\x04NX\x03\x00\x00\x00etaq\x05NX\x05\x00\x00\x00chordq\x06NX\x04\x00\x00\x00taskq\x07X\x07\x00\x00\x00app.addq\x08X\x07\x00\x00\x00tasksetq\tNX\x06\x00\x00\x00kwargsq\n}q\x0bX\x04\x00\x00\x00argsq\x0cK\x01K\x02\x86q\rX\x08\x00\x00\x00errbacksq\x0eNX\t\x00\x00\x00timelimitq\x0fNN\x86q\x10X\x07\x00\x00\x00retriesq\x11K\x00X\t\x00\x00\x00callbacksq\x12Nu.'
+
+** As we can see its same payload stored as pickle string
+
+   #+BEGIN_SRC python :session Python
+     import pickle
+     pickle.loads(b'\x80\x02}q\x00(X\x02\x00\x00\x00idq\x01X$\x00\x00\x0025f6eb47-af82-44ff-bf7c-d3f327442c87q\x02X\x03\x00\x00\x00utcq\x03\x88X\x07\x00\x00\x00expiresq\x04NX\x03\x00\x00\x00etaq\x05NX\x05\x00\x00\x00chordq\x06NX\x04\x00\x00\x00taskq\x07X\x07\x00\x00\x00app.addq\x08X\x07\x00\x00\x00tasksetq\tNX\x06\x00\x00\x00kwargsq\n}q\x0bX\x04\x00\x00\x00argsq\x0cK\x01K\x02\x86q\rX\x08\x00\x00\x00errbacksq\x0eNX\t\x00\x00\x00timelimitq\x0fNN\x86q\x10X\x07\x00\x00\x00retriesq\x11K\x00X\t\x00\x00\x00callbacksq\x12Nu.')
+   #+END_SRC
+
+   #+RESULTS:
+   | chord | : | hline | timelimit | : | (None None) | args | : | (1 2) | callbacks | : | hline | kwargs | : | nil | id | : | 25f6eb47-af82-44ff-bf7c-d3f327442c87 | eta | : | hline | taskset | : | hline | task | : | app.add | retries | : | 0 | utc | : | True | errbacks | : | hline | expires | : | hline |
+
+** TODO is it possible to change kombu JSON serializer?
