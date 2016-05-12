@@ -14,11 +14,12 @@
     - name: stop old redis server
       service: name=redis-server state=stopped enabled=no
       when: redis_server.stat.exists
-    - name: remove old redis configs
+    - name: remove old redis files
       file: dest="{{ item }}" state=absent
       with_items:
         - /etc/redis/redis.conf
         - /etc/init.d/redis-server
+        - /var/lib/redis/dump.rdb
     - name: add config for each redis server
       template: src=etc/redis.conf dest="/etc/redis/redis_{{ item }}.conf"
       with_items:
