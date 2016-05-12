@@ -15,10 +15,17 @@ elif os.getenv('USE_REDIS'):
 else:
     raise Exception('Bad')
 
+for s in ['json', 'pickle', 'msgpack', 'yaml']:
+    if os.getenv('USE_' + s.upper()):
+        serializer = s
+        break
+else:
+    serializer = 'json'
+
 app.conf.update(
-    CELERY_ACCEPT_CONTENT=['json'],
-    CELERY_TASK_SERIALIZER='json',
-    CELERY_RESULT_SERIALIZER='json')
+    CELERY_ACCEPT_CONTENT=[serializer],
+    CELERY_TASK_SERIALIZER=serializer,
+    CELERY_RESULT_SERIALIZER=serializer)
 
 
 @app.task

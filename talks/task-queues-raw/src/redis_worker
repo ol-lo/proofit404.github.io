@@ -1,3 +1,21 @@
 #!/bin/bash
 
+for arg in "$@"
+do
+    case $arg in
+        --json)
+            export USE_JSON=t
+        ;;
+        --pickle)
+            export USE_PICKLE=t
+        ;;
+        --msgpack)
+            export USE_MSGPACK=t
+        ;;
+        --yaml)
+            export USE_YAML=t
+        ;;
+    esac
+done
+
 USE_REDIS=t celery -A app worker -n redis_worker_$RANDOM
