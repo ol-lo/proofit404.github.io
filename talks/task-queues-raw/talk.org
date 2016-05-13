@@ -1,6 +1,11 @@
-* TODO how global pub/sub work in the redis cluster?
+* TODO How global pub/sub work in the redis cluster?
 
-* AMQP properties?
+* TODO AMQP properties?
+
+* TODO What AMQP QoS, Channel and Transport stands for?
+  See kombu.transport.virtual
+
+* TODO What redis sentinel is?
 
 * Redis broker implementation
 
