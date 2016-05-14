@@ -27,6 +27,9 @@ app.conf.update(
     CELERY_TASK_SERIALIZER=serializer,
     CELERY_RESULT_SERIALIZER=serializer)
 
+if os.getenv('USE_ACK'):
+    app.conf['CELERY_ACKS_LATE'] = True
+
 
 @app.task
 def add(x, y):
