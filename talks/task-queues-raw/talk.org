@@ -49,7 +49,78 @@
 
 ** TODO is it possible to change kombu JSON serializer?
 
-** TODO How acknowledgment is working?
+** Acknowledgment implementation
+   Celery store whole message in the queue list.  Then it take task id from
+   message body and store it in the "unacked" redis hash against task
+   id.
+
+*** TODO It it possible to take task from queue and don't save it in the unacked hash
+
+*** Here is redis state
+
+    #+BEGIN_SRC fundamental
+      >>> KEYS *
+      1) "celery"
+      2) "unacked"
+      3) "_kombu.binding.celery.pidbox"
+      4) "_kombu.binding.celery"
+      5) "_kombu.binding.celeryev"
+      6) "unacked_index"
+      7) "unacked_mutex"
+      >>> LRANGE celery 0 -1
+      1) "{\"properties\": {\"delivery_tag\": \"13ce9ff2-c596-4471-84b6-94d3ef332041\", \"delivery_mode\": 2, \"correlation_id\": \"79bfa93e-c66b-4f45-b282-3b3835abcbad\", \"body_encoding\": \"base64\", \"delivery_info\": {\"priority\": 0, \"exchange\": \"celery\", \"routing_key\": \"celery\"}, \"reply_to\": \"ee172d34-d646-3478-9126-7df1d127e6fc\"}, \"body\": \"eyJ0aW1lbGltaXQiOiBbbnVsbCwgbnVsbF0sICJ0YXNrc2V0IjogbnVsbCwgInRhc2siOiAiYXBwLmFkZCIsICJleHBpcmVzIjogbnVsbCwgInJldHJpZXMiOiAwLCAidXRjIjogdHJ1ZSwgImNhbGxiYWNrcyI6IG51bGwsICJpZCI6ICI3OWJmYTkzZS1jNjZiLTRmNDUtYjI4Mi0zYjM4MzVhYmNiYWQiLCAiY2hvcmQiOiBudWxsLCAia3dhcmdzIjoge30sICJldGEiOiBudWxsLCAiYXJncyI6IFsxLCAyXSwgImVycmJhY2tzIjogbnVsbH0=\", \"headers\": {}, \"content-encoding\": \"utf-8\", \"content-type\": \"application/json\"}"
+      >>> HGETALL unacked
+      1) "13ce9ff2-c596-4471-84b6-94d3ef332041"
+      2) "[{\"body\": \"eyJ0aW1lbGltaXQiOiBbbnVsbCwgbnVsbF0sICJ0YXNrc2V0IjogbnVsbCwgInRhc2siOiAiYXBwLmFkZCIsICJleHBpcmVzIjogbnVsbCwgInJldHJpZXMiOiAwLCAidXRjIjogdHJ1ZSwgImNhbGxiYWNrcyI6IG51bGwsICJpZCI6ICI3OWJmYTkzZS1jNjZiLTRmNDUtYjI4Mi0zYjM4MzVhYmNiYWQiLCAiY2hvcmQiOiBudWxsLCAia3dhcmdzIjoge30sICJldGEiOiBudWxsLCAiYXJncyI6IFsxLCAyXSwgImVycmJhY2tzIjogbnVsbH0=\", \"content-type\": \"application/json\", \"properties\": {\"body_encoding\": \"base64\", \"delivery_info\": {\"routing_key\": \"celery\", \"exchange\": \"celery\", \"priority\": 0}, \"reply_to\": \"ee172d34-d646-3478-9126-7df1d127e6fc\", \"delivery_mode\": 2, \"correlation_id\": \"79bfa93e-c66b-4f45-b282-3b3835abcbad\", \"delivery_tag\": \"13ce9ff2-c596-4471-84b6-94d3ef332041\"}, \"content-encoding\": \"utf-8\", \"headers\": {}}, \"celery\", \"celery\"]"
+    #+END_SRC
+
+*** Here is task message
+
+    #+BEGIN_SRC json
+      {
+          "properties": {
+              "delivery_tag": "13ce9ff2-c596-4471-84b6-94d3ef332041",
+              "delivery_mode": 2,
+              "correlation_id": "79bfa93e-c66b-4f45-b282-3b3835abcbad",
+              "body_encoding": "base64",
+              "delivery_info": {
+                  "priority": 0,
+                  "exchange": "celery",
+                  "routing_key": "celery"
+              },
+              "reply_to": "ee172d34-d646-3478-9126-7df1d127e6fc"
+          },
+          "body": "eyJ0aW1lbGltaXQiOiBbbnVsbCwgbnVsbF0sICJ0YXNrc2V0IjogbnVsbCwgInRhc2siOiAiYXBwLmFkZCIsICJleHBpcmVzIjogbnVsbCwgInJldHJpZXMiOiAwLCAidXRjIjogdHJ1ZSwgImNhbGxiYWNrcyI6IG51bGwsICJpZCI6ICI3OWJmYTkzZS1jNjZiLTRmNDUtYjI4Mi0zYjM4MzVhYmNiYWQiLCAiY2hvcmQiOiBudWxsLCAia3dhcmdzIjoge30sICJldGEiOiBudWxsLCAiYXJncyI6IFsxLCAyXSwgImVycmJhY2tzIjogbnVsbH0=",
+          "headers": {
+          },
+          "content-encoding": "utf-8",
+          "content-type": "application\/json"
+      }
+    #+END_SRC
+
+*** Here is task body
+
+    #+BEGIN_SRC python :session Python
+      import base64
+      import json
+      import pprint
+      pprint.pprint(json.loads(base64.decodebytes(b'eyJ0aW1lbGltaXQiOiBbbnVsbCwgbnVsbF0sICJ0YXNrc2V0IjogbnVsbCwgInRhc2siOiAiYXBwLmFkZCIsICJleHBpcmVzIjogbnVsbCwgInJldHJpZXMiOiAwLCAidXRjIjogdHJ1ZSwgImNhbGxiYWNrcyI6IG51bGwsICJpZCI6ICI3OWJmYTkzZS1jNjZiLTRmNDUtYjI4Mi0zYjM4MzVhYmNiYWQiLCAiY2hvcmQiOiBudWxsLCAia3dhcmdzIjoge30sICJldGEiOiBudWxsLCAiYXJncyI6IFsxLCAyXSwgImVycmJhY2tzIjogbnVsbH0=').decode()))
+    #+END_SRC
+
+    #+RESULTS:
+    : {'args': [1, 2],
+    : 'callbacks': None,
+    : 'chord': None,
+    : 'errbacks': None,
+    : 'eta': None,
+    : 'expires': None,
+    : 'id': '79bfa93e-c66b-4f45-b282-3b3835abcbad',
+    : 'kwargs': {},
+    : 'retries': 0,
+    : 'task': 'app.add',
+    : 'taskset': None,
+    : 'timelimit': [None, None],
+    : 'utc': True}
 
 * Rabbit broker implementation
 
