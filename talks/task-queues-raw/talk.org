@@ -108,3 +108,62 @@
 
    #+RESULTS:
    | b | task | : | b | app.add | b | timelimit | : | (None None) | b | id | : | b | ef4b1078-2f36-4dea-b034-dbec29cffa7f | b | kwargs | : | nil | b | chord | : | hline | b | args | : | (1 2) | b | callbacks | : | hline | b | retries | : | 0 | b | errbacks | : | hline | b | expires | : | hline | b | eta | : | hline | b | taskset | : | hline | b | utc | : | True |
+
+* Research questions
+
+** How celery takes tasks from RabbitMQ broker?
+
+** How celery takes tasks from Redis broker?
+
+** How celery submits tasks into RabbitMQ broker?
+
+** How celery submits tasks into Redis broker?
+
+** How ETA tasks works in RabbitMQ broker?
+
+** How ETA tasks works in Redis broker?
+
+** How worker prefetch limit works?
+
+** How *in worker* task distribution on cores works?
+
+** Why message priority in queue *doesn't* works in RabbitMQ broker?
+
+** How message priority in queue *does* works in Redis broker?
+
+** How rate limit works in the celery worker?
+
+** How much does it costs to submit task with blocking io from asynchronous web handler?
+
+** What information celery stores in broker and backend?
+   - if backend enabled
+   - if backend disabled
+   - how this information changes in the case of links, groups and chords
+
+** How control commands works in celery?
+
+** Does celery supports RabbitMQ clusterization?
+
+** Does Redis broker supports clusterization?
+
+** Does Redis backends supports clusterization?
+   - Maybe it called sharding in this case.
+
+** How celery implements cancelation of already running tasks?
+
+** How task retry works in celery?
+
+* Implementation required
+
+** ETA in the RQ
+
+** Groups, chords in the RQ
+
+** Finish aiorq
+
+** Redis bluster RQ version
+
+* Ideas
+
+** Rabbit doesn't come easy slide
+   Slide with Hellowin album cover scan
