@@ -148,7 +148,28 @@
    #+END_SRC
 
    #+BEGIN_SRC json
-     {"chord": null, "args": [1, 2], "id": "27ebcaee-444f-4379-a438-04c3b5bb0fc3", "eta": null, "utc": true, "errbacks": null, "timelimit": [null, null], "kwargs": {}, "taskset": null, "callbacks": null, "expires": null, "retries": 0, "task": "app.add"}
+     {
+         "chord": null,
+         "args": [
+             1,
+             2
+         ],
+         "id": "27ebcaee-444f-4379-a438-04c3b5bb0fc3",
+         "eta": null,
+         "utc": true,
+         "errbacks": null,
+         "timelimit": [
+             null,
+             null
+         ],
+         "kwargs": {
+         },
+         "taskset": null,
+         "callbacks": null,
+         "expires": null,
+         "retries": 0,
+         "task": "app.add"
+     }
    #+END_SRC
 
 ** For pickle and msgpack it encoded into base64 strings
@@ -208,6 +229,8 @@
 ** How message priority in queue *does* works in Redis broker?
 
 ** How rate limit works in the celery worker?
+   Looks like rabbitmq worker takes all messages and defer accepted
+   tasks if rate limit already passed.
 
 ** How much does it costs to submit task with blocking io from asynchronous web handler?
 
