@@ -47,14 +47,19 @@
    #+RESULTS:
    | chord | : | hline | timelimit | : | (None None) | args | : | (1 2) | callbacks | : | hline | kwargs | : | nil | id | : | 25f6eb47-af82-44ff-bf7c-d3f327442c87 | eta | : | hline | taskset | : | hline | task | : | app.add | retries | : | 0 | utc | : | True | errbacks | : | hline | expires | : | hline |
 
-** TODO is it possible to change kombu JSON serializer?
+** It isn't possible to change kombu JSON serializer
+   kombu.utils.json dumps and loads are hardcoded into Channel._get
+   and QoS.append methods discussed below.
 
 ** Acknowledgment implementation
    Celery store whole message in the queue list.  Then it take task id from
    message body and store it in the "unacked" redis hash against task
    id.
 
-*** TODO It it possible to take task from queue and don't save it in the unacked hash
+*** It is possible to take task from queue and don't save it in the unacked hash
+    Channel.basic_get calls self.qos.append after self._get if no_ack
+    is None.  _get uses rpop on its own.  Then self.qos.append calls
+    pipeline with zadd with new message dump.
 
 *** Here is redis state
 
