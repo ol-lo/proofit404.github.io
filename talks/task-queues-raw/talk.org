@@ -4,6 +4,7 @@
 
 * TODO What AMQP QoS, Channel and Transport stands for?
   See kombu.transport.virtual
+  - Quality of Service
 
 * TODO What redis sentinel is?
 
@@ -54,7 +55,8 @@
 ** Acknowledgment implementation
    Celery store whole message in the queue list.  Then it take task id from
    message body and store it in the "unacked" redis hash against task
-   id.
+   id.  Also it store task ids in the sorted set "unacked_index" with
+   timestamp as score points.
 
 *** It is possible to take task from queue and don't save it in the unacked hash
     Channel.basic_get calls self.qos.append after self._get if no_ack
@@ -229,8 +231,13 @@
 ** How message priority in queue *does* works in Redis broker?
 
 ** How rate limit works in the celery worker?
-   Looks like rabbitmq worker takes all messages and defer accepted
-   tasks if rate limit already passed.
+   - Worker have state stored rate limits for each app.task key.  It
+     accept any message RabbitMQ gives it.  If rate limit for consumed
+     task lower than currently processed number of this task.  Then it
+     increment prefetch count, *don't* acknowledge task message and
+     save it for future work.  So if new workers appears in cluster
+     there is nothing to do.
+   - Redis: use the same technique with acknowledgment emulation.
 
 ** How much does it costs to submit task with blocking io from asynchronous web handler?
 
