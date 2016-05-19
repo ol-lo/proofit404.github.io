@@ -210,6 +210,8 @@
 
 ** How celery takes tasks from RabbitMQ broker?
 
+*** How worker prefetch limit works?
+
 ** How celery takes tasks from Redis broker?
 
 *** TODO What redis sentinel is?
@@ -217,8 +219,6 @@
 ** How ETA tasks works in RabbitMQ broker?
 
 ** How ETA tasks works in Redis broker?
-
-** How worker prefetch limit works?
 
 ** How *in worker* task distribution on cores works?
 
