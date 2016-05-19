@@ -2,6 +2,91 @@
 
 ** How celery submits tasks into RabbitMQ broker?
 
+*** It has payload property which contain whole dumped message
+
+    #+BEGIN_SRC yaml
+      args: [1, 2]
+      callbacks: null
+      chord: null
+      errbacks: null
+      eta: null
+      expires: null
+      id: 4bb5922d-3c7e-48ec-abca-7ad880ba9723
+      kwargs: {}
+      retries: 0
+      task: app.add
+      taskset: null
+      timelimit: [null, null]
+      utc: true
+    #+END_SRC
+
+    #+BEGIN_SRC json
+      {
+          "chord": null,
+          "args": [
+              1,
+              2
+          ],
+          "id": "27ebcaee-444f-4379-a438-04c3b5bb0fc3",
+          "eta": null,
+          "utc": true,
+          "errbacks": null,
+          "timelimit": [
+              null,
+              null
+          ],
+          "kwargs": {
+          },
+          "taskset": null,
+          "callbacks": null,
+          "expires": null,
+          "retries": 0,
+          "task": "app.add"
+      }
+    #+END_SRC
+
+*** For pickle and msgpack it encoded into base64 strings
+
+    #+BEGIN_SRC python :session Python
+      import base64
+      base64.decodebytes(b'gAJ9cQAoWAMAAAB1dGNxAYhYBwAAAHRhc2tzZXRxAk5YAgAAAGlkcQNYJAAAADFiODE2ODRmLWM4MzctNDZhYS04YzVlLTI2OTRlZTQzMzI3M3EEWAkAAAB0aW1lbGltaXRxBU5OhnEGWAMAAABldGFxB05YCAAAAGVycmJhY2tzcQhOWAkAAABjYWxsYmFja3NxCU5YBwAAAGV4cGlyZXNxCk5YBQAAAGNob3JkcQtOWAcAAAByZXRyaWVzcQxLAFgGAAAAa3dhcmdzcQ19cQ5YBAAAAHRhc2txD1gHAAAAYXBwLmFkZHEQWAQAAABhcmdzcRFLAUsChnESdS4=')
+    #+END_SRC
+
+    #+RESULTS:
+    : b'\x80\x02}q\x00(X\x03\x00\x00\x00utcq\x01\x88X\x07\x00\x00\x00tasksetq\x02NX\x02\x00\x00\x00idq\x03X$\x00\x00\x001b81684f-c837-46aa-8c5e-2694ee433273q\x04X\t\x00\x00\x00timelimitq\x05NN\x86q\x06X\x03\x00\x00\x00etaq\x07NX\x08\x00\x00\x00errbacksq\x08NX\t\x00\x00\x00callbacksq\tNX\x07\x00\x00\x00expiresq\nNX\x05\x00\x00\x00chordq\x0bNX\x07\x00\x00\x00retriesq\x0cK\x00X\x06\x00\x00\x00kwargsq\r}q\x0eX\x04\x00\x00\x00taskq\x0fX\x07\x00\x00\x00app.addq\x10X\x04\x00\x00\x00argsq\x11K\x01K\x02\x86q\x12u.'
+
+    #+BEGIN_SRC python :session Python
+      import pickle
+      pickle.loads(b'\x80\x02}q\x00(X\x03\x00\x00\x00utcq\x01\x88X\x07\x00\x00\x00tasksetq\x02NX\x02\x00\x00\x00idq\x03X$\x00\x00\x001b81684f-c837-46aa-8c5e-2694ee433273q\x04X\t\x00\x00\x00timelimitq\x05NN\x86q\x06X\x03\x00\x00\x00etaq\x07NX\x08\x00\x00\x00errbacksq\x08NX\t\x00\x00\x00callbacksq\tNX\x07\x00\x00\x00expiresq\nNX\x05\x00\x00\x00chordq\x0bNX\x07\x00\x00\x00retriesq\x0cK\x00X\x06\x00\x00\x00kwargsq\r}q\x0eX\x04\x00\x00\x00taskq\x0fX\x07\x00\x00\x00app.addq\x10X\x04\x00\x00\x00argsq\x11K\x01K\x02\x86q\x12u.')
+    #+END_SRC
+
+    #+RESULTS:
+    | timelimit | : | (None None) | expires | : | hline | kwargs | : | nil | task | : | app.add | args | : | (1 2) | id | : | 1b81684f-c837-46aa-8c5e-2694ee433273 | retries | : | 0 | eta | : | hline | utc | : | True | callbacks | : | hline | chord | : | hline | errbacks | : | hline | taskset | : | hline |
+
+    #+BEGIN_SRC python :session Python
+      import base64
+      base64.decodebytes(b'jaVjaG9yZMCkdGFza6dhcHAuYWRko2V0YcCiaWTZJGVmNGIxMDc4LTJmMzYtNGRlYS1iMDM0LWRiZWMyOWNmZmE3ZqRhcmdzkgECqGVycmJhY2tzwKZrd2FyZ3OAp3JldHJpZXMAp3Rhc2tzZXTAqWNhbGxiYWNrc8CpdGltZWxpbWl0ksDAo3V0Y8OnZXhwaXJlc8A=')
+    #+END_SRC
+
+    #+RESULTS:
+    : b'\x8d\xa5chord\xc0\xa4task\xa7app.add\xa3eta\xc0\xa2id\xd9$ef4b1078-2f36-4dea-b034-dbec29cffa7f\xa4args\x92\x01\x02\xa8errbacks\xc0\xa6kwargs\x80\xa7retries\x00\xa7taskset\xc0\xa9callbacks\xc0\xa9timelimit\x92\xc0\xc0\xa3utc\xc3\xa7expires\xc0'
+
+    #+BEGIN_SRC python :session Python
+      import msgpack
+      msgpack.loads(b'\x8d\xa5chord\xc0\xa4task\xa7app.add\xa3eta\xc0\xa2id\xd9$ef4b1078-2f36-4dea-b034-dbec29cffa7f\xa4args\x92\x01\x02\xa8errbacks\xc0\xa6kwargs\x80\xa7retries\x00\xa7taskset\xc0\xa9callbacks\xc0\xa9timelimit\x92\xc0\xc0\xa3utc\xc3\xa7expires\xc0')
+    #+END_SRC
+
+    #+RESULTS:
+    | b | task | : | b | app.add | b | timelimit | : | (None None) | b | id | : | b | ef4b1078-2f36-4dea-b034-dbec29cffa7f | b | kwargs | : | nil | b | chord | : | hline | b | args | : | (1 2) | b | callbacks | : | hline | b | retries | : | 0 | b | errbacks | : | hline | b | expires | : | hline | b | eta | : | hline | b | taskset | : | hline | b | utc | : | True |
+
+*** TODO AMQP properties?
+
+*** TODO What AMQP QoS, Channel and Transport stands for?
+    See kombu.transport.virtual
+    - Quality of Service
+
+*** TODO In what level prefetch limit works
+
 ** How celery submits tasks into Redis broker?
 
 *** Name of queue equals name of list in the redis
@@ -124,91 +209,6 @@
      :  'utc': True}
 
 ** How celery takes tasks from RabbitMQ broker?
-
-*** It has payload property which contain whole dumped message
-
-    #+BEGIN_SRC yaml
-      args: [1, 2]
-      callbacks: null
-      chord: null
-      errbacks: null
-      eta: null
-      expires: null
-      id: 4bb5922d-3c7e-48ec-abca-7ad880ba9723
-      kwargs: {}
-      retries: 0
-      task: app.add
-      taskset: null
-      timelimit: [null, null]
-      utc: true
-    #+END_SRC
-
-    #+BEGIN_SRC json
-      {
-          "chord": null,
-          "args": [
-              1,
-              2
-          ],
-          "id": "27ebcaee-444f-4379-a438-04c3b5bb0fc3",
-          "eta": null,
-          "utc": true,
-          "errbacks": null,
-          "timelimit": [
-              null,
-              null
-          ],
-          "kwargs": {
-          },
-          "taskset": null,
-          "callbacks": null,
-          "expires": null,
-          "retries": 0,
-          "task": "app.add"
-      }
-    #+END_SRC
-
-*** For pickle and msgpack it encoded into base64 strings
-
-    #+BEGIN_SRC python :session Python
-      import base64
-      base64.decodebytes(b'gAJ9cQAoWAMAAAB1dGNxAYhYBwAAAHRhc2tzZXRxAk5YAgAAAGlkcQNYJAAAADFiODE2ODRmLWM4MzctNDZhYS04YzVlLTI2OTRlZTQzMzI3M3EEWAkAAAB0aW1lbGltaXRxBU5OhnEGWAMAAABldGFxB05YCAAAAGVycmJhY2tzcQhOWAkAAABjYWxsYmFja3NxCU5YBwAAAGV4cGlyZXNxCk5YBQAAAGNob3JkcQtOWAcAAAByZXRyaWVzcQxLAFgGAAAAa3dhcmdzcQ19cQ5YBAAAAHRhc2txD1gHAAAAYXBwLmFkZHEQWAQAAABhcmdzcRFLAUsChnESdS4=')
-    #+END_SRC
-
-    #+RESULTS:
-    : b'\x80\x02}q\x00(X\x03\x00\x00\x00utcq\x01\x88X\x07\x00\x00\x00tasksetq\x02NX\x02\x00\x00\x00idq\x03X$\x00\x00\x001b81684f-c837-46aa-8c5e-2694ee433273q\x04X\t\x00\x00\x00timelimitq\x05NN\x86q\x06X\x03\x00\x00\x00etaq\x07NX\x08\x00\x00\x00errbacksq\x08NX\t\x00\x00\x00callbacksq\tNX\x07\x00\x00\x00expiresq\nNX\x05\x00\x00\x00chordq\x0bNX\x07\x00\x00\x00retriesq\x0cK\x00X\x06\x00\x00\x00kwargsq\r}q\x0eX\x04\x00\x00\x00taskq\x0fX\x07\x00\x00\x00app.addq\x10X\x04\x00\x00\x00argsq\x11K\x01K\x02\x86q\x12u.'
-
-    #+BEGIN_SRC python :session Python
-      import pickle
-      pickle.loads(b'\x80\x02}q\x00(X\x03\x00\x00\x00utcq\x01\x88X\x07\x00\x00\x00tasksetq\x02NX\x02\x00\x00\x00idq\x03X$\x00\x00\x001b81684f-c837-46aa-8c5e-2694ee433273q\x04X\t\x00\x00\x00timelimitq\x05NN\x86q\x06X\x03\x00\x00\x00etaq\x07NX\x08\x00\x00\x00errbacksq\x08NX\t\x00\x00\x00callbacksq\tNX\x07\x00\x00\x00expiresq\nNX\x05\x00\x00\x00chordq\x0bNX\x07\x00\x00\x00retriesq\x0cK\x00X\x06\x00\x00\x00kwargsq\r}q\x0eX\x04\x00\x00\x00taskq\x0fX\x07\x00\x00\x00app.addq\x10X\x04\x00\x00\x00argsq\x11K\x01K\x02\x86q\x12u.')
-    #+END_SRC
-
-    #+RESULTS:
-    | timelimit | : | (None None) | expires | : | hline | kwargs | : | nil | task | : | app.add | args | : | (1 2) | id | : | 1b81684f-c837-46aa-8c5e-2694ee433273 | retries | : | 0 | eta | : | hline | utc | : | True | callbacks | : | hline | chord | : | hline | errbacks | : | hline | taskset | : | hline |
-
-    #+BEGIN_SRC python :session Python
-      import base64
-      base64.decodebytes(b'jaVjaG9yZMCkdGFza6dhcHAuYWRko2V0YcCiaWTZJGVmNGIxMDc4LTJmMzYtNGRlYS1iMDM0LWRiZWMyOWNmZmE3ZqRhcmdzkgECqGVycmJhY2tzwKZrd2FyZ3OAp3JldHJpZXMAp3Rhc2tzZXTAqWNhbGxiYWNrc8CpdGltZWxpbWl0ksDAo3V0Y8OnZXhwaXJlc8A=')
-    #+END_SRC
-
-    #+RESULTS:
-    : b'\x8d\xa5chord\xc0\xa4task\xa7app.add\xa3eta\xc0\xa2id\xd9$ef4b1078-2f36-4dea-b034-dbec29cffa7f\xa4args\x92\x01\x02\xa8errbacks\xc0\xa6kwargs\x80\xa7retries\x00\xa7taskset\xc0\xa9callbacks\xc0\xa9timelimit\x92\xc0\xc0\xa3utc\xc3\xa7expires\xc0'
-
-    #+BEGIN_SRC python :session Python
-      import msgpack
-      msgpack.loads(b'\x8d\xa5chord\xc0\xa4task\xa7app.add\xa3eta\xc0\xa2id\xd9$ef4b1078-2f36-4dea-b034-dbec29cffa7f\xa4args\x92\x01\x02\xa8errbacks\xc0\xa6kwargs\x80\xa7retries\x00\xa7taskset\xc0\xa9callbacks\xc0\xa9timelimit\x92\xc0\xc0\xa3utc\xc3\xa7expires\xc0')
-    #+END_SRC
-
-    #+RESULTS:
-    | b | task | : | b | app.add | b | timelimit | : | (None None) | b | id | : | b | ef4b1078-2f36-4dea-b034-dbec29cffa7f | b | kwargs | : | nil | b | chord | : | hline | b | args | : | (1 2) | b | callbacks | : | hline | b | retries | : | 0 | b | errbacks | : | hline | b | expires | : | hline | b | eta | : | hline | b | taskset | : | hline | b | utc | : | True |
-
-*** TODO AMQP properties?
-
-*** TODO What AMQP QoS, Channel and Transport stands for?
-    See kombu.transport.virtual
-    - Quality of Service
-
-*** TODO In what level prefetch limit works
 
 ** How celery takes tasks from Redis broker?
 
