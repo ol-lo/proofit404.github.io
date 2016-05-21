@@ -81,11 +81,16 @@
 
 *** TODO AMQP properties?
 
-*** TODO What AMQP QoS, Channel and Transport stands for?
-    See kombu.transport.virtual
-    - Quality of Service
+*** AMQP channel
+    Multiplexing primitive to use multiple synchronous and
+    asynchronous methods on single connection.  Each RabbitMQ
+    connection is a bidirectional stream.  Frame is simplest bytes
+    sequence passed atomically.  Each frame has channel number.
 
-*** TODO In what level prefetch limit works
+*** AMQP flow control
+    Simple command to stop very active publisher.  Publisher must stop
+    publish messages to exchanges until RabbitMQ says continue.
+    Consumers must use more elegant technique with QoS limits.
 
 ** How celery submits tasks into Redis broker?
 
@@ -210,7 +215,11 @@
 
 ** How celery takes tasks from RabbitMQ broker?
 
-*** How worker prefetch limit works?
+*** Quality of Service (QoS)
+    Simple mechanism to handle load for consumer.  Works as
+    "pre-fetch" marker.  Each consumer can say to RabbitMQ server how
+    many messages he wants to take before acknowledge.  This is also a
+    technique to reduce latency for message consuming.
 
 ** How celery takes tasks from Redis broker?
 
