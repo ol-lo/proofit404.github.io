@@ -260,6 +260,16 @@
 ** Does Redis backends supports clusterization?
    - Maybe it called sharding in this case.
 
+** Others already do that (django channels slide)
+   Django Channels.  It's a websockets and http2 processing mechanism
+   build on top of some kind of job queues.  They call this channels
+   (pattern from Go language).  Each websocket message stored in the
+   persistent queue and processed in the synchronous manner by the
+   worker process.  Redis is the backend supposed to use in the
+   production.  It can use multiple redis servers and spread the load
+   across them using sharding based on consistent hashing.  It may
+   scale by adding new worker instances.
+
 ** How celery implements cancelation of already running tasks?
 
 ** How task retry works in celery?
