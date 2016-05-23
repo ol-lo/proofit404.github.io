@@ -79,7 +79,9 @@
     #+RESULTS:
     | b | task | : | b | app.add | b | timelimit | : | (None None) | b | id | : | b | ef4b1078-2f36-4dea-b034-dbec29cffa7f | b | kwargs | : | nil | b | chord | : | hline | b | args | : | (1 2) | b | callbacks | : | hline | b | retries | : | 0 | b | errbacks | : | hline | b | expires | : | hline | b | eta | : | hline | b | taskset | : | hline | b | utc | : | True |
 
-*** TODO AMQP properties?
+*** AMQP properties
+    Celery setup some AMQP content frame properties like reply_to,
+    correlation_id, priority, content_encoding and content_type.
 
 *** AMQP channel
     Multiplexing primitive to use multiple synchronous and
