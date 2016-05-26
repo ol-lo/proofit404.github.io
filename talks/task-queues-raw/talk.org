@@ -255,7 +255,23 @@
 
 ** How control commands works in celery?
 
-** Does celery supports RabbitMQ clusterization?
+** Celery RabbitMQ cluster
+   RabbitMQ supports clusterization.  It works over erlang port
+   mapping daemon and erlang cookie authorization.  We add each node
+   to cluster manually.
+
+*** TODO HA rabbitmq
+
+*** Celery support multiple brokers (pyamqp transport)
+    This is bad practice because we need to support static list of
+    brokers in each application instance.  If we want to add rabbitmq
+    node we mast redeploy and restart each celery node.
+
+*** It is better to setup HAProxy
+    We can use load balancer to resolve nodes dynamically.  Or we can
+    setup DNS service with very short TTL value and resolve current
+    node dynamically.  RabbitMQ provide heartbeats so reconnection lag
+    will be little.
 
 ** Does Redis broker supports clusterization?
 
@@ -275,6 +291,8 @@
 ** How celery implements cancelation of already running tasks?
 
 ** How task retry works in celery?
+
+** How rq scheduler works?
 
 ** TODO How global pub/sub work in the redis cluster?
 
