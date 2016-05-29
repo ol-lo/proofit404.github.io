@@ -47,37 +47,75 @@
 
 *** For pickle and msgpack it encoded into base64 strings
 
-    #+BEGIN_SRC python :session Python
+    #+BEGIN_SRC python :session Python :results pp
       import base64
       base64.decodebytes(b'gAJ9cQAoWAMAAAB1dGNxAYhYBwAAAHRhc2tzZXRxAk5YAgAAAGlkcQNYJAAAADFiODE2ODRmLWM4MzctNDZhYS04YzVlLTI2OTRlZTQzMzI3M3EEWAkAAAB0aW1lbGltaXRxBU5OhnEGWAMAAABldGFxB05YCAAAAGVycmJhY2tzcQhOWAkAAABjYWxsYmFja3NxCU5YBwAAAGV4cGlyZXNxCk5YBQAAAGNob3JkcQtOWAcAAAByZXRyaWVzcQxLAFgGAAAAa3dhcmdzcQ19cQ5YBAAAAHRhc2txD1gHAAAAYXBwLmFkZHEQWAQAAABhcmdzcRFLAUsChnESdS4=')
     #+END_SRC
 
     #+RESULTS:
-    : b'\x80\x02}q\x00(X\x03\x00\x00\x00utcq\x01\x88X\x07\x00\x00\x00tasksetq\x02NX\x02\x00\x00\x00idq\x03X$\x00\x00\x001b81684f-c837-46aa-8c5e-2694ee433273q\x04X\t\x00\x00\x00timelimitq\x05NN\x86q\x06X\x03\x00\x00\x00etaq\x07NX\x08\x00\x00\x00errbacksq\x08NX\t\x00\x00\x00callbacksq\tNX\x07\x00\x00\x00expiresq\nNX\x05\x00\x00\x00chordq\x0bNX\x07\x00\x00\x00retriesq\x0cK\x00X\x06\x00\x00\x00kwargsq\r}q\x0eX\x04\x00\x00\x00taskq\x0fX\x07\x00\x00\x00app.addq\x10X\x04\x00\x00\x00argsq\x11K\x01K\x02\x86q\x12u.'
+    : (b'\x80\x02}q\x00(X\x03\x00\x00\x00utcq\x01\x88X\x07\x00\x00\x00tasksetq\x02N'
+    :  b'X\x02\x00\x00\x00idq\x03X$\x00\x00\x001b81684f-c837-46aa-8c5e-2694ee4332'
+    :  b'73q\x04X\t\x00\x00\x00timelimitq\x05NN\x86q\x06X\x03\x00\x00\x00etaq\x07N'
+    :  b'X\x08\x00\x00\x00errbacksq\x08NX\t\x00\x00\x00callbacksq\tNX\x07\x00'
+    :  b'\x00\x00expiresq\nNX\x05\x00\x00\x00chordq\x0bNX\x07\x00\x00\x00retrie'
+    :  b'sq\x0cK\x00X\x06\x00\x00\x00kwargsq\r}q\x0eX\x04\x00\x00\x00taskq\x0f'
+    :  b'X\x07\x00\x00\x00app.addq\x10X\x04\x00\x00\x00argsq\x11K\x01K\x02\x86q\x12'
+    :  b'u.')
 
-    #+BEGIN_SRC python :session Python
+    #+BEGIN_SRC python :session Python :results pp
       import pickle
       pickle.loads(b'\x80\x02}q\x00(X\x03\x00\x00\x00utcq\x01\x88X\x07\x00\x00\x00tasksetq\x02NX\x02\x00\x00\x00idq\x03X$\x00\x00\x001b81684f-c837-46aa-8c5e-2694ee433273q\x04X\t\x00\x00\x00timelimitq\x05NN\x86q\x06X\x03\x00\x00\x00etaq\x07NX\x08\x00\x00\x00errbacksq\x08NX\t\x00\x00\x00callbacksq\tNX\x07\x00\x00\x00expiresq\nNX\x05\x00\x00\x00chordq\x0bNX\x07\x00\x00\x00retriesq\x0cK\x00X\x06\x00\x00\x00kwargsq\r}q\x0eX\x04\x00\x00\x00taskq\x0fX\x07\x00\x00\x00app.addq\x10X\x04\x00\x00\x00argsq\x11K\x01K\x02\x86q\x12u.')
     #+END_SRC
 
     #+RESULTS:
-    | timelimit | : | (None None) | expires | : | hline | kwargs | : | nil | task | : | app.add | args | : | (1 2) | id | : | 1b81684f-c837-46aa-8c5e-2694ee433273 | retries | : | 0 | eta | : | hline | utc | : | True | callbacks | : | hline | chord | : | hline | errbacks | : | hline | taskset | : | hline |
+    #+begin_example
+    {'args': (1, 2),
+     'callbacks': None,
+     'chord': None,
+     'errbacks': None,
+     'eta': None,
+     'expires': None,
+     'id': '1b81684f-c837-46aa-8c5e-2694ee433273',
+     'kwargs': {},
+     'retries': 0,
+     'task': 'app.add',
+     'taskset': None,
+     'timelimit': (None, None),
+     'utc': True}
+    #+end_example
 
-    #+BEGIN_SRC python :session Python
+    #+BEGIN_SRC python :session Python :results pp
       import base64
       base64.decodebytes(b'jaVjaG9yZMCkdGFza6dhcHAuYWRko2V0YcCiaWTZJGVmNGIxMDc4LTJmMzYtNGRlYS1iMDM0LWRiZWMyOWNmZmE3ZqRhcmdzkgECqGVycmJhY2tzwKZrd2FyZ3OAp3JldHJpZXMAp3Rhc2tzZXTAqWNhbGxiYWNrc8CpdGltZWxpbWl0ksDAo3V0Y8OnZXhwaXJlc8A=')
     #+END_SRC
 
     #+RESULTS:
-    : b'\x8d\xa5chord\xc0\xa4task\xa7app.add\xa3eta\xc0\xa2id\xd9$ef4b1078-2f36-4dea-b034-dbec29cffa7f\xa4args\x92\x01\x02\xa8errbacks\xc0\xa6kwargs\x80\xa7retries\x00\xa7taskset\xc0\xa9callbacks\xc0\xa9timelimit\x92\xc0\xc0\xa3utc\xc3\xa7expires\xc0'
+    : (b'\x8d\xa5chord\xc0\xa4task\xa7app.add\xa3eta\xc0\xa2id\xd9$ef4b1078-2f36-4de'
+    :  b'a-b034-dbec29cffa7f\xa4args\x92\x01\x02\xa8errbacks\xc0\xa6kwargs\x80\xa7re'
+    :  b'tries\x00\xa7taskset\xc0\xa9callbacks\xc0\xa9timelimit\x92\xc0\xc0\xa3'
+    :  b'utc\xc3\xa7expires\xc0')
 
-    #+BEGIN_SRC python :session Python
+    #+BEGIN_SRC python :session Python :results pp
       import msgpack
       msgpack.loads(b'\x8d\xa5chord\xc0\xa4task\xa7app.add\xa3eta\xc0\xa2id\xd9$ef4b1078-2f36-4dea-b034-dbec29cffa7f\xa4args\x92\x01\x02\xa8errbacks\xc0\xa6kwargs\x80\xa7retries\x00\xa7taskset\xc0\xa9callbacks\xc0\xa9timelimit\x92\xc0\xc0\xa3utc\xc3\xa7expires\xc0')
     #+END_SRC
 
     #+RESULTS:
-    | b | task | : | b | app.add | b | timelimit | : | (None None) | b | id | : | b | ef4b1078-2f36-4dea-b034-dbec29cffa7f | b | kwargs | : | nil | b | chord | : | hline | b | args | : | (1 2) | b | callbacks | : | hline | b | retries | : | 0 | b | errbacks | : | hline | b | expires | : | hline | b | eta | : | hline | b | taskset | : | hline | b | utc | : | True |
+    #+begin_example
+    {b'args': [1, 2],
+     b'callbacks': None,
+     b'chord': None,
+     b'errbacks': None,
+     b'eta': None,
+     b'expires': None,
+     b'id': b'ef4b1078-2f36-4dea-b034-dbec29cffa7f',
+     b'kwargs': {},
+     b'retries': 0,
+     b'task': b'app.add',
+     b'taskset': None,
+     b'timelimit': [None, None],
+     b'utc': True}
+    #+end_example
 
 *** AMQP properties
     Celery setup some AMQP content frame properties like reply_to,
@@ -104,35 +142,79 @@
 
 *** It also has body field containing base64 encoded JSON byte string corresponding to AMQP message payload
 
-    #+BEGIN_SRC python :session Python
-      import base64
+    #+BEGIN_SRC python :session Python :results pp
+      import base64, json
       x = 'eyJ1dGMiOiB0cnVlLCAiY2FsbGJhY2tzIjogbnVsbCwgInRhc2tzZXQiOiBudWxsLCAidGltZWxpbWl0IjogW251bGwsIG51bGxdLCAiY2hvcmQiOiBudWxsLCAiYXJncyI6IFsxLCAyXSwgImV4cGlyZXMiOiBudWxsLCAidGFzayI6ICJhcHAuYWRkIiwgImt3YXJncyI6IHt9LCAiZXJyYmFja3MiOiBudWxsLCAiaWQiOiAiN2M3MTlkN2YtOGU3NC00N2YzLTk0ODktODU5MTc3MzZiYzgyIiwgInJldHJpZXMiOiAwLCAiZXRhIjogbnVsbH0='
-      base64.decodebytes(x.encode())
+      y = base64.decodebytes(x.encode()).decode()
+      json.loads(y)
     #+END_SRC
 
     #+RESULTS:
-    : b'{"utc": true, "callbacks": null, "taskset": null, "timelimit": [null, null], "chord": null, "args": [1, 2], "expires": null, "task": "app.add", "kwargs": {}, "errbacks": null, "id": "7c719d7f-8e74-47f3-9489-85917736bc82", "retries": 0, "eta": null}'
+    #+begin_example
+    {'args': [1, 2],
+     'callbacks': None,
+     'chord': None,
+     'errbacks': None,
+     'eta': None,
+     'expires': None,
+     'id': '7c719d7f-8e74-47f3-9489-85917736bc82',
+     'kwargs': {},
+     'retries': 0,
+     'task': 'app.add',
+     'taskset': None,
+     'timelimit': [None, None],
+     'utc': True}
+    #+end_example
 
 *** If all serialization settings changed to pickle it still contains JSON document with body field in base64 string
 
-    #+BEGIN_SRC python :session Python
-      import base64
+    #+BEGIN_SRC python :session Python :results pp
+      import base64, pickle
       x = 'gAJ9cQAoWAIAAABpZHEBWCQAAAAyNWY2ZWI0Ny1hZjgyLTQ0ZmYtYmY3Yy1kM2YzMjc0NDJjODdxAlgDAAAAdXRjcQOIWAcAAABleHBpcmVzcQROWAMAAABldGFxBU5YBQAAAGNob3JkcQZOWAQAAAB0YXNrcQdYBwAAAGFwcC5hZGRxCFgHAAAAdGFza3NldHEJTlgGAAAAa3dhcmdzcQp9cQtYBAAAAGFyZ3NxDEsBSwKGcQ1YCAAAAGVycmJhY2tzcQ5OWAkAAAB0aW1lbGltaXRxD05OhnEQWAcAAAByZXRyaWVzcRFLAFgJAAAAY2FsbGJhY2tzcRJOdS4='
-      base64.decodebytes(x.encode())
+      y = base64.decodebytes(x.encode())
+      pickle.loads(y)
     #+END_SRC
 
     #+RESULTS:
-    : b'\x80\x02}q\x00(X\x02\x00\x00\x00idq\x01X$\x00\x00\x0025f6eb47-af82-44ff-bf7c-d3f327442c87q\x02X\x03\x00\x00\x00utcq\x03\x88X\x07\x00\x00\x00expiresq\x04NX\x03\x00\x00\x00etaq\x05NX\x05\x00\x00\x00chordq\x06NX\x04\x00\x00\x00taskq\x07X\x07\x00\x00\x00app.addq\x08X\x07\x00\x00\x00tasksetq\tNX\x06\x00\x00\x00kwargsq\n}q\x0bX\x04\x00\x00\x00argsq\x0cK\x01K\x02\x86q\rX\x08\x00\x00\x00errbacksq\x0eNX\t\x00\x00\x00timelimitq\x0fNN\x86q\x10X\x07\x00\x00\x00retriesq\x11K\x00X\t\x00\x00\x00callbacksq\x12Nu.'
+    #+begin_example
+    {'args': (1, 2),
+     'callbacks': None,
+     'chord': None,
+     'errbacks': None,
+     'eta': None,
+     'expires': None,
+     'id': '25f6eb47-af82-44ff-bf7c-d3f327442c87',
+     'kwargs': {},
+     'retries': 0,
+     'task': 'app.add',
+     'taskset': None,
+     'timelimit': (None, None),
+     'utc': True}
+    #+end_example
 
 *** As we can see it same payload stored as pickle string
 
-    #+BEGIN_SRC python :session Python
+    #+BEGIN_SRC python :session Python :results pp
       import pickle
       pickle.loads(b'\x80\x02}q\x00(X\x02\x00\x00\x00idq\x01X$\x00\x00\x0025f6eb47-af82-44ff-bf7c-d3f327442c87q\x02X\x03\x00\x00\x00utcq\x03\x88X\x07\x00\x00\x00expiresq\x04NX\x03\x00\x00\x00etaq\x05NX\x05\x00\x00\x00chordq\x06NX\x04\x00\x00\x00taskq\x07X\x07\x00\x00\x00app.addq\x08X\x07\x00\x00\x00tasksetq\tNX\x06\x00\x00\x00kwargsq\n}q\x0bX\x04\x00\x00\x00argsq\x0cK\x01K\x02\x86q\rX\x08\x00\x00\x00errbacksq\x0eNX\t\x00\x00\x00timelimitq\x0fNN\x86q\x10X\x07\x00\x00\x00retriesq\x11K\x00X\t\x00\x00\x00callbacksq\x12Nu.')
     #+END_SRC
 
     #+RESULTS:
-    | chord | : | hline | timelimit | : | (None None) | args | : | (1 2) | callbacks | : | hline | kwargs | : | nil | id | : | 25f6eb47-af82-44ff-bf7c-d3f327442c87 | eta | : | hline | taskset | : | hline | task | : | app.add | retries | : | 0 | utc | : | True | errbacks | : | hline | expires | : | hline |
+    #+begin_example
+    {'args': (1, 2),
+     'callbacks': None,
+     'chord': None,
+     'errbacks': None,
+     'eta': None,
+     'expires': None,
+     'id': '25f6eb47-af82-44ff-bf7c-d3f327442c87',
+     'kwargs': {},
+     'retries': 0,
+     'task': 'app.add',
+     'taskset': None,
+     'timelimit': (None, None),
+     'utc': True}
+    #+end_example
 
 *** It isn't possible to change kombu JSON serializer
     kombu.utils.json dumps and loads are hardcoded into Channel._get
@@ -193,27 +275,27 @@
 
 **** Here is task body
 
-     #+BEGIN_SRC python :session Python
-       import base64
-       import json
-       import pprint
-       pprint.pprint(json.loads(base64.decodebytes(b'eyJ0aW1lbGltaXQiOiBbbnVsbCwgbnVsbF0sICJ0YXNrc2V0IjogbnVsbCwgInRhc2siOiAiYXBwLmFkZCIsICJleHBpcmVzIjogbnVsbCwgInJldHJpZXMiOiAwLCAidXRjIjogdHJ1ZSwgImNhbGxiYWNrcyI6IG51bGwsICJpZCI6ICI3OWJmYTkzZS1jNjZiLTRmNDUtYjI4Mi0zYjM4MzVhYmNiYWQiLCAiY2hvcmQiOiBudWxsLCAia3dhcmdzIjoge30sICJldGEiOiBudWxsLCAiYXJncyI6IFsxLCAyXSwgImVycmJhY2tzIjogbnVsbH0=').decode()))
+     #+BEGIN_SRC python :session Python :results pp
+       import base64, json
+       json.loads(base64.decodebytes(b'eyJ0aW1lbGltaXQiOiBbbnVsbCwgbnVsbF0sICJ0YXNrc2V0IjogbnVsbCwgInRhc2siOiAiYXBwLmFkZCIsICJleHBpcmVzIjogbnVsbCwgInJldHJpZXMiOiAwLCAidXRjIjogdHJ1ZSwgImNhbGxiYWNrcyI6IG51bGwsICJpZCI6ICI3OWJmYTkzZS1jNjZiLTRmNDUtYjI4Mi0zYjM4MzVhYmNiYWQiLCAiY2hvcmQiOiBudWxsLCAia3dhcmdzIjoge30sICJldGEiOiBudWxsLCAiYXJncyI6IFsxLCAyXSwgImVycmJhY2tzIjogbnVsbH0=').decode())
      #+END_SRC
 
      #+RESULTS:
-     : {'args': [1, 2],
-     :  'callbacks': None,
-     :  'chord': None,
-     :  'errbacks': None,
-     :  'eta': None,
-     :  'expires': None,
-     :  'id': '79bfa93e-c66b-4f45-b282-3b3835abcbad',
-     :  'kwargs': {},
-     :  'retries': 0,
-     :  'task': 'app.add',
-     :  'taskset': None,
-     :  'timelimit': [None, None],
-     :  'utc': True}
+     #+begin_example
+     {'args': [1, 2],
+      'callbacks': None,
+      'chord': None,
+      'errbacks': None,
+      'eta': None,
+      'expires': None,
+      'id': '79bfa93e-c66b-4f45-b282-3b3835abcbad',
+      'kwargs': {},
+      'retries': 0,
+      'task': 'app.add',
+      'taskset': None,
+      'timelimit': [None, None],
+      'utc': True}
+     #+end_example
 
 ** How celery takes tasks from RabbitMQ broker?
 
