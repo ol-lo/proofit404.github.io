@@ -313,6 +313,22 @@
 
 ** How ETA tasks works in Redis broker?
 
+** rq scheduler (RQ ETA tasks)
+   It must be single scheduler instance running.  We use
+   Scheduler.enqueue_at and Scheduler.enqueue_in to push jobs ids into
+   single sorted set.  It named "rq:scheduler:scheduled_jobs".  ETA
+   timestamps used as scores and job keys used as values.  Scheduler
+   process all ETA scores from 0 to utcnow and sleeps for one minute.
+
+*** Problems
+
+**** Low granularity
+
+**** Lack of pipelines
+
+**** Job scheduled to queue at exactly ETA moment
+     This add additional lag for job processing and ETA isn't accurate
+
 ** How *in worker* task distribution on cores works?
 
 ** Why message priority in queue *doesn't* works in RabbitMQ broker?
@@ -374,13 +390,9 @@
 
 ** How task retry works in celery?
 
-** How rq scheduler works?
-
 ** TODO How global pub/sub work in the redis cluster?
 
 * Implementation required
-
-** ETA in the RQ
 
 ** Groups, chords in the RQ
 
