@@ -392,6 +392,8 @@
 
 ** TODO How global pub/sub work in the redis cluster?
 
+** TODO master/slave redis?
+
 * Implementation required
 
 ** Groups, chords in the RQ
