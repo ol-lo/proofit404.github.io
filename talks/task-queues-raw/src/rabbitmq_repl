@@ -2,4 +2,4 @@
 
 . ./_args
 
-USE_RABBITMQ=t ipython -c "from app import app" -i
+USE_RABBITMQ=t python -i -c "from app import app"

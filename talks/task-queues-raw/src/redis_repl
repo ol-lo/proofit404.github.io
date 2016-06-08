@@ -2,4 +2,4 @@
 
 . ./_args
 
-USE_REDIS=t ipython -c "from app import app" -i
+USE_REDIS=t python -i -c "from app import app"
