@@ -30,7 +30,15 @@ app.conf.update(
 if os.getenv('USE_ACK'):
     app.conf['CELERY_ACKS_LATE'] = True
 
+app.conf['CELERY_ROUTES'] = {
+    'app.mul': {'queue': 'celery2'},
+}
 
 @app.task
 def add(x, y):
+    return x + y
+
+
+@app.task
+def mul(x, y):
     return x + y
