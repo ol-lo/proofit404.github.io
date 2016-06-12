@@ -6,3 +6,8 @@
 .reveal section pre {
     box-shadow: none;
 }
+
+.double-face-pic {
+    width: 250px;
+    height: auto;
+}
