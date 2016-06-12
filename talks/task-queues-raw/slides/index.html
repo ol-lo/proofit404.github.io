@@ -64,6 +64,18 @@ queue.enqueue(add, 1, 2)
                         </code>
                     </pre>
                 </section>
+                <section>
+                    <h2>Accept task</h2>
+                    <pre>
+                        <code class="hljs bash">
+# celery
+$ celery -A myapp worker -Q queue1,queue2
+
+# rq
+$ rq worker queue1 queue2
+                        </code>
+                    </pre>
+                </section>
                 <section data-background="pics/iceberg.jpg" data-background-size="100%, auto">
                     <h1 style="color: white;">Fragile acknowledgment</h1>
                 </section>
