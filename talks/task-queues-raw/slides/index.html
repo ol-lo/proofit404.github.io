@@ -44,6 +44,23 @@ queue.enqueue(add, 1, 2)
                     </pre>
                 </section>
                 <section>
+                    <h2>RabbitMQ queues</h2>
+                    <table>
+                        <tr>
+                            <td style="text-align: center;">Name</td>
+                            <td style="text-align: center;">Ready</td>
+                            <td style="text-align: center;">Unacked</td>
+                            <td style="text-align: center;">Total</td>
+                        </tr>
+                        <tr>
+                            <td>celery</td>
+                            <td style="text-align: right;">1</td>
+                            <td style="text-align: right;">0</td>
+                            <td style="text-align: right;">1</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
                     <h2>Payload</h2>
                     <pre>
                         <code class="hljs json">
@@ -66,6 +83,22 @@ queue.enqueue(add, 1, 2)
                     </pre>
                 </section>
                 <section>
+                    <h2>Redis queues</h2>
+                    <pre>
+                        <code class="hljs">
+TODO
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>RQ</h2>
+                    <pre>
+                        <code class="hljs">
+TODO
+                        </code>
+                    </pre>
+                </section>
+                <section>
                     <h2>Accept task</h2>
                     <pre>
                         <code class="hljs bash">
@@ -74,6 +107,39 @@ $ celery -A myapp worker -Q queue1,queue2
 
 # rq
 $ rq worker queue1 queue2
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>RabbitMQ queues</h2>
+                    <table>
+                        <tr>
+                            <td style="text-align: center;">Name</td>
+                            <td style="text-align: center;">Ready</td>
+                            <td style="text-align: center;">Unacked</td>
+                            <td style="text-align: center;">Total</td>
+                        </tr>
+                        <tr>
+                            <td>celery</td>
+                            <td style="text-align: right;">0</td>
+                            <td style="text-align: right;">1</td>
+                            <td style="text-align: right;">1</td>
+                        </tr>
+                    </table>
+                </section>
+                <section>
+                    <h2>Redis queues</h2>
+                    <pre>
+                        <code class="hljs">
+TODO
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>RQ</h2>
+                    <pre>
+                        <code class="hljs">
+TODO
                         </code>
                     </pre>
                 </section>
@@ -89,6 +155,30 @@ $ rq worker queue1 queue2
                 <section data-background="pics/worker-celery-monochrome-photo.jpg" data-background-size="contain">
                 </section>
                 <section data-background="pics/redis-fork.jpg" data-background-size="contain" data-background-position="left">
+                </section>
+                <section>
+                    <h2>Task execution</h2>
+                    <pre>
+                        <code class="hljs python">
+# celery
+def trace_task(uuid, args, kwargs, request=None):
+    R = retval = fun(*args, **kwargs)
+
+# rq
+class Job:
+    def perform(self):
+        self._result = self.func(*self.args, **self.kwargs)
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>concurrency</h2>
+                    <ul>
+                        &#x2713; gevent<br>
+                        &#x2717; twisted<br>
+                        &#x2717; tornado<br>
+                        &#x2717; asyncio<br>
+                    </ul>
                 </section>
                 <section data-background="pics/train-crash.jpg" data-background-size="contain">
                 </section>
