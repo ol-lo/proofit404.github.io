@@ -85,16 +85,42 @@ queue.enqueue(add, 1, 2)
                 <section>
                     <h2>Redis queues</h2>
                     <pre>
-                        <code class="hljs">
-TODO
+                        <code class="hljs python" style="overflow: hidden;">
+       >>> KEYS *
+       1) "celery"
+       >>> LRANGE celery 0 -1
+       1) {
+              "properties": {
+                  "body_encoding": "base64",
+                  "delivery_info": {
+                      "exchange": "celery",
+                      "routing_key": "celery"
+                  }
+              },
+              "body": "eyJ0aW1lbGltaXQiOiBbbnVsb...",
+              "headers": {},
+              "content-encoding": "utf-8",
+              "content-type": "application/json"
+          }
                         </code>
                     </pre>
                 </section>
                 <section>
                     <h2>RQ</h2>
                     <pre>
-                        <code class="hljs">
-TODO
+                        <code class="hljs python">
+>>> SMEMBERS rq:queues
+1) "rq:queue:default"
+>>> LRANGE rq:queue:default 0 -1
+1) "be58515f-7031-4096-9572-9f330470995d"
+>>> HGETALL rq:job:be58515f-7031-4096-9572-9f330470995d
+1) "status"  "queued"
+2) "enqueued_at" "2016-06-14T19:45:39Z"
+3) "created_at" "2016-06-14T19:45:39Z"
+4) "origin" "default"
+5) "description" "lib.add(1, 2)"
+6) "data" "\x80\x04\x95\x17\x00\x00..."
+7) "timeout" "180"
                         </code>
                     </pre>
                 </section>
