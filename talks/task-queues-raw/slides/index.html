@@ -156,16 +156,32 @@ $ rq worker queue1 queue2
                 <section>
                     <h2>Redis queues</h2>
                     <pre>
-                        <code class="hljs">
-TODO
+                        <code class="hljs python">
+>>> KEYS *
+1) "celery"
+2) "unacked"
+3) "unacked_index"
+4) "unacked_mutex"
+>>> HGETALL unacked
+1) "13ce9ff2-c596-4471" "[{...}, \"celery\", \"celery\"]"
                         </code>
                     </pre>
                 </section>
                 <section>
                     <h2>RQ</h2>
                     <pre>
-                        <code class="hljs">
-TODO
+                        <code class="hljs python">
+>>> HGETALL rq:job:be58515f-7031-4096-9572-9f330470995d
+1) "status" "started"
+2) "enqueued_at" "2016-06-14T19:45:39Z"
+3) "created_at" "2016-06-14T19:45:39Z"
+4) "origin" "default"
+5) "description" "lib.add(1, 2)"
+6) "data" "\x80\x04\x95\x17\x00..."
+7) "timeout" "180"
+8) "started_at" "2016-06-14T21:21:14Z"
+>>> ZRANGE rq:wip:default 0 -1 WITHSCORES
+1) "be58515f-7031-4096-9572-9f330470995d" "1465939514"
                         </code>
                     </pre>
                 </section>
