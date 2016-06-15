@@ -256,6 +256,15 @@ app.add.apply_async((1, 2), link=app.mul.s(3))
                         </code>
                     </pre>
                 </section>
+                <section>
+                    <h2>Chains</h2>
+                    <pre>
+                        <code class="hljs code">
+c = chain(app.add.s(1, 2), app.add.s(3), app.mul.s(6))
+c()
+                        </code>
+                    </pre>
+                </section>
                 <section data-background="pics/rabbit_dont_come_easy.jpg" data-background-size="contain">
                 </section>
                 <section data-background="pics/rb.svg" data-background-size="contain">
