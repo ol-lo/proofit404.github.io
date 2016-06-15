@@ -265,6 +265,60 @@ c()
                         </code>
                     </pre>
                 </section>
+                <section>
+                    <h2>RQ Dependents</h2>
+                    <pre>
+                        <code class="hljs python">
+    job = q.enqueue(lib.add, 1, 2)
+    delayed = q.enqueue(lib.add, 1, 2, depends_on=job)
+                        </code>
+                    </pre>
+                    <h2>Redis</h2>
+                    <pre>
+                        <code class="hljs python">
+>>> SMEMBERS rq:job:1183256d-a068-4b09-9b15-2cf952c762d0:dependents
+1) "00b70a47-5193-402d-a9c5-bba9051bd7da"
+>>> HGETALL rq:job:00b70a47-5193-402d-a9c5-bba9051bd7da
+1) "status" "deferred"
+2) "dependency_id" "1183256d-a068-4b09-9b15-2cf952c762d0"
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Groups</h2>
+                    <pre>
+                        <code class="hljs python">
+g = group(app.add.s(1, 2), app.mul.s(3, 4))
+g()
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Chord</h2>
+                    <pre>
+                        <code class="hljs python">
+ch = chord([app.add.s(1, 2), app.add.s(3, 4), app.mul.s(5, 6)])
+ch(app.mul.s(7))
+                        </code>
+                    </pre>
+                    <h2>Payload</h2>
+                    <pre>
+                        <code class="hljs json">
+"chord": {
+  "task": "app.mul",
+  "subtask_type": null,
+  "immutable": false,
+  "chord_size": 3,
+  "args": [7],
+  "options": {
+    "task_id": "2f0f2a7f-1e09-4424-80ca-e249828b3fc9",
+    "reply_to": "a53cb689-2103-305a-b937-85a86c447428"
+  },
+  "kwargs": null
+}
+                        </code>
+                    </pre>
+                </section>
                 <section data-background="pics/rabbit_dont_come_easy.jpg" data-background-size="contain">
                 </section>
                 <section data-background="pics/rb.svg" data-background-size="contain">
