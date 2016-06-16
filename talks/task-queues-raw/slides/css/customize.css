@@ -1,13 +1,3 @@
-.reveal section img {
-    border: none;
-    box-shadow: none;
-    background: rgba(255, 255, 255, 0.0);
-}
-
-.reveal section pre {
-    box-shadow: none;
-}
-
 .double-face {
     width: auto;
     height: 250px;
