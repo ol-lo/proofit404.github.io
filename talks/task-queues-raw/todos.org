@@ -2,5 +2,4 @@
 * TODO code size
 * TODO code color
 * TODO center code examples
-* TODO last slide image transparency
 * TODO table grid disappears
