@@ -35,13 +35,11 @@
                 <section>
                     <h2>Submit</h2>
                     <pre>
-                        <code class="hljs python">
-# celery
+                        <code class="hljs python"># celery
 add.delay(1, 2)
 
 # rq
-queue.enqueue(add, 1, 2)
-                        </code>
+queue.enqueue(add, 1, 2)</code>
                     </pre>
                 </section>
                 <section>
@@ -64,8 +62,7 @@ queue.enqueue(add, 1, 2)
                 <section>
                     <h2>Payload</h2>
                     <pre>
-                        <code class="hljs json">
-{
+                        <code class="hljs json">{
     "chord": null,
     "args": [1, 2],
     "id": "27ebcaee-444f-4379-a438-04c3b5bb0fc3",
@@ -79,38 +76,34 @@ queue.enqueue(add, 1, 2)
     "expires": null,
     "retries": 0,
     "task": "app.add"
-}
-                        </code>
+}</code>
                     </pre>
                 </section>
                 <section>
                     <h2>Redis queues</h2>
                     <pre>
-                        <code class="hljs python" style="overflow: hidden;">
-       >>> KEYS *
-       1) "celery"
-       >>> LRANGE celery 0 -1
-       1) {
-              "properties": {
-                  "body_encoding": "base64",
-                  "delivery_info": {
-                      "exchange": "celery",
-                      "routing_key": "celery"
-                  }
-              },
-              "body": "eyJ0aW1lbGltaXQiOiBbbnVsb...",
-              "headers": {},
-              "content-encoding": "utf-8",
-              "content-type": "application/json"
-          }
-                        </code>
+                        <code class="hljs python" style="overflow: hidden;">>>> KEYS *
+1) "celery"
+>>> LRANGE celery 0 -1
+1) {
+       "properties": {
+           "body_encoding": "base64",
+           "delivery_info": {
+               "exchange": "celery",
+               "routing_key": "celery"
+           }
+       },
+       "body": "eyJ0aW1lbGltaXQiOiBbbnVsb...",
+       "headers": {},
+       "content-encoding": "utf-8",
+       "content-type": "application/json"
+   }</code>
                     </pre>
                 </section>
                 <section>
                     <h2>RQ</h2>
                     <pre>
-                        <code class="hljs python">
->>> SMEMBERS rq:queues
+                        <code class="hljs python">>>> SMEMBERS rq:queues
 1) "rq:queue:default"
 >>> LRANGE rq:queue:default 0 -1
 1) "be58515f-7031-4096-9572-9f330470995d"
@@ -121,20 +114,17 @@ queue.enqueue(add, 1, 2)
 4) "origin" "default"
 5) "description" "lib.add(1, 2)"
 6) "data" "\x80\x04\x95\x17\x00\x00..."
-7) "timeout" "180"
-                        </code>
+7) "timeout" "180"</code>
                     </pre>
                 </section>
                 <section>
                     <h2>Accept task</h2>
                     <pre>
-                        <code class="hljs bash">
-# celery
+                        <code class="hljs bash"># celery
 $ celery -A myapp worker -Q queue1,queue2
 
 # rq
-$ rq worker queue1 queue2
-                        </code>
+$ rq worker queue1 queue2</code>
                     </pre>
                 </section>
                 <section>
@@ -157,22 +147,19 @@ $ rq worker queue1 queue2
                 <section>
                     <h2>Redis queues</h2>
                     <pre>
-                        <code class="hljs python">
->>> KEYS *
+                        <code class="hljs python">>>> KEYS *
 1) "celery"
 2) "unacked"
 3) "unacked_index"
 4) "unacked_mutex"
 >>> HGETALL unacked
-1) "13ce9ff2-c596-4471" "[{...}, \"celery\", \"celery\"]"
-                        </code>
+1) "13ce9ff2-c596-4471" "[{...}, \"celery\", \"celery\"]"</code>
                     </pre>
                 </section>
                 <section>
                     <h2>RQ</h2>
                     <pre>
-                        <code class="hljs python">
->>> HGETALL rq:job:be58515f-7031-4096-9572-9f330470995d
+                        <code class="hljs python">>>> HGETALL rq:job:be58515f-7031-4096-9572-9f330470995d
 1) "status" "started"
 2) "enqueued_at" "2016-06-14T19:45:39Z"
 3) "created_at" "2016-06-14T19:45:39Z"
@@ -182,8 +169,7 @@ $ rq worker queue1 queue2
 7) "timeout" "180"
 8) "started_at" "2016-06-14T21:21:14Z"
 >>> ZRANGE rq:wip:default 0 -1 WITHSCORES
-1) "be58515f-7031-4096-9572-9f330470995d" "1465939514"
-                        </code>
+1) "be58515f-7031-4096-9572-9f330470995d" "1465939514"</code>
                     </pre>
                 </section>
                 <section data-background="pics/iceberg.jpg" data-background-size="100%, auto">
@@ -202,16 +188,14 @@ $ rq worker queue1 queue2
                 <section>
                     <h2>Task execution</h2>
                     <pre>
-                        <code class="hljs python">
-# celery
+                        <code class="hljs python"># celery
 def trace_task(uuid, args, kwargs, request=None):
     R = retval = fun(*args, **kwargs)
 
 # rq
 class Job:
     def perform(self):
-        self._result = self.func(*self.args, **self.kwargs)
-                        </code>
+        self._result = self.func(*self.args, **self.kwargs)</code>
                     </pre>
                 </section>
                 <section>
@@ -236,76 +220,61 @@ class Job:
                 <section>
                     <h2>Callback</h2>
                     <pre>
-                        <code class="hljs python">
-app.add.apply_async((1, 2), link=app.mul.s(3))
-                        </code>
+                        <code class="hljs python">app.add.apply_async((1, 2), link=app.mul.s(3))</code>
                     </pre>
                     <h2>Payload</h2>
                     <pre>
-                        <code class="hljs json">
-"callbacks": [
-        {
-            "kwargs": {},
-            "options": {},
-            "args": [3],
-            "chord_size": null,
-            "immutable": false,
-            "subtask_type": null,
-            "task": "app.mul"
-        }
-    ]
-                        </code>
+                        <code class="hljs json">"callbacks": [
+    {
+        "kwargs": {},
+        "options": {},
+        "args": [3],
+        "chord_size": null,
+        "immutable": false,
+        "subtask_type": null,
+        "task": "app.mul"
+    }
+]</code>
                     </pre>
                 </section>
                 <section>
                     <h2>Chains</h2>
                     <pre>
-                        <code class="hljs code">
-c = chain(app.add.s(1, 2), app.add.s(3), app.mul.s(6))
-c()
-                        </code>
+                        <code class="hljs code">c = chain(app.add.s(1, 2), app.add.s(3), app.mul.s(6))
+c()</code>
                     </pre>
                 </section>
                 <section>
                     <h2>RQ Dependents</h2>
                     <pre>
-                        <code class="hljs python">
-    job = q.enqueue(lib.add, 1, 2)
-    delayed = q.enqueue(lib.add, 1, 2, depends_on=job)
-                        </code>
+                        <code class="hljs python">job = q.enqueue(lib.add, 1, 2)
+delayed = q.enqueue(lib.add, 1, 2, depends_on=job)</code>
                     </pre>
                     <h2>Redis</h2>
                     <pre>
-                        <code class="hljs python">
->>> SMEMBERS rq:job:1183256d-a068-4b09-9b15-2cf952c762d0:dependents
+                        <code class="hljs python">>>> SMEMBERS rq:job:1183256d-a068-4b09-9b15-2cf952c762d0:dependents
 1) "00b70a47-5193-402d-a9c5-bba9051bd7da"
 >>> HGETALL rq:job:00b70a47-5193-402d-a9c5-bba9051bd7da
 1) "status" "deferred"
-2) "dependency_id" "1183256d-a068-4b09-9b15-2cf952c762d0"
-                        </code>
+2) "dependency_id" "1183256d-a068-4b09-9b15-2cf952c762d0"</code>
                     </pre>
                 </section>
                 <section>
                     <h2>Groups</h2>
                     <pre>
-                        <code class="hljs python">
-g = group(app.add.s(1, 2), app.mul.s(3, 4))
-g()
-                        </code>
+                        <code class="hljs python">g = group(app.add.s(1, 2), app.mul.s(3, 4))
+g()</code>
                     </pre>
                 </section>
                 <section>
                     <h2>Chord</h2>
                     <pre>
-                        <code class="hljs python">
-ch = chord([app.add.s(1, 2), app.add.s(3, 4), app.mul.s(5, 6)])
-ch(app.mul.s(7))
-                        </code>
+                        <code class="hljs python">ch = chord([app.add.s(1, 2), app.add.s(3, 4), app.mul.s(5, 6)])
+ch(app.mul.s(7))</code>
                     </pre>
                     <h2>Payload</h2>
                     <pre>
-                        <code class="hljs json">
-"chord": {
+                        <code class="hljs json">"chord": {
   "task": "app.mul",
   "subtask_type": null,
   "immutable": false,
@@ -316,8 +285,7 @@ ch(app.mul.s(7))
     "reply_to": "a53cb689-2103-305a-b937-85a86c447428"
   },
   "kwargs": null
-}
-                        </code>
+}</code>
                     </pre>
                 </section>
                 <section data-background="pics/rabbit_dont_come_easy.jpg" data-background-size="contain">
