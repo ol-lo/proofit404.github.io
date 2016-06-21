@@ -67,7 +67,6 @@ queue.enqueue(add, 1, 2)</code>
     "args": [1, 2],
     "id": "27ebcaee-444f-4379-a438-04c3b5bb0fc3",
     "eta": null,
-    "utc": true,
     "errbacks": null,
     "timelimit": [null, null],
     "kwargs": {},
@@ -94,8 +93,6 @@ queue.enqueue(add, 1, 2)</code>
            }
        },
        "body": "eyJ0aW1lbGltaXQiOiBbbnVsb...",
-       "headers": {},
-       "content-encoding": "utf-8",
        "content-type": "application/json"
    }</code>
                     </pre>
@@ -106,8 +103,8 @@ queue.enqueue(add, 1, 2)</code>
                         <code class="hljs python">>>> SMEMBERS rq:queues
 1) "rq:queue:default"
 >>> LRANGE rq:queue:default 0 -1
-1) "be58515f-7031-4096-9572-9f330470995d"
->>> HGETALL rq:job:be58515f-7031-4096-9572-9f330470995d
+1) "be58515f-9f330470995d"
+>>> HGETALL rq:job:be58515f-9f330470995d
 1) "status"  "queued"
 2) "enqueued_at" "2016-06-14T19:45:39Z"
 3) "created_at" "2016-06-14T19:45:39Z"
@@ -153,13 +150,14 @@ $ rq worker queue1 queue2</code>
 3) "unacked_index"
 4) "unacked_mutex"
 >>> HGETALL unacked
-1) "13ce9ff2-c596-4471" "[{...}, \"celery\", \"celery\"]"</code>
+1) "13ce9ff2-c596-4471"
+   "[{...}, \"celery\", \"celery\"]"</code>
                     </pre>
                 </section>
                 <section>
                     <h2>RQ</h2>
                     <pre>
-                        <code class="hljs python">>>> HGETALL rq:job:be58515f-7031-4096-9572-9f330470995d
+                        <code class="hljs python">>>> HGETALL rq:job:be58515f-9f330470995d
 1) "status" "started"
 2) "enqueued_at" "2016-06-14T19:45:39Z"
 3) "created_at" "2016-06-14T19:45:39Z"
@@ -169,7 +167,7 @@ $ rq worker queue1 queue2</code>
 7) "timeout" "180"
 8) "started_at" "2016-06-14T21:21:14Z"
 >>> ZRANGE rq:wip:default 0 -1 WITHSCORES
-1) "be58515f-7031-4096-9572-9f330470995d" "1465939514"</code>
+1) "be58515f-9f330470995d" "1465939514"</code>
                     </pre>
                 </section>
                 <section data-background="pics/iceberg.jpg" data-background-size="100%, auto">
@@ -195,7 +193,8 @@ def trace_task(uuid, args, kwargs, request=None):
 # rq
 class Job:
     def perform(self):
-        self._result = self.func(*self.args, **self.kwargs)</code>
+        self._result = self.func(
+            *self.args, **self.kwargs)</code>
                     </pre>
                 </section>
                 <section>
@@ -240,7 +239,9 @@ class Job:
                 <section>
                     <h2>Chains</h2>
                     <pre>
-                        <code class="hljs code">c = chain(app.add.s(1, 2), app.add.s(3), app.mul.s(6))
+                        <code class="hljs code">c = chain(app.add.s(1, 2),
+          app.add.s(3),
+          app.mul.s(6))
 c()</code>
                     </pre>
                 </section>
@@ -252,24 +253,27 @@ delayed = q.enqueue(lib.add, 1, 2, depends_on=job)</code>
                     </pre>
                     <h2>Redis</h2>
                     <pre>
-                        <code class="hljs python">>>> SMEMBERS rq:job:1183256d-a068-4b09-9b15-2cf952c762d0:dependents
-1) "00b70a47-5193-402d-a9c5-bba9051bd7da"
->>> HGETALL rq:job:00b70a47-5193-402d-a9c5-bba9051bd7da
+                        <code class="hljs python">>>> SMEMBERS rq:job:1183256d-2cf952c762d0:dependents
+1) "00b70a47-bba9051bd7da"
+>>> HGETALL rq:job:00b70a47-bba9051bd7da
 1) "status" "deferred"
-2) "dependency_id" "1183256d-a068-4b09-9b15-2cf952c762d0"</code>
+2) "dependency_id" "1183256d-2cf952c762d0"</code>
                     </pre>
                 </section>
                 <section>
                     <h2>Groups</h2>
                     <pre>
-                        <code class="hljs python">g = group(app.add.s(1, 2), app.mul.s(3, 4))
+                        <code class="hljs python">g = group(app.add.s(1, 2),
+          app.mul.s(3, 4))
 g()</code>
                     </pre>
                 </section>
                 <section>
                     <h2>Chord</h2>
                     <pre>
-                        <code class="hljs python">ch = chord([app.add.s(1, 2), app.add.s(3, 4), app.mul.s(5, 6)])
+                        <code class="hljs python">ch = chord([app.add.s(1, 2),
+            app.add.s(3, 4),
+            app.mul.s(5, 6)])
 ch(app.mul.s(7))</code>
                     </pre>
                     <h2>Payload</h2>
