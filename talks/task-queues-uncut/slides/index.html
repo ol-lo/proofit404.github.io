@@ -243,11 +243,11 @@ c()</code></pre>
                     <pre><code class="hljs python">job = q.enqueue(lib.add, 1, 2)
 delayed = q.enqueue(lib.add, 1, 2, depends_on=job)</code></pre>
                     <h2>Redis</h2>
-                    <pre><code class="hljs python">>>> SMEMBERS rq:job:1183256d-2cf952c762:dependents
+                    <pre><code class="hljs python">>>> SMEMBERS rq:job:1183256d-2cf952c76:dependents
 1) "00b70a47-bba9051bd7da"
 >>> HGETALL rq:job:00b70a47-bba9051bd7da
 1) "status" "deferred"
-2) "dependency_id" "1183256d-2cf952c762"</code></pre>
+2) "dependency_id" "1183256d-2cf952c76"</code></pre>
                 </section>
                 <section>
                     <h2>Groups</h2>
