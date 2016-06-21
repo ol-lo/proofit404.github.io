@@ -34,13 +34,11 @@
                 </section>
                 <section>
                     <h2>Submit</h2>
-                    <pre>
-                        <code class="hljs python"># celery
+                    <pre><code class="hljs python"># celery
 add.delay(1, 2)
 
 # rq
-queue.enqueue(add, 1, 2)</code>
-                    </pre>
+queue.enqueue(add, 1, 2)</code></pre>
                 </section>
                 <section>
                     <h2>RabbitMQ queues</h2>
@@ -61,8 +59,7 @@ queue.enqueue(add, 1, 2)</code>
                 </section>
                 <section>
                     <h2>Payload</h2>
-                    <pre>
-                        <code class="hljs json">{
+                    <pre><code class="hljs json">{
     "chord": null,
     "args": [1, 2],
     "id": "27ebcaee-444f-4379-a438-04c3b5bb0fc3",
@@ -75,13 +72,11 @@ queue.enqueue(add, 1, 2)</code>
     "expires": null,
     "retries": 0,
     "task": "app.add"
-}</code>
-                    </pre>
+}</code></pre>
                 </section>
                 <section>
                     <h2>Redis queues</h2>
-                    <pre>
-                        <code class="hljs python" style="overflow: hidden;">>>> KEYS *
+                    <pre><code class="hljs python" style="overflow: hidden;">>>> KEYS *
 1) "celery"
 >>> LRANGE celery 0 -1
 1) {
@@ -94,35 +89,30 @@ queue.enqueue(add, 1, 2)</code>
        },
        "body": "eyJ0aW1lbGltaXQiOiBbbnVsb...",
        "content-type": "application/json"
-   }</code>
-                    </pre>
+   }</code></pre>
                 </section>
                 <section>
                     <h2>RQ</h2>
-                    <pre>
-                        <code class="hljs python">>>> SMEMBERS rq:queues
+                    <pre><code class="hljs python">>>> SMEMBERS rq:queues
 1) "rq:queue:default"
 >>> LRANGE rq:queue:default 0 -1
 1) "be58515f-9f330470995d"
 >>> HGETALL rq:job:be58515f-9f330470995d
-1) "status"  "queued"
+1) "status" "queued"
 2) "enqueued_at" "2016-06-14T19:45:39Z"
 3) "created_at" "2016-06-14T19:45:39Z"
 4) "origin" "default"
 5) "description" "lib.add(1, 2)"
 6) "data" "\x80\x04\x95\x17\x00\x00..."
-7) "timeout" "180"</code>
-                    </pre>
+7) "timeout" "180"</code></pre>
                 </section>
                 <section>
                     <h2>Accept task</h2>
-                    <pre>
-                        <code class="hljs bash"># celery
+                    <pre><code class="hljs bash"># celery
 $ celery -A myapp worker -Q queue1,queue2
 
 # rq
-$ rq worker queue1 queue2</code>
-                    </pre>
+$ rq worker queue1 queue2</code></pre>
                 </section>
                 <section>
                     <h2>RabbitMQ queues</h2>
@@ -143,21 +133,18 @@ $ rq worker queue1 queue2</code>
                 </section>
                 <section>
                     <h2>Redis queues</h2>
-                    <pre>
-                        <code class="hljs python">>>> KEYS *
+                    <pre><code class="hljs python">>>> KEYS *
 1) "celery"
 2) "unacked"
 3) "unacked_index"
 4) "unacked_mutex"
 >>> HGETALL unacked
 1) "13ce9ff2-c596-4471"
-   "[{...}, \"celery\", \"celery\"]"</code>
-                    </pre>
+   "[{...}, \"celery\", \"celery\"]"</code></pre>
                 </section>
                 <section>
                     <h2>RQ</h2>
-                    <pre>
-                        <code class="hljs python">>>> HGETALL rq:job:be58515f-9f330470995d
+                    <pre><code class="hljs python">>>> HGETALL rq:job:be58515f-9f330470995d
 1) "status" "started"
 2) "enqueued_at" "2016-06-14T19:45:39Z"
 3) "created_at" "2016-06-14T19:45:39Z"
@@ -167,8 +154,7 @@ $ rq worker queue1 queue2</code>
 7) "timeout" "180"
 8) "started_at" "2016-06-14T21:21:14Z"
 >>> ZRANGE rq:wip:default 0 -1 WITHSCORES
-1) "be58515f-9f330470995d" "1465939514"</code>
-                    </pre>
+1) "be58515f-9f330470995d" "1465939514"</code></pre>
                 </section>
                 <section data-background="pics/iceberg.jpg" data-background-size="100%, auto">
                     <h1 style="color: white;">Fragile acknowledgment</h1>
@@ -185,8 +171,7 @@ $ rq worker queue1 queue2</code>
                 </section>
                 <section>
                     <h2>Task execution</h2>
-                    <pre>
-                        <code class="hljs python"># celery
+                    <pre><code class="hljs python"># celery
 def trace_task(uuid, args, kwargs, request=None):
     R = retval = fun(*args, **kwargs)
 
@@ -194,8 +179,7 @@ def trace_task(uuid, args, kwargs, request=None):
 class Job:
     def perform(self):
         self._result = self.func(
-            *self.args, **self.kwargs)</code>
-                    </pre>
+            *self.args, **self.kwargs)</code></pre>
                 </section>
                 <section>
                     <h2>concurrency</h2>
@@ -218,12 +202,9 @@ class Job:
                 </section>
                 <section>
                     <h2>Callback</h2>
-                    <pre>
-                        <code class="hljs python">app.add.apply_async((1, 2), link=app.mul.s(3))</code>
-                    </pre>
+                    <pre><code class="hljs python">app.add.apply_async((1, 2), link=app.mul.s(3))</code></pre>
                     <h2>Payload</h2>
-                    <pre>
-                        <code class="hljs json">"callbacks": [
+                    <pre><code class="hljs json">"callbacks": [
     {
         "kwargs": {},
         "options": {},
@@ -233,64 +214,46 @@ class Job:
         "subtask_type": null,
         "task": "app.mul"
     }
-]</code>
-                    </pre>
+]</code></pre>
                 </section>
                 <section>
                     <h2>Chains</h2>
-                    <pre>
-                        <code class="hljs code">c = chain(app.add.s(1, 2),
+                    <pre><code class="hljs code">c = chain(app.add.s(1, 2),
           app.add.s(3),
           app.mul.s(6))
-c()</code>
-                    </pre>
+c()</code></pre>
                 </section>
                 <section>
                     <h2>RQ Dependents</h2>
-                    <pre>
-                        <code class="hljs python">job = q.enqueue(lib.add, 1, 2)
-delayed = q.enqueue(lib.add, 1, 2, depends_on=job)</code>
-                    </pre>
+                    <pre><code class="hljs python">job = q.enqueue(lib.add, 1, 2)
+delayed = q.enqueue(lib.add, 1, 2, depends_on=job)</code></pre>
                     <h2>Redis</h2>
-                    <pre>
-                        <code class="hljs python">>>> SMEMBERS rq:job:1183256d-2cf952c762d0:dependents
+                    <pre><code class="hljs python">>>> SMEMBERS rq:job:1183256d-2cf952c762:dependents
 1) "00b70a47-bba9051bd7da"
 >>> HGETALL rq:job:00b70a47-bba9051bd7da
 1) "status" "deferred"
-2) "dependency_id" "1183256d-2cf952c762d0"</code>
-                    </pre>
+2) "dependency_id" "1183256d-2cf952c762"</code></pre>
                 </section>
                 <section>
                     <h2>Groups</h2>
-                    <pre>
-                        <code class="hljs python">g = group(app.add.s(1, 2),
-          app.mul.s(3, 4))
-g()</code>
-                    </pre>
+                    <pre><code class="hljs python">g = group(app.add.s(1, 2), app.mul.s(3, 4))
+g()</code></pre>
                 </section>
                 <section>
                     <h2>Chord</h2>
-                    <pre>
-                        <code class="hljs python">ch = chord([app.add.s(1, 2),
-            app.add.s(3, 4),
-            app.mul.s(5, 6)])
-ch(app.mul.s(7))</code>
-                    </pre>
+                    <pre><code class="hljs python">ch = chord([app.add.s(1, 2), app.add.s(3, 4)])
+ch(app.mul.s(5))</code></pre>
                     <h2>Payload</h2>
-                    <pre>
-                        <code class="hljs json">"chord": {
+                    <pre><code class="hljs json">"chord": {
   "task": "app.mul",
-  "subtask_type": null,
-  "immutable": false,
   "chord_size": 3,
   "args": [7],
+  "kwargs": null,
   "options": {
-    "task_id": "2f0f2a7f-1e09-4424-80ca-e249828b3fc9",
-    "reply_to": "a53cb689-2103-305a-b937-85a86c447428"
-  },
-  "kwargs": null
-}</code>
-                    </pre>
+    "task_id": "2f0f2a7f-e249828b3fc9",
+    "reply_to": "a53cb689-85a86c447428"
+  }
+}</code></pre>
                 </section>
                 <section data-background="pics/rabbit_dont_come_easy.jpg" data-background-size="contain">
                 </section>
