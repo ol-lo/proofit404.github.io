@@ -34,6 +34,7 @@ app.conf['CELERY_ROUTES'] = {
     'app.mul': {'queue': 'celery2'},
 }
 
+
 @app.task
 def add(x, y):
     return x + y
