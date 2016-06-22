@@ -1,5 +1,0 @@
-* TODO first slide Russian font
-* TODO code size
-* TODO code color
-* TODO center code examples
-* TODO table grid disappears
