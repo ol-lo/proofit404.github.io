@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+    <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Dependency Injection for Python</title>
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+        <style type="text/css">
+         .reveal section pre {
+             box-shadow: none;
+             font-size: 0.7em;
+         }
+        </style>
+	<script>
+	 var link = document.createElement( 'link' );
+	 link.rel = 'stylesheet';
+	 link.type = 'text/css';
+	 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	 document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+    </head>
+    <body>
+	<div class="reveal">
+	    <div class="slides">
+		<section>
+                    <h1>Dependency Injection</h1>
+                    <h3>@proofit404</h3>
+                </section>
+                <section>
+                    <h2>Regular approach</h2>
+                    <pre><code class="hljs python">class Robot:
+
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+
+    def run(self):
+        # Decision making logic.
+
+    def reverse_motor(self):
+        # Hardware work goes here.</code></pre>
+                </section>
+                <section>
+                    <h1>super considered super</h1>
+                    <h2>Raymond Hettinger</h2>
+                    <h2>PyCon 2015</h2>
+                </section>
+                <section>
+                    <h2>Business object</h2>
+                    <pre><code class="hljs python">class Robot:
+
+    def __init__(self, servo, controller, settings)
+
+        self.servo = servo
+        self.controller = controller
+        self.settings = settings
+
+    def run(self):
+
+        # Decision making logic.</code></pre>
+                </section>
+                <section>
+                    <h2>Implementation</h2>
+                    <pre><code class="hljs python">class MechanicalMotor:
+
+    def reverse(self, coordinate):
+
+        # Hardware work goes here.</code></pre>
+                </section>
+                <section>
+                    <h2>Initialize</h2>
+                    <pre><code class="hljs python">robot = Robot(
+    servo=MechanicalMotor(amplifier=Amplifier()),
+    controller=Controller(),
+    settings=Settings(environment="production"))</code></pre>
+                </section>
+                <section>
+                    <h1>Dependencies</h1>
+                </section>
+                <section>
+                    <h2>Inject</h2>
+                    <pre><code class="hljs python">from dependencies import Injector
+
+class Container(Injector):
+    robot = Robot
+    servo = MechanicalMotor
+    amplifier = Amplifier
+    controller = Controller
+    settings = Settings
+    environment = "production"
+
+robot = Container.robot  # Robots' constructor called
+robot.run()</code></pre>
+                </section>
+                <section>
+                    <h1>Thanks!</h1>
+                    <h2>proofit404@gmail.com</h2>
+                </section>
+	    </div>
+	</div>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+	<script>
+	 Reveal.initialize({
+	     history: true,
+             controls: false,
+             progress: false,
+	     dependencies: [
+		 { src: 'plugin/markdown/marked.js' },
+		 { src: 'plugin/markdown/markdown.js' },
+		 { src: 'plugin/notes/notes.js', async: true },
+		 { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+	     ]
+	 });
+	</script>
+    </body>
+</html>
