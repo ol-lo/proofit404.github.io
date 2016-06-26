@@ -7,13 +7,13 @@
         <link rel="stylesheet" type="text/css" href="lib/css/github-gist.css">
         <link rel="stylesheet" type="text/css" href="css/customize.css">
         <title>Task Queues Uncut</title>
-	<script>
-	 var link = document.createElement( 'link' );
-	 link.rel = 'stylesheet';
-	 link.type = 'text/css';
-	 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-	 document.getElementsByTagName( 'head' )[0].appendChild( link );
-	</script>
+        <script>
+         var link = document.createElement( 'link' );
+         link.rel = 'stylesheet';
+         link.type = 'text/css';
+         link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+         document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
     </head>
     <body>
         <div class="reveal">
@@ -34,6 +34,14 @@
                 <section>
                     <img src="pics/rabbitmq.png"><br>
                     <img src="pics/direct-exchange.png">
+                    <aside class="notes">
+                        <ul>
+                            <li>pub</li>
+                            <li>sub</li>
+                            <li>acks</li>
+                            <li>channels</li>
+                        </ul>
+                    </aside>
                 </section>
                 <section>
                     <img src="pics/antirez.png" class="double-face face-corner">
@@ -322,6 +330,7 @@ ch(app.mul.s(5))</code></pre>
              center: true,
              transition: 'slide',
              dependencies: [
+                 { src: 'plugin/notes/notes.js', async: true },
                  { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
              ]
          });
