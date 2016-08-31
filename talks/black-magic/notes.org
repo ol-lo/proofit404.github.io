@@ -1,0 +1,23 @@
+* descriptors
+  django fields
+* traceback rewrite
+  jinja
+  #+BEGIN_SRC python
+    try:
+        tb_set_next = _init_ugly_crap()
+    except:
+        pass
+    del _init_ugly_crap
+  #+END_SRC
+* assert rewrite
+  pytest
+* frame access
+  q, logging
+* bytecode
+  coverage, inspect
+* ast
+  pattern matching
+* codecs
+  react like
+* import hooks
+  import sql files like python files
