@@ -1,28 +1,29 @@
-* descriptors
-  django fields
+* descriptors and metaclasses
+** django fields
 * traceback rewrite
-  jinja
-  #+BEGIN_SRC python
-    try:
-        tb_set_next = _init_ugly_crap()
-    except:
-        pass
-    del _init_ugly_crap
-  #+END_SRC
+** jinja
+   #+BEGIN_SRC python
+     try:
+         tb_set_next = _init_ugly_crap()
+     except:
+         pass
+     del _init_ugly_crap
+   #+END_SRC
 * don't propagate exception after with
-  pytest, unittest
-  #+BEGIN_SRC python
-    # return True from __exit__ make exception swallow
-  #+END_SRC
-* assert rewrite
-  pytest
+** pytest
+** unittest
+   #+BEGIN_SRC python
+     # return True from __exit__ make exception swallow
+   #+END_SRC
 * frame access
-  q, logging
+** q
+** logging
 * bytecode
-  coverage, inspect
-* ast
-  pattern matching
+** coverage
+** inspect
 * codecs
-  react like
-* import hooks
-  import sql files like python files
+** ruby like string interpolation
+** react like python
+* ast and import hooks
+** import sql files like python files
+**  pytest - assert rewrite
