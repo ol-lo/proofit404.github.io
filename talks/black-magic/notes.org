@@ -9,6 +9,11 @@
         pass
     del _init_ugly_crap
   #+END_SRC
+* don't propagate exception after with
+  pytest, unittest
+  #+BEGIN_SRC python
+    # return True from __exit__ make exception swallow
+  #+END_SRC
 * assert rewrite
   pytest
 * frame access
