@@ -4,28 +4,33 @@
    This is the reason my dependency library works
 * traceback rewrite
 ** jinja
-   #+BEGIN_SRC python
-     try:
-         tb_set_next = _init_ugly_crap()
-     except:
-         pass
-     del _init_ugly_crap
-   #+END_SRC
+*** TODO run this example successfully
+    #+BEGIN_SRC python
+      try:
+          tb_set_next = _init_ugly_crap()
+      except:
+          pass
+      del _init_ugly_crap
+    #+END_SRC
 * don't propagate exception after with
 ** pytest
 ** unittest
    #+BEGIN_SRC python
      # return True from __exit__ make exception swallow
    #+END_SRC
-* frame access
+* TODO frame access
 ** q
 ** logging
 * bytecode
-** coverage
 ** inspect
+* trace function
+** coverage
 * codecs
 ** ruby like string interpolation
 ** react like python
 * ast and import hooks
-** import sql files like python files
 ** pytest - assert rewrite
+*** TODO ast module documentation
+** import sql files like python files
+* TODO pony orm
+** object disassembling
