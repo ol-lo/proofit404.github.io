@@ -1,5 +1,7 @@
 * descriptors and metaclasses
 ** django fields
+** descriptors doesn't work if they were stored in the instance
+   This is the reason my dependency library works
 * traceback rewrite
 ** jinja
    #+BEGIN_SRC python
@@ -26,4 +28,4 @@
 ** react like python
 * ast and import hooks
 ** import sql files like python files
-**  pytest - assert rewrite
+** pytest - assert rewrite
