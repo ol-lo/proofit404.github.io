@@ -30,7 +30,6 @@
 ** react like python
 * ast and import hooks
 ** pytest - assert rewrite
-*** TODO ast module documentation
 ** import sql files like python files
 * TODO pony orm
 ** object disassembling
