@@ -33,5 +33,3 @@
 ** import sql files like python files
 * TODO pony orm
 ** object disassembling
-* TODO retrace
-  What magic goes there?
