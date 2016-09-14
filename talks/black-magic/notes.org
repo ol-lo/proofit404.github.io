@@ -18,9 +18,26 @@
    #+BEGIN_SRC python
      # return True from __exit__ make exception swallow
    #+END_SRC
-* TODO frame access
+* frame access
 ** q
 ** logging
+   #+BEGIN_SRC python
+     class Logger:
+         def findCaller(self):
+             f = currentframe()
+             ...
+   #+END_SRC
+*** TODO Google *sys._getframe* argument
+*** Here is an alternative for it
+    #+BEGIN_SRC python
+      def currentframe():
+          """Return the frame object for the caller's stack frame."""
+          try:
+              raise Exception
+          except Exception:
+              return sys.exc_info()[2].tb_frame.f_back
+
+    #+END_SRC
 * bytecode
 ** inspect
 * trace function
