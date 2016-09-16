@@ -19,17 +19,23 @@ def foo(bar): ...</code></pre><aside class="notes">We can:<ul><li>call modules</
         self.show(info.function, [arg])
         return arg
 
-sys.modules['q'] = Q()</code></pre></section><section><h1>Django</h1></section><section><h2>Simple model</h2><pre><code class="hljs python">class Question(models.Model):
-    question_text = models.CharField()
-    pub_date = models.DateTimeField()
+sys.modules['q'] = Q()</code></pre><aside class="notes">Attention :<ul><li>module cache is an object</li><li>GC will kill global imports</li></ul></aside></section><section><h1>Django</h1></section><section><h2>Simple model</h2><pre><code class="hljs python">class Question(models.Model):
+    text = models.CharField()
 
->>> q.pub_date
-datetime.datetime(2012, 2, 26, 13, ...</code></pre></section><section><h2>Real objects</h2><pre><code class="hljs python">class Question(models.Model):
-    question_text = models.CharField()
-    pub_date = models.DateTimeField()
+class Choice(models.Model):
+    question = models.ForeignKey(Question...
+    text = models.CharField()
 
->>> q.pub_date
-&lt;__main__.DateTimeField object ...</code></pre></section><section><h1>Sly</h1></section><section><h2>Lexer</h2><pre><code class="hljs python">from sly import Lexer
+>>> ch.question.text
+"surprisingly it's a string"</code></pre></section><section><h2>Real objects</h2><pre><code class="hljs python">class Question(Model):
+    text = CharField()
+
+class Choice(Model):
+    question = ForeignKey(Question...
+    text = CharField()
+
+>>> ch.question.text
+&lt;class '__main__.CharField'&gt;</code></pre></section><section><h1>Sly</h1></section><section><h2>Lexer</h2><pre><code class="hljs python">from sly import Lexer
 
 class CalcLexer(Lexer):
     @_(r'\d+')
@@ -48,7 +54,33 @@ NameError: name '_' is not defined</code></pre></section><section><h2>Unbelievab
         return d
 
 class Lexer(metaclass=LexerType):
-    pass</code></pre></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+    pass</code></pre></section><section><h1>Ruby</h1></section><section><h2>String interpolation</h2><pre><code class="hljs ruby">apples = 4
+puts "I have #{apples} apples"</code></pre></section><section><h2>Python can do that</h2><pre><code class="hljs python"># coding: interpy
+apples = 4
+print('I have #{apples} apples')</code></pre></section><section><h1>React</h1></section><section><h2>HTML inside JS? Why not</h2><pre><code class="hljs js">render: function () {
+  return (
+    &lt;div className="comment"&gt;
+      &lt;h2 className="commentAuthor"&gt;
+        {this.props.author}
+      &lt;/h2&gt;
+      {this.props.children}
+    &lt;/div&gt;
+  );
+}</code></pre></section><section><h2>Yep, in Python too</h2><pre><code class="hljs python"># coding: pyxl
+def render(self):
+    return (
+        &lt;div class="comment"&gt;
+            &lt;h2 class="commentAuthor"&gt;
+                {self.author.name}
+            &lt;/h2&gt;
+            {self.children()}
+        &lt;/div&gt;)</code></pre></section><section><h2>Why? Why the hell? Why?</h2><pre><code class="hljs python">def search_function(encoding):
+    return codecs.CodecInfo(
+        name = 'interpy',
+        ...
+    )
+
+codecs.register(search_function)</code></pre></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     history: true,

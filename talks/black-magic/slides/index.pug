@@ -71,6 +71,11 @@ html
                       return arg
 
               sys.modules['q'] = Q()
+          aside.notes
+            | Attention :
+            ul
+              li module cache is an object
+              li GC will kill global imports
         section
           h1 Django
         section
@@ -78,21 +83,27 @@ html
           pre
             code.hljs.python.
               class Question(models.Model):
-                  question_text = models.CharField()
-                  pub_date = models.DateTimeField()
+                  text = models.CharField()
 
-              >>> q.pub_date
-              datetime.datetime(2012, 2, 26, 13, ...
+              class Choice(models.Model):
+                  question = models.ForeignKey(Question...
+                  text = models.CharField()
+
+              >>> ch.question.text
+              "surprisingly it's a string"
         section
           h2 Real objects
           pre
             code.hljs.python.
-              class Question(models.Model):
-                  question_text = models.CharField()
-                  pub_date = models.DateTimeField()
+              class Question(Model):
+                  text = CharField()
 
-              >>> q.pub_date
-              #{"<__main__.DateTimeField object ..."}
+              class Choice(Model):
+                  question = ForeignKey(Question...
+                  text = CharField()
+
+              >>> ch.question.text
+              #{"<class '__main__.CharField'>"}
         section
           h1 Sly
         section
@@ -129,6 +140,61 @@ html
 
               class Lexer(metaclass=LexerType):
                   pass
+        section
+          h1 Ruby
+        section
+          h2 String interpolation
+          pre
+            code.hljs.ruby.
+              apples = 4
+              puts "I have \#{apples} apples"
+        section
+          h2 Python can do that
+          pre
+            code.hljs.python.
+              # coding: interpy
+              apples = 4
+              print('I have \#{apples} apples')
+        section
+          h1 React
+        section
+          h2 HTML inside JS? Why not
+          pre
+            code.hljs.js.
+              render: function () {
+                return (
+                  #{"<"}div className="comment"#{">"}
+                    #{"<"}h2 className="commentAuthor"#{">"}
+                      {this.props.author}
+                    #{"<"}/h2#{">"}
+                    {this.props.children}
+                  #{"<"}/div#{">"}
+                );
+              }
+        section
+          h2 Yep, in Python too
+          pre
+            code.hljs.python.
+              # coding: pyxl
+              def render(self):
+                  return (
+                      #{"<"}div class="comment"#{">"}
+                          #{"<"}h2 class="commentAuthor"#{">"}
+                              {self.author.name}
+                          #{"<"}/h2#{">"}
+                          {self.children()}
+                      #{"<"}/div#{">"})
+        section
+          h2 Why? Why the hell? Why?
+          pre
+            code.hljs.python.
+              def search_function(encoding):
+                  return codecs.CodecInfo(
+                      name = 'interpy',
+                      ...
+                  )
+
+              codecs.register(search_function)
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script.
