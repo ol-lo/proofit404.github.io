@@ -36,6 +36,13 @@ html
               0.0s test: 'xxx '
               0.0s foo('xxx')
               0.0s -> 'xxx!!!'
+          aside.notes
+            | Print:
+            ul
+              li expression results
+              li variable values
+              li function arguments
+              li function return values
         section
           pre
             code.hljs.python.
@@ -46,6 +53,24 @@ html
 
               @q
               def foo(bar): ...
+          aside.notes
+            | We can:
+            ul
+              li call modules
+              li divide modules
+              li compare modules
+        section
+          h2 How the hell?
+          pre
+            code.hljs.python.
+              class Q(object):
+                  import inspect
+                  def __truediv__(self, arg):
+                      info = self.inspect.getframeinfo(...
+                      self.show(info.function, [arg])
+                      return arg
+
+              sys.modules['q'] = Q()
         section
           h2 Django
     script(src='lib/js/head.min.js')

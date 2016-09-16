@@ -6,13 +6,20 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><
 0.0s test: 'xxx'
 0.0s test: 'xxx '
 0.0s foo('xxx')
-0.0s -> 'xxx!!!'</code></pre></section><section><pre><code class="hljs python">import q
+0.0s -> 'xxx!!!'</code></pre><aside class="notes">Print:<ul><li>expression results</li><li>variable values</li><li>function arguments</li><li>function return values</li></ul></aside></section><section><pre><code class="hljs python">import q
 write(prefix + q(sep or ''))
 write(q/prefix + (sep or ''))
 write(q|prefix + (sep or ''))
 
 @q
-def foo(bar): ...</code></pre></section><section><h2>Django</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+def foo(bar): ...</code></pre><aside class="notes">We can:<ul><li>call modules</li><li>divide modules</li><li>compare modules</li></ul></aside></section><section><h2>How the hell?</h2><pre><code class="hljs python">class Q(object):
+    import inspect
+    def __truediv__(self, arg):
+        info = self.inspect.getframeinfo(...
+        self.show(info.function, [arg])
+        return arg
+
+sys.modules['q'] = Q()</code></pre></section><section><h2>Django</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     history: true,
