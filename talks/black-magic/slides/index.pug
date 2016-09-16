@@ -5,7 +5,7 @@ html
     link(rel='stylesheet' type='text/css' href='css/reveal.css')
     link(rel='stylesheet' type='text/css' href='css/theme/white.css')
     link(rel='stylesheet' type='text/css' href='lib/css/github-gist.css')
-    link(rel='stylesheet' type='text/css' href='css/customize.css')
+    //- link(rel='stylesheet' type='text/css' href='css/customize.css')
     title Black Magic for Good Fairies
     script.
       var link = document.createElement( 'link' );
@@ -19,3 +19,44 @@ html
         section
           h1 Black Magic for Good Fairies
           h3 @proofit404
+        section
+          h1 Python for Humans
+        section
+          h1 Maniac Manson
+        section
+          h1 Q
+        section
+          pre
+            code.hljs.shell.
+              tailf /tmp/q
+          pre
+            code.hljs.shell.
+              0.0s test: prefix + q(sep or '')=' '
+              0.0s test: 'xxx'
+              0.0s test: 'xxx '
+              0.0s foo('xxx')
+              0.0s -> 'xxx!!!'
+        section
+          pre
+            code.hljs.python.
+              import q
+              write(prefix + q(sep or ''))
+              write(q/prefix + (sep or ''))
+              write(q|prefix + (sep or ''))
+
+              @q
+              def foo(bar): ...
+        section
+          h2 Django
+    script(src='lib/js/head.min.js')
+    script(src='js/reveal.js')
+    script.
+      Reveal.initialize({
+          controls: false,
+          progress: false,
+          history: true,
+          dependencies: [
+              { src: 'plugin/notes/notes.js', async: true },
+              { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+          ]
+      });
