@@ -1,8 +1,8 @@
 * descriptors and metaclasses
-** django fields
-** descriptors doesn't work if they were stored in the instance
+** TODO django fields
+** TODO descriptors doesn't work if they were stored in the instance
    This is the reason my dependency library works
-** TODO https://github.com/dabeaz/sly/blob/master/sly/lex.py
+** DONE https://github.com/dabeaz/sly/blob/master/sly/lex.py
    - What __prepare__ metaclass classmethod does?
    - How they can propagate _ function into it?
 * traceback rewrite
@@ -15,15 +15,9 @@
           pass
       del _init_ugly_crap
     #+END_SRC
-* don't propagate exception after with
-** pytest
-** unittest
-   #+BEGIN_SRC python
-     # return True from __exit__ make exception swallow
-   #+END_SRC
 * frame access
-** q
-** logging
+** DONE q
+** TODO logging
    #+BEGIN_SRC python
      class Logger:
          def findCaller(self):
@@ -42,14 +36,11 @@
 
     #+END_SRC
 * bytecode
-** inspect
-* trace function
-** coverage
+** TODO inspect
 * codecs
-** ruby like string interpolation
-** react like python
+** TODO ruby like string interpolation
+** TODO react like python
 * ast and import hooks
-** pytest - assert rewrite
-** import sql files like python files
-* TODO pony orm
-** object disassembling
+** TODO pytest
+*** assert rewrite
+*** import hooks

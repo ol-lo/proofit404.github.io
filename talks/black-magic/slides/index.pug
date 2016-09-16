@@ -92,7 +92,43 @@ html
                   pub_date = models.DateTimeField()
 
               >>> q.pub_date
-              <__main__.DateTimeField object ...
+              #{"<__main__.DateTimeField object ..."}
+        section
+          h1 Sly
+        section
+          h2 Lexer
+          pre
+            code.hljs.python.
+              from sly import Lexer
+
+              class CalcLexer(Lexer):
+                  @_(r'\d+')
+                  def NUMBER(self, t):
+                      t.value = int(t.value)
+                      return t
+        section
+          h2 Normal class
+          pre
+            code.hljs.python.
+              Traceback (most recent call last):
+                File "name_error_sly.py", line 6, in #{"<module>"}
+                  class CalcLexer(Lexer):
+                File "name_error_sly.py", line 7, in CalcLexer
+                  @_(r'\d+')
+              NameError: name '_' is not defined
+        section
+          h2 Unbelievable
+          pre
+            code.hljs.python.
+              class LexerType(type):
+                  @staticmethod
+                  def __prepare__(cls, *args, **kwargs):
+                      def _(pattern): ...
+                      d = {'_': _}
+                      return d
+
+              class Lexer(metaclass=LexerType):
+                  pass
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script.
