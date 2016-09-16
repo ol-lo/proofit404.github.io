@@ -24,7 +24,7 @@ html
           aside.notes.
             Whant to see how it was builded
         section
-          h1 Really?
+          h1 ORLY?
           aside.notes.
             Fucking madness...
         section
@@ -145,31 +145,56 @@ html
         section
           h1 Django
         section
-          h2 Simple model
+          h2 Model excetptions
           pre
             code.hljs.python.
-              class Question(models.Model):
-                  text = models.CharField()
-
-              class Choice(models.Model):
-                  question = models.ForeignKey(Question...
-                  text = models.CharField()
-
-              >>> ch.question.text
-              "surprisingly it's a string"
+              try:
+                  Entry.objects.get(id='foo')
+              except Entry.DoesNotExist:
+                  pass
+          aside.notes
+            | Normal classes does not have
+            ul
+              li Exception in their attributes
+              li Why we catch exception for sertain model?
         section
-          h2 Real objects
+          h2 Metaclasses
           pre
             code.hljs.python.
-              class Question(Model):
-                  text = CharField()
+              class ModelBase(type):
+                  """
+                  Metaclass for all models.
+                  """
+                  def __new__(cls, name, bases, attrs):
+                      new_class = type(cls, name, bases, {
+                          '__module__': module,
+                      })
+                      ...
+                      return new_class
+        section
+          h2 class factories
+          pre
+            code.hljs.python.
+              class Entry(models.Model):
+                  field1 = models.CharField()
+                  field2 = models.IntegerField()
 
-              class Choice(Model):
-                  question = ForeignKey(Question...
-                  text = CharField()
-
-              >>> ch.question.text
-              #{"<class '__main__.CharField'>"}
+              Entry = ModelBase('Entry', (models.Model,), {
+                  'field1': models.CharField(),
+                  'field2': models.IntegerField(),
+              })
+        section
+          h2 Introduce model exceptions
+          pre
+            code.hljs.python.
+              if not abstract:
+                  new_class.add_to_class(
+                      'DoesNotExist',
+                      subclass_exception(
+                          str('DoesNotExist'),
+                          (ObjectDoesNotExist,),
+                          module,
+                          attached_to=new_class))
         section
           h1 Sly
         section
