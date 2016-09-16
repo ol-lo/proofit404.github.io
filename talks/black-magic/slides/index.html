@@ -2,7 +2,7 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Black Magic for Good Fairies</h1><h3>@proofit404</h3></section><section><h1>Python for Humans</h1></section><section><h1>Maniac Manson</h1></section><section><h1>Q</h1></section><section><pre><code class="hljs shell">tailf /tmp/q</code></pre><pre><code class="hljs shell">0.0s test: prefix + q(sep or '')=' '
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Black Magic for Good Fairies</h1><h3>@proofit404</h3></section><section><h1>Python for Humans</h1></section><section data-background="pic/sic-apartment.png" data-background-size="contain" data-background-color="#222222"><br></section><section><h1>Q</h1></section><section><pre><code class="hljs shell">tailf /tmp/q</code></pre><pre><code class="hljs shell">0.0s test: prefix + q(sep or '')=' '
 0.0s test: 'xxx'
 0.0s test: 'xxx '
 0.0s foo('xxx')
@@ -19,7 +19,15 @@ def foo(bar): ...</code></pre><aside class="notes">We can:<ul><li>call modules</
         self.show(info.function, [arg])
         return arg
 
-sys.modules['q'] = Q()</code></pre><aside class="notes">Attention :<ul><li>module cache is an object</li><li>GC will kill global imports</li></ul></aside></section><section><h1>Django</h1></section><section><h2>Simple model</h2><pre><code class="hljs python">class Question(models.Model):
+sys.modules['q'] = Q()</code></pre><aside class="notes">Attention :<ul><li>module cache is an object</li><li>GC will kill global imports</li></ul></aside></section><section><h1>Logging</h1></section><section><h2>Function context</h2><pre><code class="hljs python">def my_func():
+    logger.info('We are here')</code></pre><h2>console</h2><pre><code class="hljs shell">INFO:my_func:We are here</code></pre><aside class="notes">Function name in the output<br>but we did not pass it</aside></section><section><h2>Search who calls you</h2><pre><code class="hljs python">def get_caller():
+    f = sys._getframe()
+    while hasattr(f, 'f_code'):
+        filename = f.f_code.co_filename
+        if filename == __file__:
+            f = f.f_back
+            continue
+        return f.f_code.co_name</code></pre></section><section><h1>Django</h1></section><section><h2>Simple model</h2><pre><code class="hljs python">class Question(models.Model):
     text = models.CharField()
 
 class Choice(models.Model):
@@ -74,7 +82,7 @@ def render(self):
                 {self.author.name}
             &lt;/h2&gt;
             {self.children()}
-        &lt;/div&gt;)</code></pre></section><section><h2>Why? Why the hell? Why?</h2><pre><code class="hljs python">def search_function(encoding):
+        &lt;/div&gt;)</code></pre></section><section><h2>Why? Why? Why?</h2><pre><code class="hljs python">def search_function(encoding):
     return codecs.CodecInfo(
         name = 'interpy',
         ...

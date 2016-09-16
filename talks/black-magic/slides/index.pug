@@ -21,8 +21,8 @@ html
           h3 @proofit404
         section
           h1 Python for Humans
-        section
-          h1 Maniac Manson
+        section(data-background='pic/sic-apartment.png' data-background-size='contain' data-background-color='#222222')
+          br
         section
           h1 Q
         section
@@ -76,6 +76,34 @@ html
             ul
               li module cache is an object
               li GC will kill global imports
+        section
+          h1 Logging
+        section
+          h2 Function context
+          pre
+            code.hljs.python.
+              def my_func():
+                  logger.info('We are here')
+          h2 console
+          pre
+            code.hljs.shell.
+              INFO:my_func:We are here
+          aside.notes
+            | Function name in the output
+            br
+            | but we did not pass it
+        section
+          h2 Search who calls you
+          pre
+            code.hljs.python.
+              def get_caller():
+                  f = sys._getframe()
+                  while hasattr(f, 'f_code'):
+                      filename = f.f_code.co_filename
+                      if filename == __file__:
+                          f = f.f_back
+                          continue
+                      return f.f_code.co_name
         section
           h1 Django
         section
@@ -185,7 +213,7 @@ html
                           {self.children()}
                       #{"<"}/div#{">"})
         section
-          h2 Why? Why the hell? Why?
+          h2 Why? Why? Why?
           pre
             code.hljs.python.
               def search_function(encoding):
