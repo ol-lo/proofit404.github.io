@@ -27,20 +27,7 @@ sys.modules['q'] = Q()</code></pre><aside class="notes">Attention :<ul><li>modul
         if filename == __file__:
             f = f.f_back
             continue
-        return f.f_code.co_name</code></pre></section><section><h1>builtins</h1></section><section><h2>change call signature</h2><pre><code class="hljs python">class Foo:
-    @classmethod
-    def bar(cls):
-        ...</code></pre><aside class="notes">We can write our own classmethod</aside></section><section><h2>What is classmethod definition</h2><pre><code class="hljs python">def classmethod(f):
-    F = StaticMethodDescriptor(f)
-    return F</code></pre></section><section><h2>descriptors</h2><pre><code class="hljs python">class StaticMethodDescriptor:
-    def __init__(self, f):
-        self.f = f
-    def __get__(self, obj, cls=None):
-        f = self.__dict__['f']
-        return partial(f, cls)
-
-Foo.bar
-F.__get__(None, Foo)</code></pre><aside class="notes">Descriptors works only if they were stored in class __dict__</aside></section><section><h1>Django</h1></section><section><h2>Model excetptions</h2><pre><code class="hljs python">try:
+        return f.f_code.co_name</code></pre></section><section><h1>Django</h1></section><section><h2>Model excetptions</h2><pre><code class="hljs python">try:
     Entry.objects.get(id='foo')
 except Entry.DoesNotExist:
     pass</code></pre><aside class="notes">Normal classes does not have<ul><li>Exception in their attributes</li><li>Why we catch exception for sertain model?</li></ul></aside></section><section><h2>Metaclasses</h2><pre><code class="hljs python">class ModelBase(type):

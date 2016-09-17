@@ -109,40 +109,6 @@ html
                           continue
                       return f.f_code.co_name
         section
-          h1 builtins
-        section
-          h2 change call signature
-          pre
-            code.hljs.python.
-              class Foo:
-                  @classmethod
-                  def bar(cls):
-                      ...
-          aside.notes.
-            We can write our own classmethod
-        section
-          h2 What is classmethod definition
-          pre
-            code.hljs.python.
-              def classmethod(f):
-                  F = StaticMethodDescriptor(f)
-                  return F
-        section
-          h2 descriptors
-          pre
-            code.hljs.python.
-              class StaticMethodDescriptor:
-                  def __init__(self, f):
-                      self.f = f
-                  def __get__(self, obj, cls=None):
-                      f = self.__dict__['f']
-                      return partial(f, cls)
-
-              Foo.bar
-              F.__get__(None, Foo)
-          aside.notes.
-            Descriptors works only if they were stored in class __dict__
-        section
           h1 Django
         section
           h2 Model excetptions
