@@ -2,7 +2,7 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Black Magic for Good Fairies</h1><h3>@proofit404</h3></section><section><h1>Python for Humans</h1><aside class="notes">Whant to see how it was builded</aside></section><section><h1>ORLY?</h1><aside class="notes">Fucking madness...</aside></section><section><h1>Q</h1></section><section><pre><code class="hljs shell">tailf /tmp/q</code></pre><pre><code class="hljs shell">0.0s test: prefix + q(sep or '')=' '
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Black Magic for Good Fairies</h1><h3>@proofit404</h3></section><section><h1>Python for Humans</h1><h3>they told me...</h3><aside class="notes">Want to see how it was built</aside></section><section><h1>ORLY?</h1><aside class="notes">Fucking madness...</aside></section><section><h1>Q</h1></section><section><pre><code class="hljs shell">tailf /tmp/q</code></pre><pre><code class="hljs shell">0.0s test: prefix + q(sep or '')=' '
 0.0s test: 'xxx'
 0.0s test: 'xxx '
 0.0s foo('xxx')
@@ -12,25 +12,25 @@ write(q/prefix + (sep or ''))
 write(q|prefix + (sep or ''))
 
 @q
-def foo(bar): ...</code></pre><aside class="notes">We can:<ul><li>call modules</li><li>divide modules</li><li>compare modules</li></ul></aside></section><section><h2>How the hell?</h2><pre><code class="hljs python">class Q(object):
+def foo(bar): ...</code></pre><aside class="notes">We can:<ul><li>call modules</li><li>divide modules</li><li>compare modules</li></ul></aside></section><section><h2>Replace module during its import</h2><pre><code class="hljs python">class Q(object):
     import inspect
     def __truediv__(self, arg):
         info = self.inspect.getframeinfo(...
         self.show(info.function, [arg])
         return arg
 
-sys.modules['q'] = Q()</code></pre><aside class="notes">Attention :<ul><li>module cache is an object</li><li>GC will kill global imports</li></ul></aside></section><section><h1>Logging</h1></section><section><h2>Function context</h2><pre><code class="hljs python">def my_func():
-    logger.info('We are here')</code></pre><h2>console</h2><pre><code class="hljs shell">INFO:my_func:We are here</code></pre><aside class="notes">Function name in the output<br>but we did not pass it</aside></section><section><h2>Search who calls you</h2><pre><code class="hljs python">def get_caller():
+sys.modules['q'] = Q()</code></pre><aside class="notes">Attention :<ul><li>module cache is an object</li><li>GC will kill global imports</li></ul></aside></section><section><h1>Logging</h1></section><section><h2>usage</h2><pre><code class="hljs python">def my_func():
+    logger.info('We are here')</code></pre><h2>output</h2><pre><code class="hljs shell">INFO:my_func:We are here</code></pre><aside class="notes">Function name in the output<br>but we did not pass it</aside></section><section><h2>Search who calls you</h2><pre><code class="hljs python">def get_caller():
     f = sys._getframe()
     while hasattr(f, 'f_code'):
         filename = f.f_code.co_filename
         if filename == __file__:
             f = f.f_back
             continue
-        return f.f_code.co_name</code></pre></section><section><h1>Django</h1></section><section><h2>Model excetptions</h2><pre><code class="hljs python">try:
+        return f.f_code.co_name</code></pre></section><section><h1>Django</h1></section><section><h2>Model exceptions</h2><pre><code class="hljs python">try:
     Entry.objects.get(id='foo')
 except Entry.DoesNotExist:
-    pass</code></pre><aside class="notes">Normal classes does not have<ul><li>Exception in their attributes</li><li>Why we catch exception for sertain model?</li></ul></aside></section><section><h2>Metaclasses</h2><pre><code class="hljs python">class ModelBase(type):
+    pass</code></pre><aside class="notes">Normal classes does not have<ul><li>Exception in their attributes</li><li>Why we catch exception for certain model?</li></ul></aside></section><section><h2>Metaclasses</h2><pre><code class="hljs python">class ModelBase(type):
     """
     Metaclass for all models.
     """
@@ -62,7 +62,7 @@ class CalcLexer(Lexer):
     class CalcLexer(Lexer):
   File "name_error_sly.py", line 7, in CalcLexer
     @_(r'\d+')
-NameError: name '_' is not defined</code></pre></section><section><h2>Unbelievable</h2><pre><code class="hljs python">class LexerType(type):
+NameError: name '_' is not defined</code></pre></section><section><h2>Extend class scope</h2><pre><code class="hljs python">class LexerType(type):
     @staticmethod
     def __prepare__(cls, *args, **kwargs):
         def _(pattern): ...
@@ -90,7 +90,7 @@ def render(self):
                 {self.author.name}
             &lt;/h2&gt;
             {self.children()}
-        &lt;/div&gt;)</code></pre></section><section><h2>Why? Why? Why?</h2><pre><code class="hljs python">def search_function(encoding):
+        &lt;/div&gt;)</code></pre></section><section><h2>set file preprocessor</h2><pre><code class="hljs python">def search_function(encoding):
     return codecs.CodecInfo(
         name = 'interpy',
         ...

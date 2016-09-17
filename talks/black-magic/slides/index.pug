@@ -21,8 +21,9 @@ html
           h3 @proofit404
         section
           h1 Python for Humans
+          h3 they told me...
           aside.notes.
-            Whant to see how it was builded
+            Want to see how it was built
         section
           h1 ORLY?
           aside.notes.
@@ -64,7 +65,7 @@ html
               li divide modules
               li compare modules
         section
-          h2 How the hell?
+          h2 Replace module during its import
           pre
             code.hljs.python.
               class Q(object):
@@ -83,12 +84,12 @@ html
         section
           h1 Logging
         section
-          h2 Function context
+          h2 usage
           pre
             code.hljs.python.
               def my_func():
                   logger.info('We are here')
-          h2 console
+          h2 output
           pre
             code.hljs.shell.
               INFO:my_func:We are here
@@ -111,7 +112,7 @@ html
         section
           h1 Django
         section
-          h2 Model excetptions
+          h2 Model exceptions
           pre
             code.hljs.python.
               try:
@@ -122,7 +123,7 @@ html
             | Normal classes does not have
             ul
               li Exception in their attributes
-              li Why we catch exception for sertain model?
+              li Why we catch exception for certain model?
         section
           h2 Metaclasses
           pre
@@ -187,7 +188,7 @@ html
                   @_(r'\d+')
               NameError: name '_' is not defined
         section
-          h2 Unbelievable
+          h2 Extend class scope
           pre
             code.hljs.python.
               class LexerType(type):
@@ -244,7 +245,7 @@ html
                           {self.children()}
                       #{"<"}/div#{">"})
         section
-          h2 Why? Why? Why?
+          h2 set file preprocessor
           pre
             code.hljs.python.
               def search_function(encoding):
