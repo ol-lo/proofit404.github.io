@@ -19,7 +19,17 @@ def foo(bar): ...</code></pre><aside class="notes">We can:<ul><li>call modules</
         self.show(info.function, [arg])
         return arg
 
-sys.modules['q'] = Q()</code></pre></section><section><h2>Django</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+sys.modules['q'] = Q()</code></pre></section><section><h1>Django</h1></section><section><h2>Simple model</h2><pre><code class="hljs python">class Question(models.Model):
+    question_text = models.CharField()
+    pub_date = models.DateTimeField()
+
+>>> q.pub_date
+datetime.datetime(2012, 2, 26, 13, ...</code></pre></section><section><h2>Real objects</h2><pre><code class="hljs python">class Question(models.Model):
+    question_text = models.CharField()
+    pub_date = models.DateTimeField()
+
+>>> q.pub_date
+<__main__.DateTimeField object ...</code></pre></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     history: true,
