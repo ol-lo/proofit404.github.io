@@ -268,7 +268,7 @@ html
           h2 error collection
           pre
             code.hljs.shell.
-              >       assert x == y
+              #{">"}       assert x == y
               E       assert 4 == 5
         section
           h2 File system hint
@@ -340,7 +340,7 @@ html
           pre
             code.hljs.python.
               try:
-                  hello # <- NameError here
+                  hello # #{"<"}- NameError here
               except Exception as e:
                   tb = make_tb()
                   raise e.with_traceback(tb)
@@ -362,7 +362,7 @@ html
           pre
             code.hljs.python.
               Traceback (most recent call last):
-                File "tb_rewrite.py", line 25, in <module>
+                File "tb_rewrite.py", line 25, in #{"<"}module#{">"}
                   raise e.with_traceback(tb)
                 File "xxx.html", line 22, in html
                   {{ hello }}

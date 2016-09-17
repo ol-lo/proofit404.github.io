@@ -99,7 +99,7 @@ def render(self):
 codecs.register(search_function)</code></pre></section><section><h1>pytest</h1></section><section><h2>description</h2><pre><code class="hljs python">def test_addition():
     x = 2 * 2
     y = 5
-    assert x == y</code></pre><h2>error collection</h2><pre><code class="hljs shell">>       assert x == y
+    assert x == y</code></pre><h2>error collection</h2><pre><code class="hljs shell">&gt;       assert x == y
 E       assert 4 == 5</code></pre></section><section><h2>File system hint</h2><pre><code class="hljs shell">ls -lA tests/__pycache__/
 total 304
 test_dependencies.cpython-26-PYTEST.pyc
@@ -139,7 +139,7 @@ print(c)
   File "templates/index.html", line 5
     {{ test() }}
 UndefinedError: 'test' is undefined</code></pre></section><section><h2>original error</h2><pre><code class="hljs python">try:
-    hello # <- NameError here
+    hello # &lt;- NameError here
 except Exception as e:
     tb = make_tb()
     raise e.with_traceback(tb)</code></pre></section><section><h2>fake error location</h2><pre><code class="hljs python">def make_tb():
@@ -151,7 +151,7 @@ except Exception as e:
         exec(code, {'exc_value': exc_type()})
     except:
         return sys.exc_info()[2].tb_next</code></pre></section><section><h2>Faked</h2><pre><code class="hljs python">Traceback (most recent call last):
-  File "tb_rewrite.py", line 25, in <module>
+  File "tb_rewrite.py", line 25, in &lt;module&gt;
     raise e.with_traceback(tb)
   File "xxx.html", line 22, in html
     {{ hello }}
