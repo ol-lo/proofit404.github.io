@@ -39,11 +39,9 @@ except Entry.DoesNotExist:
             '__module__': module,
         })
         ...
-        return new_class</code></pre></section><section><h2>class factories</h2><pre><code class="hljs python">class Entry(models.Model):
+        return new_class</code></pre></section><section><h2>Inheritance</h2><pre><code class="hljs python">class Entry(models.Model):
     field1 = models.CharField()
-    field2 = models.IntegerField()
-
-Entry = ModelBase('Entry', (models.Model,), {
+    field2 = models.IntegerField()</code></pre><h2>class factories</h2><pre><code class="hljs python">Entry = ModelBase('Entry', (models.Model,), {
     'field1': models.CharField(),
     'field2': models.IntegerField(),
 })</code></pre></section><section><h2>Introduce model exceptions</h2><pre><code class="hljs python">if not abstract:

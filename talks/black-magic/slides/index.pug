@@ -138,13 +138,15 @@ html
                       ...
                       return new_class
         section
-          h2 class factories
+          h2 Inheritance
           pre
             code.hljs.python.
               class Entry(models.Model):
                   field1 = models.CharField()
                   field2 = models.IntegerField()
-
+          h2 class factories
+          pre
+            code.hljs.python.
               Entry = ModelBase('Entry', (models.Model,), {
                   'field1': models.CharField(),
                   'field2': models.IntegerField(),
