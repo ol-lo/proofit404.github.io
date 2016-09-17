@@ -128,7 +128,23 @@ test_dependencies.cpython-35-PYTEST.pyc</code></pre></section><section><h2>Impor
         co = _rewrite_test(fn, co)
         _make_rewritten_pyc(co, cache_name)
 
-sys.meta_path.append(AssertionRewritingHook())</code></pre></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+sys.meta_path.append(AssertionRewritingHook())</code></pre></section><section><h2>ast rewrite</h2><pre><code class="hljs python">import ast
+
+class Int2Str(ast.NodeTransformer):
+
+    def visit_Num(self, node):
+        return ast.copy_location(
+            ast.Str(s=str(node.n)),
+            node,
+        )</code></pre></section><section><h2>how it works</h2><pre><code class="hljs python">exp = 'c = [1, 2, 3]'
+exec(exp)
+print(c)
+# [1, 2, 3]
+ast = ast.parse(exp)
+new_exp = Int2Str().visit(ast)
+exec(compile(new_exp))
+print(c)
+# ['1', '2', '3']</code></pre></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     history: true,

@@ -324,6 +324,32 @@ html
                       _make_rewritten_pyc(co, cache_name)
 
               sys.meta_path.append(AssertionRewritingHook())
+        section
+          h2 ast rewrite
+          pre
+            code.hljs.python.
+              import ast
+
+              class Int2Str(ast.NodeTransformer):
+
+                  def visit_Num(self, node):
+                      return ast.copy_location(
+                          ast.Str(s=str(node.n)),
+                          node,
+                      )
+        section
+          h2 how it works
+          pre
+            code.hljs.python.
+              exp = 'c = [1, 2, 3]'
+              exec(exp)
+              print(c)
+              # [1, 2, 3]
+              ast = ast.parse(exp)
+              new_exp = Int2Str().visit(ast)
+              exec(compile(new_exp))
+              print(c)
+              # ['1', '2', '3']
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script.
