@@ -318,6 +318,91 @@ html
               exec(compile(new_exp))
               print(c)
               # ['1', '2', '3']
+        section
+          h1 jinja2
+        section
+          h2 html in the python traceback
+          pre
+            code.hljs.python.
+              Traceback (most recent call last):
+                File "jinja2/environment.py", line 989
+                  return handle_exception(exc_info, True)
+                File "jinja2/environment.py", line 754
+                  reraise(exc_type, exc_value, tb)
+                File "jinja2/_compat.py", line 37
+                  raise value.with_traceback(tb)
+                File "templates/index.html", line 5
+                  {{ test() }}
+              UndefinedError: 'test' is undefined
+        section
+          h2 original error
+          pre
+            code.hljs.python.
+              try:
+                  hello # <- NameError here
+              except Exception as e:
+                  tb = make_tb()
+                  raise e.with_traceback(tb)
+        section
+          h2 fake error location
+          pre
+            code.hljs.python.
+              def make_tb():
+                  exc_type, exc_value, tb = sys.exc_info()
+                  filename = 'xxx.html'
+                  src = '\n' * 22 + 'raise exc_value'
+                  code = compile(src, filename, 'exec')
+                  try:
+                      exec(code, {'exc_value': exc_type()})
+                  except:
+                      return sys.exc_info()[2].tb_next
+        section
+          h2 Faked
+          pre
+            code.hljs.python.
+              Traceback (most recent call last):
+                File "tb_rewrite.py", line 25, in <module>
+                  raise e.with_traceback(tb)
+                File "xxx.html", line 22, in html
+                  {{ hello }}
+              NameError: name 'hello' is not defined
+        section
+          h2 skip internal frames
+          pre
+            code.hljs.python.
+              try:
+                  tb_set_next = _init_ugly_crap()
+              except:
+                  pass
+              del _init_ugly_crap
+        section
+          h2 we have to deal with this crap...
+          pre
+            code.hljs.python.
+              import ctypes
+
+              class _PyObject(ctypes.Structure):
+                  pass
+
+              class _Traceback(_PyObject):
+                  pass
+
+              _Traceback._fields_ = [
+                  ('tb_next', ctypes.POINTER(_Traceback)),
+                  ('tb_frame', ctypes.POINTER(_PyObject)),
+              ]
+        section
+          h2 Let's patch immutable object
+          pre
+            code.hljs.python.
+              def tb_set_next(tb, next):
+
+                  obj = _Traceback.from_address(id(tb))
+                  old = _Traceback.from_address(id(tb.tb_next))
+                  old.ob_refcnt -= 1
+                  next = _Traceback.from_address(id(next))
+                  next.ob_refcnt += 1
+                  obj.tb_next = ctypes.pointer(next)
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script.
