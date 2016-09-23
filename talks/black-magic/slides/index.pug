@@ -18,6 +18,7 @@ html
       .slides
         section
           h1 Black Magic for Good Fairies
+          h2 Artem Malyshev
           h3 @proofit404
         section
           h1 Python for Humans
@@ -245,12 +246,14 @@ html
                           {self.children()}
                       #{"<"}/div#{">"})
         section
+          h2 # coding: pyxl
+        section
           h2 set file preprocessor
           pre
             code.hljs.python.
               def search_function(encoding):
                   return codecs.CodecInfo(
-                      name = 'interpy',
+                      name = 'pyxl',
                       ...
                   )
 
@@ -258,18 +261,30 @@ html
         section
           h1 pytest
         section
-          h2 description
+          h2 Test definition
           pre
             code.hljs.python.
               def test_addition():
                   x = 2 * 2
                   y = 5
                   assert x == y
-          h2 error collection
+        section
+          h2 unittest output
+          pre
+            code.hljs.python.
+              Traceback (most recent call last):
+                File "test.py", line 89, in test_addition
+                  assert assert x == y
+              AssertionError
+        section
+          h2 pytest output
           pre
             code.hljs.shell.
-              #{">"}       assert x == y
-              E       assert 4 == 5
+              #{">"} x == y
+              E assert 8 == 9
+              E  +  where 8 = #{"<"}bound method ...
+              E  +    where #{"<"}bound method ...
+              E  +      where #{"<"}test_dependencies ...
         section
           h2 File system hint
           pre
@@ -405,7 +420,7 @@ html
                   next.ob_refcnt += 1
                   obj.tb_next = ctypes.pointer(next)
         section
-          h1 ¯ \ _ (ツ) _ / ¯
+          h1 Questions?
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script.

@@ -2,7 +2,7 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Black Magic for Good Fairies</h1><h3>@proofit404</h3></section><section><h1>Python for Humans</h1><h3>they told me...</h3><aside class="notes">Want to see how it was built</aside></section><section><h1>ORLY?</h1><aside class="notes">Fucking madness...</aside></section><section><h1>Q</h1></section><section><pre><code class="hljs shell">tailf /tmp/q</code></pre><pre><code class="hljs shell">0.0s test: prefix + q(sep or '')=' '
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Black Magic for Good Fairies</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>Python for Humans</h1><h3>they told me...</h3><aside class="notes">Want to see how it was built</aside></section><section><h1>ORLY?</h1><aside class="notes">Fucking madness...</aside></section><section><h1>Q</h1></section><section><pre><code class="hljs shell">tailf /tmp/q</code></pre><pre><code class="hljs shell">0.0s test: prefix + q(sep or '')=' '
 0.0s test: 'xxx'
 0.0s test: 'xxx '
 0.0s foo('xxx')
@@ -90,17 +90,23 @@ def render(self):
                 {self.author.name}
             &lt;/h2&gt;
             {self.children()}
-        &lt;/div&gt;)</code></pre></section><section><h2>set file preprocessor</h2><pre><code class="hljs python">def search_function(encoding):
+        &lt;/div&gt;)</code></pre></section><section><h2># coding: pyxl</h2></section><section><h2>set file preprocessor</h2><pre><code class="hljs python">def search_function(encoding):
     return codecs.CodecInfo(
-        name = 'interpy',
+        name = 'pyxl',
         ...
     )
 
-codecs.register(search_function)</code></pre></section><section><h1>pytest</h1></section><section><h2>description</h2><pre><code class="hljs python">def test_addition():
+codecs.register(search_function)</code></pre></section><section><h1>pytest</h1></section><section><h2>Test definition</h2><pre><code class="hljs python">def test_addition():
     x = 2 * 2
     y = 5
-    assert x == y</code></pre><h2>error collection</h2><pre><code class="hljs shell">&gt;       assert x == y
-E       assert 4 == 5</code></pre></section><section><h2>File system hint</h2><pre><code class="hljs shell">ls -lA tests/__pycache__/
+    assert x == y</code></pre></section><section><h2>unittest output</h2><pre><code class="hljs python">Traceback (most recent call last):
+  File "test.py", line 89, in test_addition
+    assert assert x == y
+AssertionError</code></pre></section><section><h2>pytest output</h2><pre><code class="hljs shell">&gt; x == y
+E assert 8 == 9
+E  +  where 8 = &lt;bound method ...
+E  +    where &lt;bound method ...
+E  +      where &lt;test_dependencies ...</code></pre></section><section><h2>File system hint</h2><pre><code class="hljs shell">ls -lA tests/__pycache__/
 total 304
 test_dependencies.cpython-26-PYTEST.pyc
 test_dependencies.cpython-27-PYTEST.pyc
@@ -177,7 +183,7 @@ _Traceback._fields_ = [
     old.ob_refcnt -= 1
     next = _Traceback.from_address(id(next))
     next.ob_refcnt += 1
-    obj.tb_next = ctypes.pointer(next)</code></pre></section><section><h1>¯ \ _ (ツ) _ / ¯</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+    obj.tb_next = ctypes.pointer(next)</code></pre></section><section><h1>Questions?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     history: true,
