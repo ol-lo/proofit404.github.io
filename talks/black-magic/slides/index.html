@@ -101,7 +101,7 @@ codecs.register(search_function)</code></pre></section><section><h1>pytest</h1><
     y = 5
     assert x == y</code></pre></section><section><h2>unittest output</h2><pre><code class="hljs python">Traceback (most recent call last):
   File "test.py", line 89, in test_addition
-    assert assert x == y
+    assert x == y
 AssertionError</code></pre></section><section><h2>pytest output</h2><pre><code class="hljs shell">&gt; x == y
 E assert 8 == 9
 E  +  where 8 = &lt;bound method ...
