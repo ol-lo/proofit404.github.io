@@ -54,7 +54,7 @@ except Entry.DoesNotExist:
             attached_to=new_class))</code></pre></section><section><h1>Sly</h1></section><section><h2>Lexer</h2><pre><code class="hljs python">from sly import Lexer
 
 class CalcLexer(Lexer):
-    @_(r'\d+')
+    @<mark>_</mark>(r'\d+')
     def NUMBER(self, t):
         t.value = int(t.value)
         return t</code></pre></section><section><h2>Normal class</h2><pre><code class="hljs python">Traceback (most recent call last):

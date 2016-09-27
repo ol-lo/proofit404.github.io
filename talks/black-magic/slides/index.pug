@@ -174,7 +174,7 @@ html
               from sly import Lexer
 
               class CalcLexer(Lexer):
-                  @_(r'\d+')
+                  @#[mark _](r'\d+')
                   def NUMBER(self, t):
                       t.value = int(t.value)
                       return t
