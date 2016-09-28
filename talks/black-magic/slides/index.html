@@ -2,17 +2,17 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Black Magic for Good Fairies</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>Python for Humans</h1><h3>they told me...</h3><aside class="notes">Want to see how it was built</aside></section><section><h1>ORLY?</h1><aside class="notes">Fucking madness...</aside></section><section><h1>Q</h1></section><section><pre><code class="hljs shell">tailf /tmp/q</code></pre><pre><code class="hljs shell">0.0s test: prefix + q(sep or '')=' '
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Black Magic for Good Fairies</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>Python for Humans</h1><h3>they told me...</h3><aside class="notes">Want to see how it was built</aside></section><section><h1>ORLY?</h1><aside class="notes">Fucking madness...</aside></section><section><h1>Q</h1></section><section><h2>Output</h2><pre><code class="hljs shell">tailf /tmp/q</code></pre><pre><code class="hljs shell">0.0s test: prefix + q(sep or '')=' '
 0.0s test: 'xxx'
 0.0s test: 'xxx '
 0.0s foo('xxx')
-0.0s -&gt; 'xxx!!!'</code></pre><aside class="notes">Print:<ul><li>expression results</li><li>variable values</li><li>function arguments</li><li>function return values</li></ul></aside></section><section><pre><code class="hljs python">import q
+0.0s -&gt; 'xxx!!!'</code></pre><aside class="notes">Print:<ul><li>expression results</li><li>variable values</li><li>function arguments</li><li>function return values</li></ul></aside></section><section><h2>Usage</h2><pre><code class="hljs python">import q
 write(prefix + q(sep or ''))
 write(q/prefix + (sep or ''))
 write(q|prefix + (sep or ''))
 
 @q
-def foo(bar): ...</code></pre><aside class="notes">It's OK on the first look, but</aside></section><section><pre><code class="hljs python">import q
+def foo(bar): ...</code></pre><aside class="notes">It's OK on the first look, but</aside></section><section><h2>Usage</h2><pre><code class="hljs python">import q
 write(prefix + q<mark>(</mark>sep or ''<mark>)</mark>)
 write(q<mark>/</mark>prefix + (sep or ''))
 write(q<mark>|</mark>prefix + (sep or ''))
