@@ -91,6 +91,7 @@ html
               #[mark sys.modules#{'['}'q'#{']'} = Q()]
           aside.notes
             | Replace module
+            br
             | Module cache is an object
         section
           h2 Replace module during its import
@@ -210,6 +211,8 @@ html
                           attached_to=new_class))
         section
           h1 Sly
+          aside.notes.
+            Simple Lex Yacc
         section
           h2 Lexer
           pre
@@ -221,6 +224,8 @@ html
                   def NUMBER(self, t):
                       t.value = int(t.value)
                       return t
+          aside.notes.
+            Tokens
         section
           h2 Normal class
           pre

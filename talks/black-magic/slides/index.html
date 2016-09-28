@@ -25,8 +25,7 @@ def foo(bar): ...</code></pre><aside class="notes">We can:<ul><li>call modules</
         self.show(info.function, [arg])
         return arg
 
-<mark>sys.modules['q'] = Q()</mark></code></pre><aside class="notes">Replace module
-Module cache is an object</aside></section><section><h2>Replace module during its import</h2><pre><code class="hljs python">class Q(object):
+<mark>sys.modules['q'] = Q()</mark></code></pre><aside class="notes">Replace module<br>Module cache is an object</aside></section><section><h2>Replace module during its import</h2><pre><code class="hljs python">class Q(object):
     <mark>import inspect</mark>
     def __truediv__(self, arg):
         info = self.inspect.getframeinfo(...
@@ -75,13 +74,13 @@ except <mark>Post</mark>.DoesNotExist:
             str('DoesNotExist'),
             (ObjectDoesNotExist,),
             module,
-            attached_to=new_class))</code></pre></section><section><h1>Sly</h1></section><section><h2>Lexer</h2><pre><code class="hljs python">from sly import Lexer
+            attached_to=new_class))</code></pre></section><section><h1>Sly</h1><aside class="notes">Simple Lex Yacc</aside></section><section><h2>Lexer</h2><pre><code class="hljs python">from sly import Lexer
 
 class CalcLexer(Lexer):
     <mark>@_(r'\d+')</mark>
     def NUMBER(self, t):
         t.value = int(t.value)
-        return t</code></pre></section><section><h2>Normal class</h2><pre><code class="hljs python">Traceback (most recent call last):
+        return t</code></pre><aside class="notes">Tokens</aside></section><section><h2>Normal class</h2><pre><code class="hljs python">Traceback (most recent call last):
   File "name_error_sly.py", line 6, in &lt;module&gt;
     class CalcLexer(Lexer):
   File "name_error_sly.py", line 7, in CalcLexer
