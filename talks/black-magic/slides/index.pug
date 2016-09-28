@@ -5,7 +5,7 @@ html
     link(rel='stylesheet' type='text/css' href='css/reveal.css')
     link(rel='stylesheet' type='text/css' href='css/theme/white.css')
     link(rel='stylesheet' type='text/css' href='lib/css/github-gist.css')
-    //- link(rel='stylesheet' type='text/css' href='css/customize.css')
+    link(rel='stylesheet' type='text/css' href='css/customize.css')
     title Black Magic for Good Fairies
     script.
       var link = document.createElement( 'link' );
@@ -60,6 +60,18 @@ html
               @q
               def foo(bar): ...
           aside.notes
+            | It's OK on the first look, but
+        section
+          pre
+            code.hljs.python.
+              import q
+              write(prefix + q#[mark (]sep or ''#[mark )])
+              write(q#[mark /]prefix + (sep or ''))
+              write(q#[mark |]prefix + (sep or ''))
+
+              #[mark @]q
+              def foo(bar): ...
+          aside.notes
             | We can:
             ul
               li call modules
@@ -76,12 +88,24 @@ html
                       self.show(info.function, [arg])
                       return arg
 
+              #[mark sys.modules#{'['}'q'#{']'} = Q()]
+          aside.notes
+            | Replace module
+            | Module cache is an object
+        section
+          h2 Replace module during its import
+          pre
+            code.hljs.python.
+              class Q(object):
+                  #[mark import inspect]
+                  def __truediv__(self, arg):
+                      info = self.inspect.getframeinfo(...
+                      self.show(info.function, [arg])
+                      return arg
+
               sys.modules['q'] = Q()
           aside.notes
-            | Attention :
-            ul
-              li module cache is an object
-              li GC will kill global imports
+            | GC will kill global imports
         section
           h1 Logging
         section
@@ -92,8 +116,8 @@ html
                   logger.info('We are here')
           h2 output
           pre
-            code.hljs.shell.
-              INFO:my_func:We are here
+            code.
+              INFO:#[mark my_func]:We are here
           aside.notes
             | Function name in the output
             br
@@ -103,10 +127,22 @@ html
           pre
             code.hljs.python.
               def get_caller():
-                  f = sys._getframe()
+                  f = #[mark sys._getframe()]
                   while hasattr(f, 'f_code'):
                       filename = f.f_code.co_filename
                       if filename == __file__:
+                          f = f.f_back
+                          continue
+                      return f.f_code.co_name
+        section
+          h2 Search who calls you
+          pre
+            code.hljs.python.
+              def get_caller():
+                  f = sys._getframe()
+                  while hasattr(f, 'f_code'):
+                      filename = f.f_code.co_filename
+                      if #[mark filename == __file__]:
                           f = f.f_back
                           continue
                       return f.f_code.co_name
@@ -118,13 +154,20 @@ html
             code.hljs.python.
               try:
                   Entry.objects.get(id='foo')
-              except Entry.DoesNotExist:
-                  pass
+              except #[mark Entry].DoesNotExist:
+                  pass  # Caught it
           aside.notes
-            | Normal classes does not have
-            ul
-              li Exception in their attributes
-              li Why we catch exception for certain model?
+            | Normal classes does not have exception in their attributes
+        section
+          h2 Model exceptions
+          pre
+            code.hljs.python.
+              try:
+                  Entry.objects.get(id='foo')
+              except #[mark Post].DoesNotExist:
+                  pass  # Lost it
+          aside.notes
+            | Why we catch exception for certain model?
         section
           h2 Metaclasses
           pre
@@ -160,7 +203,7 @@ html
               if not abstract:
                   new_class.add_to_class(
                       'DoesNotExist',
-                      subclass_exception(
+                      #[mark subclass_exception](
                           str('DoesNotExist'),
                           (ObjectDoesNotExist,),
                           module,
@@ -174,7 +217,7 @@ html
               from sly import Lexer
 
               class CalcLexer(Lexer):
-                  @#[mark _](r'\d+')
+                  #[mark @_(r'\d+')]
                   def NUMBER(self, t):
                       t.value = int(t.value)
                       return t
@@ -209,6 +252,10 @@ html
             code.hljs.ruby.
               apples = 4
               puts "I have \#{apples} apples"
+          h2 Output
+          pre
+            code.
+              I have 4 apples
         section
           h2 Python can do that
           pre
@@ -216,6 +263,10 @@ html
               # coding: interpy
               apples = 4
               print('I have \#{apples} apples')
+          h2 Output
+          pre
+            code.
+              I have 4 apples
         section
           h1 React
         section
@@ -257,7 +308,7 @@ html
                       ...
                   )
 
-              codecs.register(search_function)
+              #[mark codecs.register(search_function)]
         section
           h1 pytest
         section
@@ -307,6 +358,19 @@ html
                       co = _rewrite_test(fn, co)
                       _make_rewritten_pyc(co, cache_name)
 
+              #[mark sys.meta_path.append(AssertionRewritingHook())]
+        section
+          h2 Import hook
+          pre
+            code.hljs.python.
+              class AssertionRewritingHook(object):
+                  def find_module(self, name, path=None):
+                      fn = imp.find_module(name)
+                      cache_name = fn[:-3] + 'PYTEST.pyc'
+                      co = _read_pyc(fn)
+                      co = #[mark _rewrite_test](fn, co)
+                      _make_rewritten_pyc(co, cache_name)
+
               sys.meta_path.append(AssertionRewritingHook())
         section
           h2 ast rewrite
@@ -316,9 +380,9 @@ html
 
               class Int2Str(ast.NodeTransformer):
 
-                  def visit_Num(self, node):
+                  def visit_#[mark Num](self, node):
                       return ast.copy_location(
-                          ast.Str(s=str(node.n)),
+                          ast.#[mark Str](s=str(node.n)),
                           node,
                       )
         section
@@ -347,7 +411,7 @@ html
                   reraise(exc_type, exc_value, tb)
                 File "jinja2/_compat.py", line 37
                   raise value.with_traceback(tb)
-                File "templates/index.html", line 5
+                File #[mark "templates/index.html"], line 5
                   {{ test() }}
               UndefinedError: 'test' is undefined
         section
@@ -357,8 +421,21 @@ html
               try:
                   hello # #{"<"}- NameError here
               except Exception as e:
-                  tb = make_tb()
+                  tb = #[mark make_tb]()
                   raise e.with_traceback(tb)
+        section
+          h2 fake error location
+          pre
+            code.hljs.python.
+              def make_tb():
+                  exc_type, exc_value, tb = sys.exc_info()
+                  filename = #[mark 'xxx.html']
+                  src = '\n' * 22 + 'raise exc_value'
+                  code = compile(src, #[mark filename], 'exec')
+                  try:
+                      exec(code, {'exc_value': exc_type()})
+                  except:
+                      return sys.exc_info()[2].tb_next
         section
           h2 fake error location
           pre
@@ -369,9 +446,9 @@ html
                   src = '\n' * 22 + 'raise exc_value'
                   code = compile(src, filename, 'exec')
                   try:
-                      exec(code, {'exc_value': exc_type()})
+                      #[mark exec](code, {'exc_value': exc_type()})
                   except:
-                      return sys.exc_info()[2].tb_next
+                      return sys.#[mark exc_info]()[2].tb_next
         section
           h2 Faked
           pre
@@ -379,7 +456,7 @@ html
               Traceback (most recent call last):
                 File "tb_rewrite.py", line 25, in #{"<"}module#{">"}
                   raise e.with_traceback(tb)
-                File "xxx.html", line 22, in html
+                File #[mark "xxx.html"], line 22, in html
                   {{ hello }}
               NameError: name 'hello' is not defined
         section
@@ -418,7 +495,7 @@ html
                   old.ob_refcnt -= 1
                   next = _Traceback.from_address(id(next))
                   next.ob_refcnt += 1
-                  obj.tb_next = ctypes.pointer(next)
+                  obj.tb_next = #[mark ctypes.pointer](next)
         section
           h1 It's magic.
           h1 Isn't it?
