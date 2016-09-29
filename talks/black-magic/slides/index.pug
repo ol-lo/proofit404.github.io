@@ -68,11 +68,11 @@ html
           pre
             code.hljs.python.
               import q
-              write(prefix + q#[mark (]sep or ''#[mark )])
-              write(q#[mark /]prefix + (sep or ''))
-              write(q#[mark |]prefix + (sep or ''))
+              write(prefix + q#[mark.aggressive (]sep or ''#[mark.aggressive )])
+              write(q#[mark.aggressive /]prefix + (sep or ''))
+              write(q#[mark.aggressive |]prefix + (sep or ''))
 
-              #[mark @]q
+              #[mark.aggressive @]q
               def foo(bar): ...
           aside.notes
             | We can:
@@ -173,20 +173,6 @@ html
           aside.notes
             | Why we catch exception for certain model?
         section
-          h2 Metaclasses
-          pre
-            code.hljs.python.
-              class ModelBase(type):
-                  """
-                  Metaclass for all models.
-                  """
-                  def __new__(cls, name, bases, attrs):
-                      new_class = type(cls, name, bases, {
-                          '__module__': module,
-                      })
-                      ...
-                      return new_class
-        section
           h2 Inheritance
           pre
             code.hljs.python.
@@ -200,6 +186,20 @@ html
                   'field1': models.CharField(),
                   'field2': models.IntegerField(),
               })
+        section
+          h2 Metaclasses
+          pre
+            code.hljs.python.
+              class ModelBase(type):
+                  """
+                  Metaclass for all models.
+                  """
+                  def __new__(cls, name, bases, attrs):
+                      new_class = type(cls, name, bases, {
+                          '__module__': module,
+                      })
+                      ...
+                      return new_class
         section
           h2 Introduce model exceptions
           pre

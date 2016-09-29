@@ -13,11 +13,11 @@ write(q|prefix + (sep or ''))
 
 @q
 def foo(bar): ...</code></pre><aside class="notes">It's OK on the first look, but</aside></section><section><h2>Usage</h2><pre><code class="hljs python">import q
-write(prefix + q<mark>(</mark>sep or ''<mark>)</mark>)
-write(q<mark>/</mark>prefix + (sep or ''))
-write(q<mark>|</mark>prefix + (sep or ''))
+write(prefix + q<mark class="aggressive">(</mark>sep or ''<mark class="aggressive">)</mark>)
+write(q<mark class="aggressive">/</mark>prefix + (sep or ''))
+write(q<mark class="aggressive">|</mark>prefix + (sep or ''))
 
-<mark>@</mark>q
+<mark class="aggressive">@</mark>q
 def foo(bar): ...</code></pre><aside class="notes">We can:<ul><li>call modules</li><li>divide modules</li><li>compare modules</li></ul></aside></section><section><h2>Replace module during its import</h2><pre><code class="hljs python">class Q(object):
     import inspect
     def __truediv__(self, arg):
@@ -53,7 +53,12 @@ except <mark>Entry</mark>.DoesNotExist:
     pass  # Caught it</code></pre><aside class="notes">Normal classes does not have exception in their attributes</aside></section><section><h2>Model exceptions</h2><pre><code class="hljs python">try:
     Entry.objects.get(id='foo')
 except <mark>Post</mark>.DoesNotExist:
-    pass  # Lost it</code></pre><aside class="notes">Why we catch exception for certain model?</aside></section><section><h2>Metaclasses</h2><pre><code class="hljs python">class ModelBase(type):
+    pass  # Lost it</code></pre><aside class="notes">Why we catch exception for certain model?</aside></section><section><h2>Inheritance</h2><pre><code class="hljs python">class Entry(models.Model):
+    field1 = models.CharField()
+    field2 = models.IntegerField()</code></pre><h2>class factories</h2><pre><code class="hljs python">Entry = ModelBase('Entry', (models.Model,), {
+    'field1': models.CharField(),
+    'field2': models.IntegerField(),
+})</code></pre></section><section><h2>Metaclasses</h2><pre><code class="hljs python">class ModelBase(type):
     """
     Metaclass for all models.
     """
@@ -62,12 +67,7 @@ except <mark>Post</mark>.DoesNotExist:
             '__module__': module,
         })
         ...
-        return new_class</code></pre></section><section><h2>Inheritance</h2><pre><code class="hljs python">class Entry(models.Model):
-    field1 = models.CharField()
-    field2 = models.IntegerField()</code></pre><h2>class factories</h2><pre><code class="hljs python">Entry = ModelBase('Entry', (models.Model,), {
-    'field1': models.CharField(),
-    'field2': models.IntegerField(),
-})</code></pre></section><section><h2>Introduce model exceptions</h2><pre><code class="hljs python">if not abstract:
+        return new_class</code></pre></section><section><h2>Introduce model exceptions</h2><pre><code class="hljs python">if not abstract:
     new_class.add_to_class(
         'DoesNotExist',
         <mark>subclass_exception</mark>(
