@@ -118,6 +118,19 @@ robot.run()</code></pre>
     return Container.run()</code></pre>
                 </section>
                 <section>
+                    <h2>Django integration</h2>
+                    <pre><code class="hljs python">@route('polls:create_poll')
+class Polls(Injector):
+    get = ShowPollBuilder
+    post = CreatePoll</code></pre>
+                </section>
+                <section>
+                    <h2>Celery integration</h2>
+                    <pre><code class="hljs python">@task('export_data')
+class DataProcessor(Injector):
+    run = LoadFromDB</code></pre>
+                </section>
+                <section>
                     <h1>Thanks!</h1>
                     <h2>proofit404@gmail.com</h2>
                 </section>
