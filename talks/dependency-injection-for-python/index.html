@@ -106,6 +106,18 @@ robot.run()</code></pre>
     robot.run()</code></pre>
                 </section>
                 <section>
+                    <h2>Declarative Dispatch</h2>
+                    <pre><code class="hljs python">def process(event_id):
+    event = get_event(event_id)
+    description = describe(event)
+    class Container(Injector):
+        if 'alert' in description:
+            run = SendAlert
+        else:
+            run = CommonProcess
+    return Container.run()</code></pre>
+                </section>
+                <section>
                     <h1>Thanks!</h1>
                     <h2>proofit404@gmail.com</h2>
                 </section>
