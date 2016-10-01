@@ -95,6 +95,17 @@ robot = Container.robot  # Robots' constructor called
 robot.run()</code></pre>
                 </section>
                 <section>
+                    <h2>Easy testing</h2>
+                    <pre><code class="hljs python">def test_robot():
+
+    test_robot = Container.let(
+        servo=StubMotor,
+        controller=AssertController,
+    ).robot
+
+    robot.run()</code></pre>
+                </section>
+                <section>
                     <h1>Thanks!</h1>
                     <h2>proofit404@gmail.com</h2>
                 </section>
