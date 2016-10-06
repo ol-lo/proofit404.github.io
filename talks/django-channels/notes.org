@@ -1,0 +1,29 @@
+* What is a channel?
+  It is an ordered, first-in first-out queue with message expiry and
+  at-most-once delivery to only one listener at a time.
+* groups are mostly for reply channels
+* HTTP/2 server push
+* long polling
+* delivery once
+* crappy rabbitmq realization using kombu and threads
+* minimum added latency
+* message handler is a simple function
+  It's not a good way to write async code.  If we start processing
+  response how we stop processing response if we wait for another
+  system?  Multiple handlers?  Looks like twisted callbacks.
+* software stack problem
+  and how asyncio solves this
+* redis transport implementation details
+* alternatives
+* celery / rq / asgi protocols comparison
+* mention we can respond to http1.1 with asgi
+* mention the is layers routing similar to DB router
+* show runserver difference with and without channels app enabled
+* does wsgi middlewares still works with daphne's runserver?
+* trace request life circle with pdb
+  if we don't have http.request consumer, how life circle changes?
+* how the hell routing works
+  does it use single dispatch function and force us to implement real
+  routing our self.
+* client side websocket routing?
+* hardcoded channels' and groups' names are design problems
