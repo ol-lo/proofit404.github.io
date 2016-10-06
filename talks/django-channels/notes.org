@@ -1,6 +1,8 @@
 * What is a channel?
   It is an ordered, first-in first-out queue with message expiry and
   at-most-once delivery to only one listener at a time.
+* he real need for a system like this - persistent state for connections
+* Remember, Channels is network-transparent and can run on multiple workers, so you can’t just store things locally in global variables or similar.
 * groups are mostly for reply channels
 * HTTP/2 server push
 * long polling
@@ -27,3 +29,9 @@
   routing our self.
 * client side websocket routing?
 * hardcoded channels' and groups' names are design problems
+* does daphne use twisted friendly async libraries?
+* for what the hell runworker in the debugging mode serves static files
+* how channels_session decorator is implemented?
+* how to multiplex multiple chat rooms in one websocket?
+* substitute failed workers since daphne doesn't drop connections on error
+* how to propagate exceptions in the channel handler to the client?
