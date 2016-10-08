@@ -43,3 +43,41 @@
   - Why is it necessary?
   - How it works?
 * Describe community projects
+* tornado wsgi adapter
+  Tornado can pass wsgi requests directly to django, is it possible to
+  use same technique in twisted? Does mixed redis backend work same way?
+* What is the sharding principle for different channels
+* How WebsocketDemultiplexer works?
+* Andrew Godwin talk
+** Python isn't good for websockets
+   Example with eventlet
+** Started at 2014 on name (django-onair)
+** Websocket are for
+   - architecture is all about tradeoffs
+   - proxies and firewalls are problems
+   - we want to use http for page rendering
+   - goals
+     + streaming updates
+     + chat applications
+     + collaborative editing
+     + game backends
+** diagram of broadcast operation
+** then show diagram with two servers
+** channels is a foundation for running "async" at scale
+** brings a lot more to web sockets
+   - websockets
+   - task offloading
+   - chat/email integration
+   - IoT protocols
+** why two servers is the problem?
+   - stateful connections
+   - internal network
+   - bottlenecks
+** TODO channels-examples
+** multiplexing and data binding
+   - looks like data binding write a lot in to DB
+** javascript side of data binding
+   - connection termination handler and stuff
+** load testing
+   - is the ordering correct
+   - is the content not corrupted
