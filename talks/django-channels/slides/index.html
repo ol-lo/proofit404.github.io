@@ -2,11 +2,12 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Django Channels</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>Questions?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Django Channels</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>Bring Django</h1><h1>to the async</h1><h1>networking</h1></section><section><h3>but we are already there</h3><ul><li>twisted</li><li>eventlet</li><li>gevent</li><li>tornado</li><li>asyncio</li></ul></section><section><h1>And django</h1><h1>is sync in</h1><h1>its core</h1></section><section><h1>Questions?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
     history: true,
+    transition: 'none',
     dependencies: [
         { src: 'plugin/notes/notes.js', async: true }
     ]

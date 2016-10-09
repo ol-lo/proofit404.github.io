@@ -20,6 +20,22 @@ html
           h2 Artem Malyshev
           h3 @proofit404
         section
+          h1 Bring Django
+          h1 to the async
+          h1 networking
+        section
+          h3 but we are already there
+          ul
+            li twisted
+            li eventlet
+            li gevent
+            li tornado
+            li asyncio
+        section
+          h1 And django
+          h1 is sync in
+          h1 its core
+        section
           h1 Questions?
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
@@ -32,7 +48,11 @@ html
           progress: false,
           slideNumber: true,
           history: true,
+          transition: 'none',
           dependencies: [
               { src: 'plugin/notes/notes.js', async: true }
           ]
       });
+//- Local Variables:
+//- eval: (add-hook (quote after-save-hook) (function (lambda nil (let ((proc (start-process-shell-command "pug" "*Pug*" (format "pug %s" (buffer-file-name))))) (set-process-sentinel proc (function (lambda (proc status) (message "Pug: rendered %s" (file-name-nondirectory (buffer-file-name))))))))) nil t)
+//- End:
