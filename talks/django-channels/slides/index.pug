@@ -183,6 +183,17 @@ html
             code.hljs.bash.
               $ django-admin runworker
         section
+          h1 Redis Layer
+        section
+          h2 Redis Layer
+          h3 BLPOP
+          h3.fragment Sinc on workers
+          h3.fragment Async on daphne
+          h3.fragment msgpack
+          aside.notes
+            p #[b recieve] technique like Celery or RQ
+            p #[b twisted] friendly with connection #[b pools]
+        section
           h1 Questions?
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')

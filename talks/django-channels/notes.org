@@ -28,8 +28,8 @@
   - What is the source of the path keyword value?
 * client side websocket routing?
 * hardcoded channels' and groups' names are design problems
-* TODO does daphne use twisted friendly async libraries?
-** does in support connection pull?
+* DONE does daphne use twisted friendly async libraries?
+** DONE does in support connection pull?
 * for what the hell runworker in the debugging mode serves static files
 * how channels_session decorator is implemented?
 * how to multiplex multiple chat rooms in one websocket?
