@@ -23,6 +23,11 @@ html
           h1 Bring Django
           h1 to the async
           h1 networking
+          aside.notes
+            p What is the problem?
+            p How it solves it?
+            p What it is supposed for?
+            p What it is #[b not] supposed for?
         section
           h3 but we are already there
           ul
@@ -31,10 +36,27 @@ html
             li gevent
             li tornado
             li asyncio
+          aside.notes
+            p Why the hell yet another async framework?
         section
           h1 And django
           h1 is sync in
           h1 its core
+          aside.notes
+            p ORM by design
+            p Tons of apps written this way
+        section
+          h2 WSGI
+          pre
+            code.hljs.python.
+              def app(environ, callback):
+
+                  status, headers = '200 OK', []
+                  callback(status, headers)
+                  return ['Hello world!\n']
+          aside.notes
+            p Request - response
+            p Middlewares
         section
           h1 Questions?
     script(src='lib/js/head.min.js')
