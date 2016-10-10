@@ -102,6 +102,18 @@ html
           aside.notes
             p machine gun
             p south / migrations
+        section(data-background='pic/infrastructure.png' data-background-size='contain')
+          br
+          aside.notes
+            p daphne
+            p redis, ipc, memory
+        section
+          h1 ASGI
+        section
+          h2 ASGI is
+          p a standard interface between
+          p.fragment network protocol servers
+          p.fragment and Python applications
         section
           h1 Channel
         section
@@ -111,11 +123,6 @@ html
           p.fragment with message expiry
           p.fragment and at-most-once delivery
           p.fragment to only one listener at a time
-        section(data-background='pic/infrastructure.png' data-background-size='contain')
-          br
-          aside.notes
-            p daphne
-            p redis, ipc, memory
         section
           h1 Consumers
         section
