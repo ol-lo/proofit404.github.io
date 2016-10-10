@@ -146,6 +146,11 @@ html
               channel_routing = [
                   route("websocket.receive", ws_message),
               ]
+          aside.notes
+            p there is many predefined channels
+            ul
+              li #[b http.*] for long polling
+              li #[b websockets.*]
         section
           h2 Settings
           pre

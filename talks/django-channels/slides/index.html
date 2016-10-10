@@ -15,7 +15,7 @@ from myapp.consumers import ws_message
 
 channel_routing = [
     route("websocket.receive", ws_message),
-]</code></pre></section><section><h2>Settings</h2><pre><code class="hljs python">CHANNEL_LAYERS = {
+]</code></pre><aside class="notes"><p>there is many predefined channels</p><ul><li><b>http.*</b> for long polling</li><li><b>websockets.*</b></li></ul></aside></section><section><h2>Settings</h2><pre><code class="hljs python">CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "asgiref.inmemory",
         "ROUTING": "myproject.routing",
