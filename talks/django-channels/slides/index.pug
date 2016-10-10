@@ -5,6 +5,7 @@ html
     link(rel='stylesheet' type='text/css' href='css/reveal.css')
     link(rel='stylesheet' type='text/css' href='css/theme/white.css')
     link(rel='stylesheet' type='text/css' href='lib/css/github-gist.min.css')
+    link(rel='stylesheet' type='text/css' href='css/customize.css')
     title Django Channels
     script.
       var link = document.createElement( 'link' );
@@ -85,6 +86,22 @@ html
             p accept request
             p send #[b few] responses
             p or #[b skip] response
+        section
+          h2 It's all different
+          h3 long-lived
+          h3 stateful
+          h3 connections
+        section
+          img(src='pic/django-channels.png')
+          aside.notes
+            p This is the problem django channels solves
+        section
+          img.face-photo.photo-corner(src='pic/andrewgodwin.jpg')
+          aside.notes
+            p machine gun
+            p south / migrations
+        section(data-background='pic/infrastructure.png' data-background-size='contain')
+          br
         section
           h1 Questions?
     script(src='lib/js/head.min.js')
