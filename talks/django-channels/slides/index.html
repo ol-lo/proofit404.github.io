@@ -20,7 +20,15 @@ channel_routing = [
         "BACKEND": "asgiref.inmemory",
         "ROUTING": "myproject.routing",
     },
-}</code></pre><aside class="notes"><p>It is like <b>DBRouter</b></p></aside></section><section><h1>Questions?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+}</code></pre><aside class="notes"><p>It is like <b>DBRouter</b></p></aside></section><section><h2>ASGI app</h2><pre><code class="hljs python">import os
+from channels.asgi import get_channel_layer
+
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    "myproject.settings",
+)
+
+channel_layer = get_channel_layer()</code></pre></section><section><h2>Deploy</h2><pre><code class="hljs bash">$ gunicorn myproject.wsgi</code></pre><pre><code class="hljs bash">$ daphne myproject.asgi:channel_layer</code></pre><pre><code class="hljs bash">$ django-admin runworker</code></pre></section><section><h1>Questions?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,

@@ -152,6 +152,30 @@ html
           aside.notes
             p It is like #[b DBRouter]
         section
+          h2 ASGI app
+          pre
+            code.hljs.python.
+              import os
+              from channels.asgi import get_channel_layer
+
+              os.environ.setdefault(
+                  "DJANGO_SETTINGS_MODULE",
+                  "myproject.settings",
+              )
+
+              channel_layer = get_channel_layer()
+        section
+          h2 Deploy
+          pre
+            code.hljs.bash.
+              $ gunicorn myproject.wsgi
+          pre
+            code.hljs.bash.
+              $ daphne myproject.asgi:channel_layer
+          pre
+            code.hljs.bash.
+              $ django-admin runworker
+        section
           h1 Questions?
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
