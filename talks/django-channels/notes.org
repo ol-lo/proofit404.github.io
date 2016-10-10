@@ -1,4 +1,4 @@
-* What is a channel?
+* DONE What is a channel?
   It is an ordered, first-in first-out queue with message expiry and
   at-most-once delivery to only one listener at a time.
 * he real need for a system like this - persistent state for connections
