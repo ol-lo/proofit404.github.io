@@ -1,10 +1,10 @@
 * DONE What is a channel?
   It is an ordered, first-in first-out queue with message expiry and
   at-most-once delivery to only one listener at a time.
-* he real need for a system like this - persistent state for connections
+* The real need for a system like this - persistent state for connections
 * Remember, Channels is network-transparent and can run on multiple workers, so you can’t just store things locally in global variables or similar.
 * groups are mostly for reply channels
-* HTTP/2 server push
+* DONE HTTP/2 server push
 * long polling
 * delivery once
 * crappy rabbitmq realization using kombu and threads
@@ -19,7 +19,7 @@
 * alternatives
 * celery / rq / asgi protocols comparison
 * mention we can respond to http1.1 with asgi
-* mention the is layers routing similar to DB router
+* DONE mention the is layers routing similar to DB router
 * show runserver difference with and without channels app enabled
 * does wsgi middlewares still works with daphne's runserver?
 * trace request life circle with pdb
@@ -28,7 +28,8 @@
   - What is the source of the path keyword value?
 * client side websocket routing?
 * hardcoded channels' and groups' names are design problems
-* does daphne use twisted friendly async libraries?
+* TODO does daphne use twisted friendly async libraries?
+** does in support connection pull?
 * for what the hell runworker in the debugging mode serves static files
 * how channels_session decorator is implemented?
 * how to multiplex multiple chat rooms in one websocket?
@@ -51,7 +52,7 @@
 * Andrew Godwin talk
 ** Python isn't good for websockets
    Example with eventlet
-** Started at 2014 on name (django-onair)
+** Started at 2014 on name django-onair
 ** Websocket are for
    - architecture is all about tradeoffs
    - proxies and firewalls are problems

@@ -117,6 +117,41 @@ html
             p daphne
             p redis, ipc, memory
         section
+          h1 Consumers
+        section
+          h2 Accept websocket message
+          pre
+            code.hljs.python.
+              def ws_message(message):
+
+                  message.reply_channel.send({
+                      "text": message.content['text'],
+                  })
+          aside.notes
+            p It's like #[b view] function
+        section
+          h2 Routing
+          pre
+            code.hljs.python.
+              from channels.routing import route
+              from myapp.consumers import ws_message
+
+              channel_routing = [
+                  route("websocket.receive", ws_message),
+              ]
+        section
+          h2 Settings
+          pre
+            code.hljs.python.
+              CHANNEL_LAYERS = {
+                  "default": {
+                      "BACKEND": "asgiref.inmemory",
+                      "ROUTING": "myproject.routing",
+                  },
+              }
+          aside.notes
+            p It is like #[b DBRouter]
+        section
           h1 Questions?
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
