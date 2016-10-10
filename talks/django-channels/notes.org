@@ -81,3 +81,6 @@
 ** load testing
    - is the ordering correct
    - is the content not corrupted
+* In data binding how groups managed per model instances?
+  Does new *Group* created to track updates on specific model
+  instance?  For example new group for each post in the live blog.
