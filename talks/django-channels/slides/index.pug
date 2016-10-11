@@ -380,9 +380,25 @@ html
             p ?session_key connection param (JS)
             p works only on connect
         section
-          h1 Data binding
-        section
           h1 Message order
+        section
+          h2 Enforce ordering
+          pre
+            code.hljs.python.
+              from channels.generic import WebsocketConsumer
+
+              class MyConsumer(WebsocketConsumer):
+
+                  http_user = True
+                  slight_ordering = True
+                  strict_ordering = False
+
+                  def connection_groups(self, **kwargs):
+                      return ["chat"]
+          aside.notes
+            p decorators are here too
+        section
+          h1 Data binding
         section
           h1 Redis Layer
         section

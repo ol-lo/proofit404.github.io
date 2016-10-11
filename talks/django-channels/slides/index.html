@@ -114,7 +114,16 @@ def ws_connect(message):
 def ws_connect(message):
     message.<mark>http_session</mark>['room'] = room
     if message.user.username:
-        ...</code></pre><aside class="notes"><p>cookies if you run daphne for all http</p><p>?session_key connection param (JS)</p><p>works only on connect</p></aside></section><section><h1>Data binding</h1></section><section><h1>Message order</h1></section><section><h1>Redis Layer</h1></section><section><h2>Redis Layer</h2><h3>Sinc on workers</h3><h3 class="fragment">Async on daphne</h3><h3 class="fragment">msgpack</h3><h3 class="fragment">sharding</h3><aside class="notes"><p><b>recieve</b> technique like Celery or RQ</p><p><b>twisted</b> friendly with connection <b>pools</b></p></aside></section><section><h2>Channel implementation</h2><pre><code class="hljs">>> SET "b6dc0dfce" "\x81\xa4text\xachello"
+        ...</code></pre><aside class="notes"><p>cookies if you run daphne for all http</p><p>?session_key connection param (JS)</p><p>works only on connect</p></aside></section><section><h1>Message order</h1></section><section><h2>Enforce ordering</h2><pre><code class="hljs python">from channels.generic import WebsocketConsumer
+
+class MyConsumer(WebsocketConsumer):
+
+    http_user = True
+    slight_ordering = True
+    strict_ordering = False
+
+    def connection_groups(self, **kwargs):
+        return ["chat"]</code></pre><aside class="notes"><p>decorators are here too</p></aside></section><section><h1>Data binding</h1></section><section><h1>Redis Layer</h1></section><section><h2>Redis Layer</h2><h3>Sinc on workers</h3><h3 class="fragment">Async on daphne</h3><h3 class="fragment">msgpack</h3><h3 class="fragment">sharding</h3><aside class="notes"><p><b>recieve</b> technique like Celery or RQ</p><p><b>twisted</b> friendly with connection <b>pools</b></p></aside></section><section><h2>Channel implementation</h2><pre><code class="hljs">>> SET "b6dc0dfce" "\x81\xa4text\xachello"
 >> RPUSH "websocket.send!sGOpfny" "b6dc0dfce"
 >> EXPIRE "b6dc0dfce" "60"
 >> EXPIRE "websocket.send!sGOpfny" "61"</code></pre></section><section><h2>Group implementation</h2><pre><code class="hljs python">>> type group:chat
