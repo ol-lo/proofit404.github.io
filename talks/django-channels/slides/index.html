@@ -77,7 +77,7 @@ route('websocket.connect', ws_connect,
       path=r'^/chat/$')</code></pre><aside class="notes"><p>filter can be:</p><ul><li><b>path</b> from uri</li><li><b>query_string</b> after ? on connect</li></ul></aside></section><section><h2>Includes</h2><pre><code class="hljs python">from channels import route, include
 
 blog_routes = [
-    route("websocket.connect", blog,
+    route('websocket.connect', blog,
           path=r'^/stream/'),
 ]
 
@@ -88,13 +88,13 @@ routing = [
 class Demultiplexer(WebsocketDemultiplexer):
 
     mapping = {
-        "intval": "binding.intval",
+        'intval': 'binding.intval',
     }</code></pre></section><section><h2>Routing</h2><pre><code class="hljs python">from channels import route_class, route
 from .consumers import Demultiplexer, ws_message
 
 channel_routing = [
-    route_class(Demultiplexer, path="^/binding/"),
-    route("binding.intval", ws_message),
+    route_class(Demultiplexer, path='^/binding/'),
+    route('binding.intval', ws_message),
 ]</code></pre></section><section><h2>Message Content</h2><pre><code class="hljs json">{
     "stream": "intval",
     "payload": {
@@ -106,7 +106,7 @@ channel_routing = [
 def ws_connect(message):
     room = message.content['path']
     message.<mark>channel_session</mark>['room'] = room
-    Group("chat-%s" % room).add(
+    Group('chat-%s' % room).add(
         message.reply_channel
     )</code></pre><aside class="notes"><p>Same engine to store sessions</p><p>Except signed cookies</p><p>One session for one reply_channel</p></aside></section><section><h2>HTTP session</h2><pre><code class="hljs python">from channels.sessions import http_session_user
 
@@ -123,14 +123,14 @@ class MyConsumer(WebsocketConsumer):
     strict_ordering = False
 
     def connection_groups(self, **kwargs):
-        return ["chat"]</code></pre><aside class="notes"><p>decorators are here too</p></aside></section><section><h1>Data binding</h1></section><section><h2>Bind model</h2><pre><code class="hljs python">class IntegerValueBinding(WebsocketBinding):
+        return ['chat']</code></pre><aside class="notes"><p>decorators are here too</p></aside></section><section><h1>Data binding</h1></section><section><h2>Bind model</h2><pre><code class="hljs python">class IntegerValueBinding(WebsocketBinding):
 
     model = IntegerValue
-    stream = "intval"
-    fields = ["name", "value"]
+    stream = 'intval'
+    fields = ['name', 'value']
 
     def group_names(self, instance, action):
-        return ["intval-updates"]
+        return ['intval-updates']
 
     def has_permission(self, user, action, pk):
         return True</code></pre></section><section><h1>Redis Layer</h1></section><section><h2>Redis Layer</h2><h3>Sinc on workers</h3><h3 class="fragment">Async on daphne</h3><h3 class="fragment">msgpack</h3><h3 class="fragment">sharding</h3><aside class="notes"><p><b>recieve</b> technique like Celery or RQ</p><p><b>twisted</b> friendly with connection <b>pools</b></p></aside></section><section><h2>Channel implementation</h2><pre><code class="hljs">>> SET "b6dc0dfce" "\x81\xa4text\xachello"

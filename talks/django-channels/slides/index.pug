@@ -302,7 +302,7 @@ html
               from channels import route, include
 
               blog_routes = [
-                  route("websocket.connect", blog,
+                  route('websocket.connect', blog,
                         path=r'^/stream/'),
               ]
 
@@ -320,7 +320,7 @@ html
               class Demultiplexer(WebsocketDemultiplexer):
 
                   mapping = {
-                      "intval": "binding.intval",
+                      'intval': 'binding.intval',
                   }
         section
           h2 Routing
@@ -330,8 +330,8 @@ html
               from .consumers import Demultiplexer, ws_message
 
               channel_routing = [
-                  route_class(Demultiplexer, path="^/binding/"),
-                  route("binding.intval", ws_message),
+                  route_class(Demultiplexer, path='^/binding/'),
+                  route('binding.intval', ws_message),
               ]
         section
           h2 Message Content
@@ -357,7 +357,7 @@ html
               def ws_connect(message):
                   room = message.content['path']
                   message.#[mark channel_session]['room'] = room
-                  Group("chat-%s" % room).add(
+                  Group('chat-%s' % room).add(
                       message.reply_channel
                   )
           aside.notes
@@ -394,7 +394,7 @@ html
                   strict_ordering = False
 
                   def connection_groups(self, **kwargs):
-                      return ["chat"]
+                      return ['chat']
           aside.notes
             p decorators are here too
         section
@@ -406,11 +406,11 @@ html
               class IntegerValueBinding(WebsocketBinding):
 
                   model = IntegerValue
-                  stream = "intval"
-                  fields = ["name", "value"]
+                  stream = 'intval'
+                  fields = ['name', 'value']
 
                   def group_names(self, instance, action):
-                      return ["intval-updates"]
+                      return ['intval-updates']
 
                   def has_permission(self, user, action, pk):
                       return True
