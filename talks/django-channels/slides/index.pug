@@ -400,6 +400,21 @@ html
         section
           h1 Data binding
         section
+          h2 Bind model
+          pre
+            code.hljs.python.
+              class IntegerValueBinding(WebsocketBinding):
+
+                  model = IntegerValue
+                  stream = "intval"
+                  fields = ["name", "value"]
+
+                  def group_names(self, instance, action):
+                      return ["intval-updates"]
+
+                  def has_permission(self, user, action, pk):
+                      return True
+        section
           h1 Redis Layer
         section
           h2 Redis Layer
