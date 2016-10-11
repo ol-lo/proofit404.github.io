@@ -279,9 +279,36 @@ html
             p base will take from its mapping
         section
           h1 Routing
-          ul
-            li Includes
-            li how kwargs works
+        section
+          h2 Filters
+          pre
+            code.hljs.js.
+              // app.js
+              s = new WebSocket('ws://localhost:8000/chat/')
+          pre
+            code.hljs.python.
+              # routing.py
+              route('websocket.connect', ws_connect,
+                    path=r'^/chat/$')
+          aside.notes
+            p filter can be:
+            ul
+              li #[b path] from uri
+              li #[b query_string] after ? on connect
+        section
+          h2 Includes
+          pre
+            code.hljs.python.
+              from channels import route, include
+
+              blog_routes = [
+                  route("websocket.connect", blog,
+                        path=r'^/stream/'),
+              ]
+
+              routing = [
+                  include(blog_routes, path=r'^/blog'),
+              ]
         section
           h1 Sessions
         section
