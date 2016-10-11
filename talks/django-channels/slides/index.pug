@@ -343,8 +343,42 @@ html
                       ...
                   }
               }
+          aside.notes
+            p Demultiplexer will #[b resubmit] message to redis again
         section
           h1 Sessions
+        section
+          h2 Channel session
+          pre
+            code.hljs.python.
+              from channels.sessions import channel_session
+
+              @channel_session
+              def ws_connect(message):
+                  room = message.content['path']
+                  message.#[mark channel_session]['room'] = room
+                  Group("chat-%s" % room).add(
+                      message.reply_channel
+                  )
+          aside.notes
+            p Same engine to store sessions
+            p Except signed cookies
+            p One session for one reply_channel
+        section
+          h2 HTTP session
+          pre
+            code.hljs.python.
+              from channels.sessions import http_session_user
+
+              @http_session_user
+              def ws_connect(message):
+                  message.#[mark http_session]['room'] = room
+                  if message.user.username:
+                      ...
+          aside.notes
+            p cookies if you run daphne for all http
+            p ?session_key connection param (JS)
+            p works only on connect
         section
           h1 Data binding
         section
