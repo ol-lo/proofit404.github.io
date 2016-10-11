@@ -83,7 +83,24 @@ blog_routes = [
 
 routing = [
     include(blog_routes, path=r'^/blog'),
-]</code></pre></section><section><h1>Sessions</h1></section><section><h1>Multiplexing</h1></section><section><h1>Data binding</h1></section><section><h1>Message order</h1></section><section><h1>Redis Layer</h1></section><section><h2>Redis Layer</h2><h3>Sinc on workers</h3><h3 class="fragment">Async on daphne</h3><h3 class="fragment">msgpack</h3><h3 class="fragment">sharding</h3><aside class="notes"><p><b>recieve</b> technique like Celery or RQ</p><p><b>twisted</b> friendly with connection <b>pools</b></p></aside></section><section><h2>Channel implementation</h2><pre><code class="hljs">>> SET "b6dc0dfce" "\x81\xa4text\xachello"
+]</code></pre></section><section><h1>Multiplexing</h1></section><section><h2>Define mapping</h2><pre><code class="hljs python">from channels import WebsocketDemultiplexer
+
+class Demultiplexer(WebsocketDemultiplexer):
+
+    mapping = {
+        "intval": "binding.intval",
+    }</code></pre></section><section><h2>Routing</h2><pre><code class="hljs python">from channels import route_class, route
+from .consumers import Demultiplexer, ws_message
+
+channel_routing = [
+    route_class(Demultiplexer, path="^/binding/"),
+    route("binding.intval", ws_message),
+]</code></pre></section><section><h2>Message Content</h2><pre><code class="hljs json">{
+    "stream": "intval",
+    "payload": {
+        ...
+    }
+}</code></pre></section><section><h1>Sessions</h1></section><section><h1>Data binding</h1></section><section><h1>Message order</h1></section><section><h1>Redis Layer</h1></section><section><h2>Redis Layer</h2><h3>Sinc on workers</h3><h3 class="fragment">Async on daphne</h3><h3 class="fragment">msgpack</h3><h3 class="fragment">sharding</h3><aside class="notes"><p><b>recieve</b> technique like Celery or RQ</p><p><b>twisted</b> friendly with connection <b>pools</b></p></aside></section><section><h2>Channel implementation</h2><pre><code class="hljs">>> SET "b6dc0dfce" "\x81\xa4text\xachello"
 >> RPUSH "websocket.send!sGOpfny" "b6dc0dfce"
 >> EXPIRE "b6dc0dfce" "60"
 >> EXPIRE "websocket.send!sGOpfny" "61"</code></pre></section><section><h2>Group implementation</h2><pre><code class="hljs python">>> type group:chat

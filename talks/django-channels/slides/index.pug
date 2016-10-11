@@ -310,9 +310,41 @@ html
                   include(blog_routes, path=r'^/blog'),
               ]
         section
-          h1 Sessions
-        section
           h1 Multiplexing
+        section
+          h2 Define mapping
+          pre
+            code.hljs.python.
+              from channels import WebsocketDemultiplexer
+
+              class Demultiplexer(WebsocketDemultiplexer):
+
+                  mapping = {
+                      "intval": "binding.intval",
+                  }
+        section
+          h2 Routing
+          pre
+            code.hljs.python.
+              from channels import route_class, route
+              from .consumers import Demultiplexer, ws_message
+
+              channel_routing = [
+                  route_class(Demultiplexer, path="^/binding/"),
+                  route("binding.intval", ws_message),
+              ]
+        section
+          h2 Message Content
+          pre
+            code.hljs.json.
+              {
+                  "stream": "intval",
+                  "payload": {
+                      ...
+                  }
+              }
+        section
+          h1 Sessions
         section
           h1 Data binding
         section
