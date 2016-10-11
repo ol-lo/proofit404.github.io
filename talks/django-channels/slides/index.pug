@@ -233,6 +233,51 @@ html
         section
           h1 Generic consumers
         section
+          h2 Base consumer
+          pre
+            code.hljs.python.
+              from channels.generic import BaseConsumer
+
+              class MyConsumer(BaseConsumer):
+
+                  method_mapping = {
+                      "channel.name.here": "method_name",
+                  }
+
+                  def method_name(self, message, **kwargs):
+                      pass
+        section
+          h2 Websocket consumer
+          pre
+            code.hljs.python.
+              from channels.generic import WebsocketConsumer
+
+              class MyConsumer(WebsocketConsumer):
+
+                  def connection_groups(self):
+                      return ["chat"]
+
+                  def connect(self, message):
+                      pass
+
+                  def receive(self, text=None, bytes=None):
+                      self.send(text=text, bytes=bytes)
+          aside.notes
+            p #[b self.send] will send to the group
+            p #[b JSON] variant as well
+        section
+          h2 Routing
+          pre
+            code.hljs.python.
+              from channels import route_class
+              from myapp import consumers
+
+              channel_routing = [
+                  route_class(consumers.MyConsumer),
+              ]
+          aside.notes
+            p base will take from its mapping
+        section
           h1 Routing
           ul
             li Includes
@@ -241,6 +286,8 @@ html
           h1 Multiplexing
         section
           h1 Data binding
+        section
+          h1 Message order
         section
           h1 Redis Layer
         section
@@ -281,7 +328,7 @@ html
           ]
       });
 //- Local Variables:
-//- eval: (add-hook (quote after-save-hook) (function (lambda nil (let ((proc (start-process-shell-command "pug" "*Pug*" (format "pug %s" (buffer-file-name))))) (set-process-sentinel proc (function (lambda (proc status) (message "Pug: rendered %s" (file-name-nondirectory (buffer-file-name))))))))) nil t)
+//- eval: (add-hook (quote after-save-hook) (function (lambda nil (let ((proc (start-process-shell-command "pug" "*Pug*" (format "pug %s" (buffer-file-name))))) (set-process-sentinel proc (function (lambda (proc status) (and (buffer-file-name) (message "Pug: rendered %s" (file-name-nondirectory (buffer-file-name)))))))))) nil t)
 //- eval: (start-process-shell-command "http.server" "*http.server*" "python -m http.server --bind localhost 4000")
 //- eval: (run-at-time 2 nil (function browse-url) "http://localhost:4000")
 //- End:
