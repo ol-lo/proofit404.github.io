@@ -97,6 +97,7 @@ html
           img(src='pic/django-channels.png')
           aside.notes
             p This is the problem django channels solves
+            p We can't give one thread / process per connection
         section
           img.face-photo.photo-corner(src='pic/andrewgodwin.jpg')
           aside.notes
@@ -107,6 +108,9 @@ html
           aside.notes
             p daphne
             p redis, ipc, memory
+        section
+          img.face-photo(src='pic/twisted.png')
+          img.face-photo(src='pic/redis.png')
         section
           h1 ASGI
         section
@@ -194,6 +198,8 @@ html
           aside.notes
             p Unique for client connection
             p Stored in message
+        section
+          h1 Groups
         section
           h1 Generic consumers
         section
