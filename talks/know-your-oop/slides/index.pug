@@ -21,8 +21,90 @@ html
           h2 Artem Malyshev
           h3 @proofit404
         section
+          h1 #rannts
         section
-          h1 Questions?
+          h2 Base class
+          pre
+            code.hljs.python.
+              class A:
+
+                  def x(self):
+                      self.y()
+
+                  def y(self):
+                      pass
+        section
+          h2 Child class
+          pre
+            code.hljs.python.
+              class B(A):
+                  def x(self):
+                      print('Enter X')
+                      super(B, self).x()
+                      print('Exit X')
+                  def y(self):
+                      print('Enter Y')
+                      super(B, self).y()
+                      print('Exit Y')
+        section
+          h2 Results
+          pre
+            code.hljs.python.
+              >>> B().y()
+              Enter Y
+              Exit Y
+              >>> B().x()
+              Enter X
+              Enter Y
+              Exit Y
+              Exit X
+        section
+          h1 OOP is your
+          h1 friend
+        section
+          h2 If you don't
+          h2 like your parents,
+          h2 you can skip them
+        section
+          h2 Skip module
+          pre
+            code.hljs.python.
+              def mro(instance, *classes):
+
+                  class SkipType(type):
+                      def mro(cls):
+                          old = instance.__class__.__mro__
+                          new = tuple([x for x in old
+                                       if x not in classes])
+                          return new
+
+                  Skip = SkipType('Skip', (), {})
+                  return Skip()
+        section
+          h2 Child class
+          pre
+            code.hljs.python.
+              class C(A):
+                  def x(self):
+                      print('Enter X')
+                      skip.mro(self, C).x()
+                      print('Exit X')
+                  def y(self):
+                      print('Enter Y')
+                      skip.mro(self, C).y()
+                      print('Exit Y')
+        section
+          h2 Results
+          pre
+            code.hljs.python.
+              >>> C().y()
+              Enter Y
+              Exit Y
+              >>> C().x()
+              Enter X
+              Exit X
+        section(data-background='pic/alan_kay.jpg' data-background-size='contain' data-background-color='#000000' data-background-position='left')
+          br
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script(src='lib/js/highlight.min.js')

@@ -2,7 +2,51 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Know your oop</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section></section><section><h1>Questions?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Know your oop</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>#rannts</h1></section><section><h2>Base class</h2><pre><code class="hljs python">class A:
+
+    def x(self):
+        self.y()
+
+    def y(self):
+        pass</code></pre></section><section><h2>Child class</h2><pre><code class="hljs python">class B(A):
+    def x(self):
+        print('Enter X')
+        super(B, self).x()
+        print('Exit X')
+    def y(self):
+        print('Enter Y')
+        super(B, self).y()
+        print('Exit Y')</code></pre></section><section><h2>Results</h2><pre><code class="hljs python">>>> B().y()
+Enter Y
+Exit Y
+>>> B().x()
+Enter X
+Enter Y
+Exit Y
+Exit X</code></pre></section><section><h1>OOP is your</h1><h1>friend</h1></section><section><h2>If you don't</h2><h2>like your parents,</h2><h2>you can skip them</h2></section><section><h2>Skip module</h2><pre><code class="hljs python">def mro(instance, *classes):
+
+    class SkipType(type):
+        def mro(cls):
+            old = instance.__class__.__mro__
+            new = tuple([x for x in old
+                         if x not in classes])
+            return new
+
+    Skip = SkipType('Skip', (), {})
+    return Skip()</code></pre></section><section><h2>Child class</h2><pre><code class="hljs python">class C(A):
+    def x(self):
+        print('Enter X')
+        skip.mro(self, C).x()
+        print('Exit X')
+    def y(self):
+        print('Enter Y')
+        skip.mro(self, C).y()
+        print('Exit Y')</code></pre></section><section><h2>Results</h2><pre><code class="hljs python">>>> C().y()
+Enter Y
+Exit Y
+>>> C().x()
+Enter X
+Exit X</code></pre></section><section data-background="pic/alan_kay.jpg" data-background-size="contain" data-background-color="#000000" data-background-position="left"><br></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
