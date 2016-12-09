@@ -2,7 +2,7 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Django Channels</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>Bring Django</h1><h1>to the async</h1><h1>networking</h1><aside class="notes"><p>What is the problem?</p><p>How it solves it?</p><p>What it is supposed for?</p><p>What it is <b>not</b> supposed for?</p></aside></section><section><h3>but we are already there</h3><ul><li>twisted</li><li>eventlet</li><li>gevent</li><li>tornado</li><li>asyncio</li></ul><aside class="notes"><p>Why the hell yet another async framework?</p></aside></section><section><h1>And django</h1><h1>is sync in</h1><h1>its core</h1><aside class="notes"><p>ORM by design</p><p>Tons of apps written this way</p></aside></section><section><h2>WSGI</h2><pre><code class="hljs python">def app(environ, callback):
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>Django Channels</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>Bring Django</h1><h1>to the async</h1><h1>networking</h1><aside class="notes"><p>What is the problem?</p><p>How it solves it?</p><p>What it is supposed for?</p><p>What it is <b>not</b> supposed for?</p></aside></section><section><h3>but we are already there</h3><ul><li>twisted</li><li>eventlet</li><li>gevent</li><li>tornado</li><li>asyncio</li><li>curio</li></ul><aside class="notes"><p>Why the hell yet another async framework?</p></aside></section><section><h1>And django</h1><h1>is sync in</h1><h1>its core</h1><aside class="notes"><p>ORM by design</p><p>Tons of apps written this way</p></aside></section><section><h2>WSGI</h2><pre><code class="hljs python">def app(environ, callback):
 
     status, headers = '200 OK', []
     callback(status, headers)
@@ -100,7 +100,7 @@ channel_routing = [
     "payload": {
         ...
     }
-}</code></pre><aside class="notes"><p>Demultiplexer will <b>resubmit</b> message to redis again</p></aside></section><section><h1>Sessions</h1></section><section><h2>Channel session</h2><pre><code class="hljs python">from channels.sessions import channel_session
+}</code></pre><aside class="notes"><p>Demultiplexer will execute consumer <b>inplace</b></p></aside></section><section><h1>Sessions</h1></section><section><h2>Channel session</h2><pre><code class="hljs python">from channels.sessions import channel_session
 
 @channel_session
 def ws_connect(message):
@@ -108,7 +108,7 @@ def ws_connect(message):
     message.<mark>channel_session</mark>['room'] = room
     Group('chat-%s' % room).add(
         message.reply_channel
-    )</code></pre><aside class="notes"><p>Same engine to store sessions</p><p>Except signed cookies</p><p>One session for one reply_channel</p></aside></section><section><h2>HTTP session</h2><pre><code class="hljs python">from channels.sessions import http_session_user
+    )</code></pre><aside class="notes"><p>Dict-like</p><p>Same engine to store sessions</p><p>Except signed cookies</p><p>One session for one reply_channel</p></aside></section><section><h2>HTTP session</h2><pre><code class="hljs python">from channels.sessions import http_session_user
 
 @http_session_user
 def ws_connect(message):
@@ -119,7 +119,6 @@ def ws_connect(message):
 class MyConsumer(WebsocketConsumer):
 
     http_user = True
-    slight_ordering = True
     strict_ordering = False
 
     def connection_groups(self, **kwargs):
@@ -140,7 +139,7 @@ class MyConsumer(WebsocketConsumer):
 zset
 >> ZRANGE group:chat 0 1 WITHSCORES
 1) "websocket.send!sGOpfny"
-2) "1476199781.8159261"</code></pre><aside class="notes"><p>Group.send is lua script</p></aside></section><section><h1>Problems</h1></section><section><h1>Callback</h1><h1>Hell</h1></section><section><h1>Celery</h1></section><section><h1>channels</h1><h1>is not a</h1><h1>task queue</h1></section><section><h2>channels can't</h2><h3>retry</h3><h3 class="fragment">canvas</h3><h3 class="fragment">eta</h3><aside class="notes"><p>you can use it <b>with</b> celery</p></aside></section><section><h1>Django</h1><h2>for today's web</h2></section><section><h1>Questions?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+2) "1476199781.8159261"</code></pre><aside class="notes"><p>Group.send is lua script</p></aside></section><section><h1>Problems</h1></section><section><h1>Callback</h1><h1>Hell</h1><aside class="notes"><p>Ask <b>Andrew</b> about alternatives</p></aside></section><section><h1>Cool Sh*t</h1></section><section><h1>Sharding</h1><aside class="notes"><p>WebSocket servers communicate together</p></aside></section><section><h1>Celery</h1></section><section><h1>channels</h1><h1>is not a</h1><h1>task queue</h1></section><section><h2>channels can't</h2><h3>retry</h3><h3 class="fragment">canvas</h3><h3 class="fragment">eta</h3><aside class="notes"><p>you can use it <b>with</b> celery</p></aside></section><section><h1>Django</h1><h2>for today's web</h2></section><section><h1>Questions?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,

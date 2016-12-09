@@ -37,6 +37,7 @@ html
             li gevent
             li tornado
             li asyncio
+            li curio
           aside.notes
             p Why the hell yet another async framework?
         section
@@ -342,7 +343,7 @@ html
                   }
               }
           aside.notes
-            p Demultiplexer will #[b resubmit] message to redis again
+            p Demultiplexer will execute consumer #[b inplace]
         section
           h1 Sessions
         section
@@ -359,6 +360,7 @@ html
                       message.reply_channel
                   )
           aside.notes
+            p Dict-like
             p Same engine to store sessions
             p Except signed cookies
             p One session for one reply_channel
@@ -388,7 +390,6 @@ html
               class MyConsumer(WebsocketConsumer):
 
                   http_user = True
-                  slight_ordering = True
                   strict_ordering = False
 
                   def connection_groups(self, **kwargs):
@@ -447,6 +448,14 @@ html
         section
           h1 Callback
           h1 Hell
+          aside.notes
+            p Ask #[b Andrew] about alternatives
+        section
+          h1 Cool Sh*t
+        section
+          h1 Sharding
+          aside.notes
+            p WebSocket servers communicate together
         section
           h1 Celery
         section
