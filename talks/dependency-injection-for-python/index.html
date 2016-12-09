@@ -26,6 +26,7 @@
 	    <div class="slides">
 		<section>
                     <h1>Dependency Injection</h1>
+                    <h2>Artem Malyshev</h2>
                     <h3>@proofit404</h3>
                 </section>
                 <section>
@@ -106,31 +107,27 @@ robot.run()</code></pre>
     robot.run()</code></pre>
                 </section>
                 <section>
-                    <h2>Declarative Dispatch</h2>
-                    <pre><code class="hljs python">def process(event_id):
-    event = get_event(event_id)
-    description = describe(event)
-    class Container(Injector):
-        if 'alert' in description:
-            run = SendAlert
-        else:
-            run = CommonProcess
-    return Container.run()</code></pre>
+                    <h1>Subcontainers</h1>
                 </section>
                 <section>
-                    <h2>Django integration</h2>
-                    <pre><code class="hljs python">@route('polls:create_poll')
-class Polls(Injector):
-    get = ShowPolls
-    post = CreatePoll</code></pre>
+                    <h2>Settings</h2>
+                    <pre><code class="hljs python">settings = {
+    'pg': {
+        'host': 'localhost',
+        'port': 5432,
+    },
+}</code></pre>
                 </section>
                 <section>
-                    <h2>Celery integration</h2>
-                    <pre><code class="hljs python">@task('export_data')
-class DataProcessor(Injector):
-    run = LoadFromDB
-
-app.tasks['export_data'].delay()</code></pre>
+                    <h2>This</h2>
+                    <pre><code class="hljs python">class AppContainer(Injector):
+    app = App
+    settings = settings
+    db = this.DBContainer.db
+    class DBContainer(Injector):
+        db = Postgres
+        host = (this << 1).settings['pg']['host']
+        port = (this << 1).settings['pg']['port']</code></pre>
                 </section>
                 <section>
                     <h1>Github</h1>
