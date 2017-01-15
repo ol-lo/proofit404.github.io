@@ -1,6 +1,21 @@
 * Batavia
-** TODO How webpack module.export = '<base64>' corresponds here?
-** TODO How import system was implemented?
-** TODO Is it necessary to write python bytecode inside script tags?
-   Other tags maybe appropriate as well.
+** DONE How webpack module.export = '<base64>' corresponds here?
+   Some stdlib module packed into batavia.js directly.  When
+   javascript require('./stdlib/this') executed, module bytecode
+   base64 string will be a result of this evaluation.
+** DONE How import system was implemented?
+   In the batavia we have virtual machine loader and byte_IMPORT_NAME
+   methods.  The first one uses dom element search to find script tags
+   containing python bytecode on the page.  The second one is
+   triggered by VM when process python bytecode import statement.  It
+   tries to get modules object[module name].  If this operation was
+   successful it decode base64 and return new frame.  If no, it tries
+   to do the same with stdlib object.  If failed, it calls loader.
+** DONE Is it necessary to write python bytecode inside script tags?
+   You can use any element tag.  The only requirement with default
+   loader is that element id must have
+   'batavia-package.module.submodule' form.
+** TODO webpack vm loader and hot reload?
 ** TODO React?
+** DONE How threading was implemented?
+   Looks like it's the biggest project TODO.
