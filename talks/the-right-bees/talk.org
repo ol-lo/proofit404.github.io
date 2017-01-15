@@ -1,0 +1,6 @@
+* Batavia
+** TODO How webpack module.export = '<base64>' corresponds here?
+** TODO How import system was implemented?
+** TODO Is it necessary to write python bytecode inside script tags?
+   Other tags maybe appropriate as well.
+** TODO React?
