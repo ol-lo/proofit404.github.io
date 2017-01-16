@@ -16,6 +16,13 @@
    loader is that element id must have
    'batavia-package.module.submodule' form.
 ** TODO webpack vm loader and hot reload?
-** TODO React?
+** DONE React?
+   Python has pyxl library.  It works before bytecode compiler stage
+   when codecs applies.  So we only need pyxl.html library bundled to
+   run in browser.  At this demo we use stripped version, because
+   original one requires re library which depends on C implementation.
 ** DONE How threading was implemented?
    Looks like it's the biggest project TODO.
+** TODO How objects and dictionaries are implemented?
+** TODO How virtual machine is implemented?
+   Bytecode interpretation and stuff.
