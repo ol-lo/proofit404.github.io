@@ -15,7 +15,9 @@
    You can use any element tag.  The only requirement with default
    loader is that element id must have
    'batavia-package.module.submodule' form.
-** TODO webpack vm loader and hot reload?
+** DONE webpack vm loader and hot reload?
+   See custom loader in the pyxl example and generated stdlib.js with
+   new compile_stdlib module.
 ** DONE React?
    Python has pyxl library.  It works before bytecode compiler stage
    when codecs applies.  So we only need pyxl.html library bundled to
@@ -23,6 +25,21 @@
    original one requires re library which depends on C implementation.
 ** DONE How threading was implemented?
    Looks like it's the biggest project TODO.
-** TODO How objects and dictionaries are implemented?
-** TODO How virtual machine is implemented?
-   Bytecode interpretation and stuff.
+** DONE How virtual machine is implemented?
+   We have javascript marshal library, which can read pyc byte string
+   into types defined in JavaScript.  This done with recursive
+   function and huge switch statement.  Then VM create Frame object
+   from this Code object.  This frame object operation function is
+   *applied* with VM instance as function *this*.  It calculates frame
+   opcodes until they ends or error occurs.  Opcodes mapped to the VM
+   methods or calculated inplace.
+** DONE How objects and dictionaries are implemented?
+   Python objects presented as plain JavaScript objects.  They have
+   __dict__ property contains Dict JavaScript object.  Dict dunder
+   methods like __lt__ are regular javascript methods stored in the
+   Dict prototype.  In function objects __call__ property is present.
+   It contains anonymous function which can inspect python arguments
+   and run given frame in the VM.  Method objects contain __call__
+   property with anonymous function which wraps Function and pass
+   instance object as first argument.  Static methods are not
+   implemented.
