@@ -40,6 +40,9 @@
 
    Also you passes events handler like function to argument.  This is
    smells like button onClick to me.
+** DONE my examples directory contains toga_jade
+   It implements declarative components hierarchy definition with
+   PyJade parser.
 * Batavia
 ** DONE How webpack module.export = '<base64>' corresponds here?
    Some stdlib module packed into batavia.js directly.  When
