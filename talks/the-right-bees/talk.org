@@ -1,3 +1,45 @@
+* Talk
+** Who I am!
+** What is the reason?
+** What he achieve with TKinter.
+* Toga
+** DONE Explain import magic, setup.py environment markers and import magic
+   In the setup.py we have environment markers which choice proper
+   dependencies according to operation system we running in the
+   installation process.  This is meaningful only on desktops since
+   installation with setup.py is possible on desktops only.  Another
+   platforms has different ways of installation.  After we have proper
+   package setup.  We install toga.  It determine current environment
+   at runtime and import __all__ from proper package which we install
+   earlier.  So toga.App will be actual implementation class.  toga
+   package itself contains import hook and base interfaces definition.
+** DONE Explain who the hell PyGTK, python-gi and dist packages works
+   We install python3-gi into global python.  Then toga import
+   toga_gtk.app module.  This module tries to import gi.  If this
+   fails it try to find global gi installation and create symlink in
+   the site_packages.  This makes this packages accessible in the
+   virtual environment.
+** DONE toga.cocoa
+   It use the same mechanism to load all necessary macOS libs.
+** DONE colosseum
+   Colosseum is partial flexbox algorithm implementation.  It can
+   calculate layout for any tree-like object structure.  It use
+   duck-typing API for this.  It require that each element in tree
+   must have this attributes: children (list of same class instances),
+   parent (same class instance) and style (CSS instance).  When we
+   access MyNode.style.layout it will calculate proper layout for each
+   element in our layout.  Base widget stored in the
+   toga.core.interface.widgets.base module.  Sigh, we need to import
+   each widget type and build objects hierarchy manually.  In each
+   widget constructor we may pass CSS object with its properties
+   specified.  Looks like inline CSS with horrible API.
+
+   It is possible to pass children as list to the constructor.  But I
+   prefer something like pug/Jade templates with jinja2 like
+   expressions in it.  Se browser example for code.
+
+   Also you passes events handler like function to argument.  This is
+   smells like button onClick to me.
 * Batavia
 ** DONE How webpack module.export = '<base64>' corresponds here?
    Some stdlib module packed into batavia.js directly.  When
