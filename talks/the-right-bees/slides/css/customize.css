@@ -2,3 +2,12 @@
     border: 0;
     box-shadow: none;
 }
+
+.face-photo {
+    width: auto;
+    height: 330px;
+}
+
+.photo-corner {
+    border-radius: 25px;
+}
