@@ -186,6 +186,42 @@ html
         section
           h1 Voc
         section
+          h4 Python to Java bytecode transpiler
+          pre
+            code.hljs.bash.
+              $ voc -v example.py
+          h4 Run java class
+          pre
+            code.hljs.bash.
+              java -classpath ../voc/dist/python-java-support.jar:. #{"\\"}
+                  python.example.__init__
+        section
+          h4 Implementation
+          ul
+            li Modules packed as java classes
+            li loadClass, getMethod, reflection and friends
+            li Traceback to the android.util.Log
+        section
+          h4 Java part
+          pre
+            code.hljs.java.
+              public class Generator extends org.python.types.Object
+                implements org.python.Iterable {
+                  @org.python.Method(__doc__ = "Return repr(self).")
+                  public org.python.Object __repr__() {
+                      return new org.python.types.Str(
+                        String.format("<%s object (%s) at 0x%x>",
+                                      this.typeName(),
+                                      this.name,
+                                      this.hashCode()));
+                  }
+              }
+        section
+          h3 Briefcase
+          h5.
+            Setuptools extension which can create Android and XCode
+            projects from python package
+        section
           h1 Batavia
         section
           h2 Python all the things!

@@ -43,7 +43,19 @@ pool = NSAutoreleasePool.alloc().init()
 class MyPool(NSAutoreleasePool):
     @objc_method
     def foo(self, bar: int) -&gt; None:
-        pass</code></pre></section><section><h4>Implementation</h4><ul><li>Use ctypes to talk with FFI</li><li>Used in toga-cocoa and toga-ios</li><li>Can expose python methods to the Obj-C runtime</li></ul></section><section><h1>Voc</h1></section><section><h1>Batavia</h1></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+        pass</code></pre></section><section><h4>Implementation</h4><ul><li>Use ctypes to talk with FFI</li><li>Used in toga-cocoa and toga-ios</li><li>Can expose python methods to the Obj-C runtime</li></ul></section><section><h1>Voc</h1></section><section><h4>Python to Java bytecode transpiler</h4><pre><code class="hljs bash">$ voc -v example.py</code></pre><h4>Run java class</h4><pre><code class="hljs bash">java -classpath ../voc/dist/python-java-support.jar:. \
+    python.example.__init__</code></pre></section><section><h4>Implementation</h4><ul><li>Modules packed as java classes</li><li>loadClass, getMethod, reflection and friends</li><li>Traceback to the android.util.Log</li></ul></section><section><h4>Java part</h4><pre><code class="hljs java">public class Generator extends org.python.types.Object
+  implements org.python.Iterable {
+    @org.python.Method(__doc__ = "Return repr(self).")
+    public org.python.Object __repr__() {
+        return new org.python.types.Str(
+          String.format("<%s object (%s) at 0x%x>",
+                        this.typeName(),
+                        this.name,
+                        this.hashCode()));
+    }
+}</code></pre></section><section><h3>Briefcase</h3><h5>Setuptools extension which can create Android and XCode
+projects from python package</h5></section><section><h1>Batavia</h1></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
