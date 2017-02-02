@@ -3,7 +3,7 @@
 ** DONE What is the reason?
 ** DONE What he achieve with TKinter.
 * Toga
-** DONE Explain import magic, setup.py environment markers and import magic
+** DONE Explain setup.py environment markers and import magic
    In the setup.py we have environment markers which choice proper
    dependencies according to operation system we running in the
    installation process.  This is meaningful only on desktops since
