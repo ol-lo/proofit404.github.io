@@ -3,20 +3,21 @@
     box-shadow: none;
 }
 
-.reveal section div.logo {
-    width: 50%;
+.reveal section .container {
+    display: flex;
+    justify-content: center;
 }
 
-.reveal section img.logo {
-    margin: 0px;
-    width: 50px;
+.reveal section .container > img {
+    width: 75px;
     height: auto;
-    float: left !important;
+    margin-right: 50px;
 }
 
-.reveal section h6.logo {
-    margin-left: 75px;
-    text-align: left;
+.reveal section .container > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .face-photo {
