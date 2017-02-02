@@ -99,7 +99,7 @@
    property with anonymous function which wraps Function and pass
    instance object as first argument.  Static methods are not
    implemented.
-* Summarize
+* DONE Summarize
 ** The very first one sane way to bring python to browser and native development
 * DONE Project links
 * DONE ?
