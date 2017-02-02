@@ -43,6 +43,17 @@
 ** DONE my examples directory contains toga_jade
    It implements declarative components hierarchy definition with
    PyJade parser.
+* Brief case
+** TODO cookie cutter
+** TODO ant.xml
+* Apple support
+** TODO How we can create an Objective C instance from python?
+** TODO Rubycon deteils
+** TODO How we use python interpreter on apple watch?
+** TODO What output format we get?
+* VOC
+** TODO How name spaces are implemented?
+** TODO How objects are present in memory?
 * Batavia
 ** DONE How webpack module.export = '<base64>' corresponds here?
    Some stdlib module packed into batavia.js directly.  When
@@ -88,3 +99,7 @@
    property with anonymous function which wraps Function and pass
    instance object as first argument.  Static methods are not
    implemented.
+* Summarize
+** The very first one sane way to bring python to browser and native development
+* DONE Project links
+* DONE ?
