@@ -141,9 +141,48 @@ html
               def build(nodes, parent=None):
                   ...
               app = toga.App('App Jade', 'org.proofit404', startup=build())
-
+        section
+          h3 Apple Python Support
+          h5 Create XCode Framework from Python distribution
         section
           h1 Rubicon
+        section
+          h4 Objective-C
+          pre
+            code.hljs.objc.
+              NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+          h4 Pure C
+          pre
+            code.hljs.c.
+              #include #{"<"}CoreFoundation/CoreFoundation.h#{">"}
+              #include #{"<"}objc/runtime.h#{">"}
+              #include #{"<"}objc/message.h#{">"}
+
+              id pool = objc_msgSend(
+                  objc_msgSend(
+                      objc_getClass("NSAutoreleasePool"),
+                      sel_registerName("alloc")),
+                  sel_registerName("init"));
+        section
+          h4 Pure Python
+          pre
+            code.hljs.python.
+              from rubicon.objc import ObjCClass, objc_method
+
+              NSAutoreleasePool = ObjCClass("NSAutoreleasePool")
+
+              pool = NSAutoreleasePool.alloc().init()
+
+              class MyPool(NSAutoreleasePool):
+                  @objc_method
+                  def foo(self, bar: int) -#{">"} None:
+                      pass
+        section
+          h4 Implementation
+          ul
+            li Use ctypes to talk with FFI
+            li Used in toga-cocoa and toga-ios
+            li Can expose python methods to the Obj-C runtime
         section
           h1 Voc
         section

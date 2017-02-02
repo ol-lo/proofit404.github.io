@@ -26,8 +26,24 @@ ast = pyjade.Parser(index).parse()
 
 def build(nodes, parent=None):
     ...
-app = toga.App('App Jade', 'org.proofit404', startup=build())
-</code></pre></section><section><h1>Rubicon</h1></section><section><h1>Voc</h1></section><section><h1>Batavia</h1></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+app = toga.App('App Jade', 'org.proofit404', startup=build())</code></pre></section><section><h3>Apple Python Support</h3><h5>Create XCode Framework from Python distribution</h5></section><section><h1>Rubicon</h1></section><section><h4>Objective-C</h4><pre><code class="hljs objc">NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];</code></pre><h4>Pure C</h4><pre><code class="hljs c">#include &lt;CoreFoundation/CoreFoundation.h&gt;
+#include &lt;objc/runtime.h&gt;
+#include &lt;objc/message.h&gt;
+
+id pool = objc_msgSend(
+    objc_msgSend(
+        objc_getClass("NSAutoreleasePool"),
+        sel_registerName("alloc")),
+    sel_registerName("init"));</code></pre></section><section><h4>Pure Python</h4><pre><code class="hljs python">from rubicon.objc import ObjCClass, objc_method
+
+NSAutoreleasePool = ObjCClass("NSAutoreleasePool")
+
+pool = NSAutoreleasePool.alloc().init()
+
+class MyPool(NSAutoreleasePool):
+    @objc_method
+    def foo(self, bar: int) -&gt; None:
+        pass</code></pre></section><section><h4>Implementation</h4><ul><li>Use ctypes to talk with FFI</li><li>Used in toga-cocoa and toga-ios</li><li>Can expose python methods to the Obj-C runtime</li></ul></section><section><h1>Voc</h1></section><section><h1>Batavia</h1></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
