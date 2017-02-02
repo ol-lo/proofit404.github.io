@@ -8,13 +8,13 @@
     justify-content: center;
 }
 
-.reveal section .container > img {
+.reveal section .container img {
     width: 75px;
     height: auto;
     margin-right: 50px;
 }
 
-.reveal section .container > div {
+.reveal section .container div {
     display: flex;
     flex-direction: column;
     justify-content: center;
