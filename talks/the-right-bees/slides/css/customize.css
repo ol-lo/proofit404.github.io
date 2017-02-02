@@ -22,12 +22,12 @@
 }
 
 .reveal section .container div:first-child {
-    align-items: flex-start;
+    align-items: flex-end;
 }
 
 
 .reveal section .container div:last-child {
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .face-photo {
