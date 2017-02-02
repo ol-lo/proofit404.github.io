@@ -80,6 +80,22 @@ html
         section
           h1 Toga
         section
+          h4 One button app
+          pre
+            code.hljs.python.
+              def button_handler(widget):
+                  print("hello")
+
+              def build(app):
+                  box = toga.Box()
+                  button = toga.Button('Hello world', on_press=button_handler)
+                  button.style.set(margin=50)
+                  box.add(button)
+                  return box
+
+              app = toga.App('Try App', 'org.proofit404', startup=build)
+              app.main_loop()
+        section
           h1 Rubicon
         section
           h1 Voc

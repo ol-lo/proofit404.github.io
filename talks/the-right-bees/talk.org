@@ -1,7 +1,7 @@
 * Talk
-** Who I am!
-** What is the reason?
-** What he achieve with TKinter.
+** DONE Who I am!
+** DONE What is the reason?
+** DONE What he achieve with TKinter.
 * Toga
 ** DONE Explain import magic, setup.py environment markers and import magic
    In the setup.py we have environment markers which choice proper
