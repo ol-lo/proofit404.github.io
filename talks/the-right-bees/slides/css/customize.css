@@ -6,6 +6,7 @@
 .reveal section .container {
     display: flex;
     justify-content: center;
+    align-items: flex-end;
 }
 
 .reveal section .container img {
@@ -18,6 +19,16 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: calc(100% / 2 - 2rem);
+}
+
+.reveal section .container div:first-child {
+    align-items: flex-end;
+}
+
+
+.reveal section .container div:last-child {
+    align-items: flex-start;
 }
 
 .face-photo {
