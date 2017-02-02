@@ -3,6 +3,22 @@
     box-shadow: none;
 }
 
+.reveal section div.logo {
+    width: 50%;
+}
+
+.reveal section img.logo {
+    margin: 0px;
+    width: 50px;
+    height: auto;
+    float: left !important;
+}
+
+.reveal section h6.logo {
+    margin-left: 75px;
+    text-align: left;
+}
+
 .face-photo {
     width: auto;
     height: 330px;
