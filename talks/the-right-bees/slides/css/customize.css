@@ -9,8 +9,8 @@
 }
 
 .reveal section .container img {
-    width: 75px;
-    height: auto;
+    width: auto;
+    height: 75px;
     margin-right: 50px;
 }
 
