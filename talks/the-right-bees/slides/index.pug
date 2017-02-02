@@ -105,6 +105,44 @@ html
             li import hooks
             li platform bootstrap
         section
+          h4 Colosseum
+          pre
+            code.hljs.python.
+              from colosseum import CSS, ROW
+              style = CSS(width=1000, height=1000, flex_direction=ROW)
+              style.layout
+          h4 Interface
+          ul
+            li foo.parent
+            li foo.children
+            li foo.style
+        section
+          h4 Problems
+          ul
+            li Hand written hierarchy
+            li Inline CSS
+        section
+          h4 index.jade
+          pre
+            code.hljs.pug.
+              Box
+                Button(label="Hello world", style="margin: 50",
+                       on_press=button_handler)
+          h4 app.py
+          pre
+            code.hljs.python.
+              import colosseum
+              import pyjade
+              import toga
+
+              index = open('index.jade').read()
+              ast = pyjade.Parser(index).parse()
+
+              def build(nodes, parent=None):
+                  ...
+              app = toga.App('App Jade', 'org.proofit404', startup=build())
+
+        section
           h1 Rubicon
         section
           h1 Voc

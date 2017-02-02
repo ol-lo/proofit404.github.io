@@ -13,7 +13,21 @@ def build(app):
     return box
 
 app = toga.App('Try App', 'org.proofit404', startup=build)
-app.main_loop()</code></pre></section><section><img src="pic/First-App.png"></section><section><h4>Platforms</h4><ul><li>toga-gtk, toga-cocoa, toga-win32</li><li>environment markers</li><li>import hooks</li><li>platform bootstrap</li></ul></section><section><h1>Rubicon</h1></section><section><h1>Voc</h1></section><section><h1>Batavia</h1></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+app.main_loop()</code></pre></section><section><img src="pic/First-App.png"></section><section><h4>Platforms</h4><ul><li>toga-gtk, toga-cocoa, toga-win32</li><li>environment markers</li><li>import hooks</li><li>platform bootstrap</li></ul></section><section><h4>Colosseum</h4><pre><code class="hljs python">from colosseum import CSS, ROW
+style = CSS(width=1000, height=1000, flex_direction=ROW)
+style.layout</code></pre><h4>Interface</h4><ul><li>foo.parent</li><li>foo.children</li><li>foo.style</li></ul></section><section><h4>Problems</h4><ul><li>Hand written hierarchy</li><li>Inline CSS</li></ul></section><section><h4>index.jade</h4><pre><code class="hljs pug">Box
+  Button(label="Hello world", style="margin: 50",
+         on_press=button_handler)</code></pre><h4>app.py</h4><pre><code class="hljs python">import colosseum
+import pyjade
+import toga
+
+index = open('index.jade').read()
+ast = pyjade.Parser(index).parse()
+
+def build(nodes, parent=None):
+    ...
+app = toga.App('App Jade', 'org.proofit404', startup=build())
+</code></pre></section><section><h1>Rubicon</h1></section><section><h1>Voc</h1></section><section><h1>Batavia</h1></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
