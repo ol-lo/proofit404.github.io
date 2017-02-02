@@ -54,6 +54,18 @@
 * VOC
 ** TODO How name spaces are implemented?
 ** TODO How objects are present in memory?
+** DONE Java file bootstrap
+   It search for try_voc.app module.  Load this module from java class
+   and through reflection runs its main method.  Return value will be
+   application listener/activity and base methods like onStart,
+   onResume and onDestroy will be mapped to the result of main call.
+
+   If we return toga.App it will have all necessary methods.  Also it
+   use voc java implementation of activity. See
+
+   #+BEGIN_SRC python
+     from android import PythonActivity
+   #+END_SRC
 * Batavia
 ** DONE How webpack module.export = '<base64>' corresponds here?
    Some stdlib module packed into batavia.js directly.  When
