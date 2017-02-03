@@ -95,7 +95,7 @@ div.innerHTML = &lt;h1&gt;Hello World!&lt;/h1&gt;</code></pre></section><section
 &lt;!-- Our index.py --&gt;
 &lt;script id="batavia-index" type="application/python-bytecode"&gt;
   Fg0NCj8SfFiEAAAA4w...
-&lt;/script&gt;</code></pre></section><section><h4>Replace import system with webpack</h4><h6><i>Because why not?</i></h6><pre><code class="hljs js">window.vm = new batavia.VirtualMachine({
+&lt;/script&gt;</code></pre></section><section><h4>Replacing import system with webpack</h4><h6><i>Because why not?</i></h6><pre><code class="hljs js">window.vm = new batavia.VirtualMachine({
   loader: function(name) {
             var stdlibModule = batavia.stdlib[name];
             if (stdlibModule) {
@@ -107,7 +107,7 @@ div.innerHTML = &lt;h1&gt;Hello World!&lt;/h1&gt;</code></pre></section><section
             }
           }
 });
-window.vm.run('index', []);</code></pre></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+window.vm.run('index', []);</code></pre></section><section><h3>Ouroboros</h3><h5>Pure python implementation of the standard library</h5><pre><code class="hljs js">module.exports = 'Fg0NCuBMo1brAwAA4wAAAAAAAAA...'</code></pre></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
