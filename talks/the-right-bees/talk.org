@@ -48,7 +48,7 @@
 ** TODO ant.xml
 * Apple support
 ** TODO How we can create an Objective C instance from python?
-** TODO Rubycon deteils
+** TODO Rubicon deteils
 ** TODO How we use python interpreter on apple watch?
 ** TODO What output format we get?
 * VOC
