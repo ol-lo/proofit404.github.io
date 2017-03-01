@@ -30,16 +30,12 @@ html
           h3 Semantics
           img(src='pic/WAT.png')
         section
-          h3 Three ways to go
-          ul
-            li Pythonic syntax sugar
-            li.fragment Transpiler with semantic
-            li.fragment Full runtime implementation
+          h2 Pythonic syntax sugar
           aside.notes
-            ul
-              li Scouping rules
+            p Scouping rules
         section
           h1 Opal
+          h3 Transpiler with semantic
         section
           h3 Transpiler with semantic
           pre
@@ -67,6 +63,7 @@ html
               })(Opal);
         section
           h1 Batavia
+          h3 Full runtime implementation
         section
           img.face-photo.photo-corner(src='pic/Russell.jpg')
         section
@@ -76,6 +73,28 @@ html
             li.fragment Marshal library implementation
             li.fragment Code object constructor
             li.fragment Minimal footprint
+        section
+          h3 Source code
+          pre
+            code.hljs.python.
+              foo(1, 2)
+          h3 Opcode
+          pre
+            code.
+              12 LOAD_NAME      0 (foo)
+              15 LOAD_CONST     2 (1)
+              18 LOAD_CONST     3 (2)
+              21 CALL_FUNCTION  2 (2 positional, 0 keyword pair)
+              24 POP_TOP
+        section
+          h3 Bytecode
+          pre
+            code.
+              000080: 782e 7079 da03 6f01 0073 0200  x.py..foo....s..
+              000090: 0000 0001 7205 00e9 0000 e902  ....r...........
+              0000a0: 0000 004e 2901 0000 0100 0000  ...N).r....r....
+              0000b0: 7201 0000 0072 0000 0000 00da  r....r....r.....
+              0000c0: 083c 6d6f 6475 3e01 0073 0200  .<module>....s..
         section
           h1 Lets see what we can do
         section
@@ -161,13 +180,10 @@ html
               window.vm = new batavia.VirtualMachine({
                 loader: function(name) {
                           var stdlibModule = batavia.stdlib[name];
-                          if (stdlibModule) {
-                            return {
-                              '__python__': true,
-                              'bytecode': stdlibModule,
-                              'filename': new batavia.types.Str("#{"<"}input#{">"}")
-                            };
-                          }
+                          return {
+                            'bytecode': stdlibModule,
+                            'filename': new batavia.types.Str("#{"<"}input#{">"}")
+                          };
                         }
               });
               window.vm.run('index', []);
