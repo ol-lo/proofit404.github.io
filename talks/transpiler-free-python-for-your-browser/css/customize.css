@@ -7,6 +7,15 @@
     box-shadow: none;
 }
 
+.reveal section pre code {
+    font-size: 1.3em;
+    line-height: 1.1em;
+}
+
+.reveal section pre code.small {
+    font-size: 0.8em;
+}
+
 .face-photo {
     width: auto;
     height: 330px;

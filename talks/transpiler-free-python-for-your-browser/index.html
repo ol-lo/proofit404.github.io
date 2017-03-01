@@ -6,7 +6,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><
   def admin?
     @name == 'Admin'
   end
-end</code></pre><pre><code class="hljs js">(function(Opal) {
+end</code></pre><pre><code class="hljs js small">(function(Opal) {
   var self = Opal.top, $scope = Opal, $klass = Opal.klass;
   Opal.add_stubs(['$==']);
   return (function($base, $super) {
@@ -22,12 +22,12 @@ end</code></pre><pre><code class="hljs js">(function(Opal) {
 })(Opal);</code></pre></section><section><h1>Batavia</h1><h3>Full runtime implementation</h3></section><section><img class="face-photo photo-corner" src="pic/Russell.jpg"></section><section><h3>VM principles</h3><ul><li>Just a bytecode interpretter</li><li class="fragment">Marshal library implementation</li><li class="fragment">Code object constructor</li><li class="fragment">Minimal footprint</li></ul></section><section><h3>Source code</h3><pre><code class="hljs python">foo(1, 2)</code></pre><h3>Opcode</h3><pre><code>12 LOAD_NAME      0 (foo)
 15 LOAD_CONST     2 (1)
 18 LOAD_CONST     3 (2)
-21 CALL_FUNCTION  2 (2 positional, 0 keyword pair)
-24 POP_TOP</code></pre></section><section><h3>Bytecode</h3><pre><code>000080: 782e 7079 da03 6f01 0073 0200  x.py..foo....s..
-000090: 0000 0001 7205 00e9 0000 e902  ....r...........
-0000a0: 0000 004e 2901 0000 0100 0000  ...N).r....r....
-0000b0: 7201 0000 0072 0000 0000 00da  r....r....r.....
-0000c0: 083c 6d6f 6475 3e01 0073 0200  .<module>....s..</code></pre></section><section><h1>Lets see what we can do</h1></section><section><h4>Vue.js</h4><pre><code class="hljs html">&lt;div id="app"&gt;
+21 CALL_FUNCTION  2 (2 positional, 0 keyword)
+24 POP_TOP</code></pre></section><section><h3>Bytecode</h3><pre><code>7079 da03 6f01 0073 0200  x.py..foo....s..
+0001 7205 00e9 0000 e902  ....r...........
+004e 2901 0000 0100 0000  ...N).r....r....
+0000 0072 0000 0000 00da  r....r....r.....
+6d6f 6475 3e01 0073 0200  .<module>....s..</code></pre></section><section><h1>Lets see what we can do</h1></section><section><h4>Vue.js</h4><pre><code class="hljs html">&lt;div id="app"&gt;
   {{ message }}
 &lt;/div&gt;</code></pre><pre><code class="hljs js">var app = new Vue({
   el: '#app',
@@ -36,17 +36,14 @@ end</code></pre><pre><code class="hljs js">(function(Opal) {
 
 Vue = dom.window.self.Vue
 
-class Options:
-    pass
-
-options = Options()
-options.el = '#app'
-options.data = Options()
-options.data.message = 'Hello Vue!'
+class options:
+    el = '#app'
+    class data:
+        message = 'Hello Vue!'
 
 app = Vue(options)</code></pre></section><section><h4>index.py</h4><pre><code class="hljs bash">python -m py_compile index.py
-# -> index.pyc</code></pre><h4>index.html</h4><pre><code class="hljs html">&lt;script src="batavia.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script id="batavia-index" type="application/python-bytecode"&gt;
+# -> index.pyc</code></pre><h4>index.html</h4><pre><code class="hljs html">&lt;script src="batavia.js"&gt;&lt;/script&gt;
+&lt;script id="batavia-index"&gt;
   Fg0NCnw5dVi7AAAA4wA...
 &lt;/script&gt;
 &lt;script type="text/javascript"&gt;
@@ -57,25 +54,25 @@ import dom
 from pyxl import html
 
 div = dom.document.getElementById('fill-me')
-div.innerHTML = <mark style="font-weight: bold;">&lt;h1&gt;</mark>Hello World!<mark style="font-weight: bold;">&lt;/h1&gt;</mark></code></pre></section><section><h4>index.html</h4><pre><code class="hljs html">&lt;script type="text/javascript" src="batavia.js"&gt;&lt;/script&gt;
+div.innerHTML = <mark style="font-weight: bold;">&lt;h1&gt;</mark>Hello World!<mark style="font-weight: bold;">&lt;/h1&gt;</mark></code></pre></section><section><h4>index.html</h4><pre><code class="hljs html">&lt;script src="batavia.js"&gt;&lt;/script&gt;
 &lt;!-- Bandled PyXL library --&gt;
-&lt;script id="batavia-pyxl" type="application/python-bytecode"&gt;
+&lt;script id="batavia-pyxl"&gt;
   Fg0NCgELfFgWAAAA4w...
 &lt;/script&gt;
-&lt;script id="batavia-pyxl.html" type="application/python-bytecode"&gt;
+&lt;script id="batavia-pyxl.html"&gt;
   Fg0NCtRLfFh6AAAA4w...
 &lt;/script&gt;
 &lt;!-- Our index.py --&gt;
-&lt;script id="batavia-index" type="application/python-bytecode"&gt;
+&lt;script id="batavia-index"&gt;
   Fg0NCj8SfFiEAAAA4w...
 &lt;/script&gt;</code></pre></section><section><h4>Replacing python import system with webpack</h4><h6><i>Because why not?</i></h6><pre><code class="hljs js">window.vm = new batavia.VirtualMachine({
   loader: function(name) {
-            var stdlibModule = batavia.stdlib[name];
-            return {
-              'bytecode': stdlibModule,
-              'filename': new batavia.types.Str("&lt;input&gt;")
-            };
-          }
+    var stdlibModule = batavia.stdlib[name];
+    return {
+      'bytecode': stdlibModule,
+      'filename': new batavia.types.Str("&lt;input&gt;")
+    };
+  }
 });
 window.vm.run('index', []);</code></pre><h4>Pure python implementation of the standard library</h4><pre><code class="hljs js">module.exports = 'Fg0NCuBMo1brAwAA4wAAAAAAAAA...'</code></pre></section><section data-background="pic/traceback.png" data-background-size="contain"><br></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,

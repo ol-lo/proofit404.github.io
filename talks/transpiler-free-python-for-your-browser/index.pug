@@ -46,7 +46,7 @@ html
                 end
               end
           pre
-            code.hljs.js.
+            code.hljs.js.small.
               (function(Opal) {
                 var self = Opal.top, $scope = Opal, $klass = Opal.klass;
                 Opal.add_stubs(['$==']);
@@ -84,17 +84,17 @@ html
               12 LOAD_NAME      0 (foo)
               15 LOAD_CONST     2 (1)
               18 LOAD_CONST     3 (2)
-              21 CALL_FUNCTION  2 (2 positional, 0 keyword pair)
+              21 CALL_FUNCTION  2 (2 positional, 0 keyword)
               24 POP_TOP
         section
           h3 Bytecode
           pre
             code.
-              000080: 782e 7079 da03 6f01 0073 0200  x.py..foo....s..
-              000090: 0000 0001 7205 00e9 0000 e902  ....r...........
-              0000a0: 0000 004e 2901 0000 0100 0000  ...N).r....r....
-              0000b0: 7201 0000 0072 0000 0000 00da  r....r....r.....
-              0000c0: 083c 6d6f 6475 3e01 0073 0200  .<module>....s..
+              7079 da03 6f01 0073 0200  x.py..foo....s..
+              0001 7205 00e9 0000 e902  ....r...........
+              004e 2901 0000 0100 0000  ...N).r....r....
+              0000 0072 0000 0000 00da  r....r....r.....
+              6d6f 6475 3e01 0073 0200  .<module>....s..
         section
           h1 Lets see what we can do
         section
@@ -118,13 +118,10 @@ html
 
               Vue = dom.window.self.Vue
 
-              class Options:
-                  pass
-
-              options = Options()
-              options.el = '#app'
-              options.data = Options()
-              options.data.message = 'Hello Vue!'
+              class options:
+                  el = '#app'
+                  class data:
+                      message = 'Hello Vue!'
 
               app = Vue(options)
         section
@@ -136,8 +133,8 @@ html
           h4 index.html
           pre
             code.hljs.html.
-              #{"<"}script src="batavia.js" type="text/javascript"#{">"}#{"<"}/script#{">"}
-              #{"<"}script id="batavia-index" type="application/python-bytecode"#{">"}
+              #{"<"}script src="batavia.js"#{">"}#{"<"}/script#{">"}
+              #{"<"}script id="batavia-index"#{">"}
                 Fg0NCnw5dVi7AAAA4wA...
               #{"<"}/script#{">"}
               #{"<"}script type="text/javascript"#{">"}
@@ -159,16 +156,16 @@ html
           h4 index.html
           pre
             code.hljs.html.
-              #{"<"}script type="text/javascript" src="batavia.js"#{">"}#{"<"}/script#{">"}
+              #{"<"}script src="batavia.js"#{">"}#{"<"}/script#{">"}
               #{"<"}!-- Bandled PyXL library --#{">"}
-              #{"<"}script id="batavia-pyxl" type="application/python-bytecode"#{">"}
+              #{"<"}script id="batavia-pyxl"#{">"}
                 Fg0NCgELfFgWAAAA4w...
               #{"<"}/script#{">"}
-              #{"<"}script id="batavia-pyxl.html" type="application/python-bytecode"#{">"}
+              #{"<"}script id="batavia-pyxl.html"#{">"}
                 Fg0NCtRLfFh6AAAA4w...
               #{"<"}/script#{">"}
               #{"<"}!-- Our index.py --#{">"}
-              #{"<"}script id="batavia-index" type="application/python-bytecode"#{">"}
+              #{"<"}script id="batavia-index"#{">"}
                 Fg0NCj8SfFiEAAAA4w...
               #{"<"}/script#{">"}
         section
@@ -179,12 +176,12 @@ html
             code.hljs.js.
               window.vm = new batavia.VirtualMachine({
                 loader: function(name) {
-                          var stdlibModule = batavia.stdlib[name];
-                          return {
-                            'bytecode': stdlibModule,
-                            'filename': new batavia.types.Str("#{"<"}input#{">"}")
-                          };
-                        }
+                  var stdlibModule = batavia.stdlib[name];
+                  return {
+                    'bytecode': stdlibModule,
+                    'filename': new batavia.types.Str("#{"<"}input#{">"}")
+                  };
+                }
               });
               window.vm.run('index', []);
           h4 Pure python implementation of the standard library
