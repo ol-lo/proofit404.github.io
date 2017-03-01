@@ -10,6 +10,7 @@
 .reveal section pre code {
     font-size: 1.3em;
     line-height: 1.1em;
+    background-color: #F0F1EB;
 }
 
 .reveal section pre code.small {
@@ -27,5 +28,5 @@
 
 mark {
     color: red;
-    background-color: white;
+    background-color: #F0F1EB;
 }
