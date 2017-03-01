@@ -3,32 +3,8 @@
     box-shadow: none;
 }
 
-.reveal section .container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.reveal section .container img {
-    width: auto;
-    height: 75px;
-    margin-right: 50px;
-}
-
-.reveal section .container div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: calc(100% / 2 - 2rem);
-}
-
-.reveal section .container div:first-child {
-    align-items: flex-end;
-}
-
-
-.reveal section .container div:last-child {
-    align-items: flex-start;
+.reveal section pre {
+    box-shadow: none;
 }
 
 .face-photo {
