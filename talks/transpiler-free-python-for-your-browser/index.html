@@ -2,7 +2,7 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><img src="pic/beeware-batavia.png"><h2>Transpiler free Python</h2><h3>Artem Malyshev</h3><h4>@proofit404</h4></section><section><h1>Why?</h1></section><section><h3>Syntax</h3><h1>` ( [</h1></section><section><h3>Semantics</h3><img src="pic/WAT.png"></section><section><h2>Pythonic syntax sugar</h2><aside class="notes"><p>Scouping rules</p></aside></section><section><h1>Opal</h1><h3>Transpiler with semantic</h3></section><section><h3>Transpiler with semantic</h3><pre><code class="hljs ruby">class User
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><img src="pic/beeware-batavia.png"><h2>Transpiler free Python</h2><h3>Artem Malyshev</h3><h4>@proofit404</h4></section><section><h1>Why?</h1></section><section><h2>Syntax</h2><h2>; ` ( [</h2></section><section><h3>Semantics</h3><img src="pic/WAT.png"></section><section><h2>Pythonic syntax sugar</h2><aside class="notes"><p>Scouping rules</p></aside></section><section><h1>Opal</h1><h3>Transpiler with semantic</h3></section><section><h3>Transpiler with semantic</h3><pre><code class="hljs ruby">class User
   def admin?
     @name == 'Admin'
   end
