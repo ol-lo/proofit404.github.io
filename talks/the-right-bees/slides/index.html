@@ -79,16 +79,14 @@ projects from python package</h5></section><section><h1>Batavia</h1></section><s
 
 Vue = dom.window.self.Vue
 
-class Options:
-    pass
+class options:
+    el = '#app'
+    class data:
+        message = 'Hello Vue!'
 
-options = Options()
-options.el = '#app'
-options.data = Options()
-options.data.message = 'Hello Vue!'
-
-app = Vue(options)</code></pre></section><section><h4>index.html</h4><pre><code class="hljs html">&lt;script src="batavia.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script id="batavia-index" type="application/python-bytecode"&gt;
+app = Vue(options)</code></pre></section><section><h4>index.py</h4><pre><code class="hljs bash">python -m py_compile index.py
+# -> index.pyc</code></pre><h4>index.html</h4><pre><code class="hljs html">&lt;script src="batavia.js"&gt;&lt;/script&gt;
+&lt;script id="batavia-index"&gt;
   Fg0NCnw5dVi7AAAA4wA...
 &lt;/script&gt;
 &lt;script type="text/javascript"&gt;
@@ -99,30 +97,27 @@ import dom
 from pyxl import html
 
 div = dom.document.getElementById('fill-me')
-div.innerHTML = &lt;h1&gt;Hello World!&lt;/h1&gt;</code></pre></section><section><h4>index.html</h4><pre><code class="hljs html">&lt;script type="text/javascript" src="batavia.js"&gt;&lt;/script&gt;
+div.innerHTML = <mark style="font-weight: bold;">&lt;h1&gt;</mark>Hello World!<mark style="font-weight: bold;">&lt;/h1&gt;</mark></code></pre></section><section><h4>index.html</h4><pre><code class="hljs html">&lt;script src="batavia.js"&gt;&lt;/script&gt;
 &lt;!-- Bandled PyXL library --&gt;
-&lt;script id="batavia-pyxl" type="application/python-bytecode"&gt;
+&lt;script id="batavia-pyxl"&gt;
   Fg0NCgELfFgWAAAA4w...
 &lt;/script&gt;
-&lt;script id="batavia-pyxl.html" type="application/python-bytecode"&gt;
+&lt;script id="batavia-pyxl.html"&gt;
   Fg0NCtRLfFh6AAAA4w...
 &lt;/script&gt;
 &lt;!-- Our index.py --&gt;
-&lt;script id="batavia-index" type="application/python-bytecode"&gt;
+&lt;script id="batavia-index"&gt;
   Fg0NCj8SfFiEAAAA4w...
-&lt;/script&gt;</code></pre></section><section><h4>Replacing import system with webpack</h4><h6><i>Because why not?</i></h6><pre><code class="hljs js">window.vm = new batavia.VirtualMachine({
+&lt;/script&gt;</code></pre></section><section><h4>Replacing python import system with webpack</h4><h6><i>Because why not?</i></h6><pre><code class="hljs js">window.vm = new batavia.VirtualMachine({
   loader: function(name) {
-            var stdlibModule = batavia.stdlib[name];
-            if (stdlibModule) {
-              return {
-                '__python__': true,
-                'bytecode': stdlibModule,
-                'filename': new batavia.types.Str("&lt;input&gt;")
-              };
-            }
-          }
+    var stdlibModule = batavia.stdlib[name];
+    return {
+      'bytecode': stdlibModule,
+      'filename': new batavia.types.Str("&lt;input&gt;")
+    };
+  }
 });
-window.vm.run('index', []);</code></pre></section><section><h3>Ouroboros</h3><h5>Pure python implementation of the standard library</h5><pre><code class="hljs js">module.exports = 'Fg0NCuBMo1brAwAA4wAAAAAAAAA...'</code></pre></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+window.vm.run('index', []);</code></pre><h4>Pure python implementation of the standard library</h4><pre><code class="hljs js">module.exports = 'Fg0NCuBMo1brAwAA4wAAAAAAAAA...'</code></pre></section><section data-background="pic/traceback.png" data-background-size="contain"><br></section><section><h3>Ouroboros</h3><h5>Pure python implementation of the standard library</h5></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,

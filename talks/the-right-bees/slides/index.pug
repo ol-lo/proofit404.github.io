@@ -278,21 +278,23 @@ html
 
               Vue = dom.window.self.Vue
 
-              class Options:
-                  pass
-
-              options = Options()
-              options.el = '#app'
-              options.data = Options()
-              options.data.message = 'Hello Vue!'
+              class options:
+                  el = '#app'
+                  class data:
+                      message = 'Hello Vue!'
 
               app = Vue(options)
         section
+          h4 index.py
+          pre
+            code.hljs.bash.
+              python -m py_compile index.py
+              # -> index.pyc
           h4 index.html
           pre
             code.hljs.html.
-              #{"<"}script src="batavia.js" type="text/javascript"#{">"}#{"<"}/script#{">"}
-              #{"<"}script id="batavia-index" type="application/python-bytecode"#{">"}
+              #{"<"}script src="batavia.js"#{">"}#{"<"}/script#{">"}
+              #{"<"}script id="batavia-index"#{">"}
                 Fg0NCnw5dVi7AAAA4wA...
               #{"<"}/script#{">"}
               #{"<"}script type="text/javascript"#{">"}
@@ -309,48 +311,48 @@ html
               from pyxl import html
 
               div = dom.document.getElementById('fill-me')
-              div.innerHTML = #{"<"}h1#{">"}Hello World!#{"<"}/h1#{">"}
+              div.innerHTML = #[mark(style='font-weight: bold;') #{"<"}h1#{">"}]Hello World!#[mark(style='font-weight: bold;') #{"<"}/h1#{">"}]
         section
           h4 index.html
           pre
             code.hljs.html.
-              #{"<"}script type="text/javascript" src="batavia.js"#{">"}#{"<"}/script#{">"}
+              #{"<"}script src="batavia.js"#{">"}#{"<"}/script#{">"}
               #{"<"}!-- Bandled PyXL library --#{">"}
-              #{"<"}script id="batavia-pyxl" type="application/python-bytecode"#{">"}
+              #{"<"}script id="batavia-pyxl"#{">"}
                 Fg0NCgELfFgWAAAA4w...
               #{"<"}/script#{">"}
-              #{"<"}script id="batavia-pyxl.html" type="application/python-bytecode"#{">"}
+              #{"<"}script id="batavia-pyxl.html"#{">"}
                 Fg0NCtRLfFh6AAAA4w...
               #{"<"}/script#{">"}
               #{"<"}!-- Our index.py --#{">"}
-              #{"<"}script id="batavia-index" type="application/python-bytecode"#{">"}
+              #{"<"}script id="batavia-index"#{">"}
                 Fg0NCj8SfFiEAAAA4w...
               #{"<"}/script#{">"}
         section
-          h4 Replacing import system with webpack
+          h4 Replacing python import system with webpack
           h6
             i Because why not?
           pre
             code.hljs.js.
               window.vm = new batavia.VirtualMachine({
                 loader: function(name) {
-                          var stdlibModule = batavia.stdlib[name];
-                          if (stdlibModule) {
-                            return {
-                              '__python__': true,
-                              'bytecode': stdlibModule,
-                              'filename': new batavia.types.Str("#{"<"}input#{">"}")
-                            };
-                          }
-                        }
+                  var stdlibModule = batavia.stdlib[name];
+                  return {
+                    'bytecode': stdlibModule,
+                    'filename': new batavia.types.Str("#{"<"}input#{">"}")
+                  };
+                }
               });
               window.vm.run('index', []);
-        section
-          h3 Ouroboros
-          h5 Pure python implementation of the standard library
+          h4 Pure python implementation of the standard library
           pre
             code.hljs.js.
               module.exports = 'Fg0NCuBMo1brAwAA4wAAAAAAAAA...'
+        section(data-background='pic/traceback.png' data-background-size='contain')
+          br
+        section
+          h3 Ouroboros
+          h5 Pure python implementation of the standard library
         section
           h2 Python all the things!
         section
