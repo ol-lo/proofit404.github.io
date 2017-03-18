@@ -88,12 +88,11 @@ html
 
               def build(app):
                   box = toga.Box()
-                  button = toga.Button('Hello world', on_press=button_handler)
+                  button = toga.Button('Hello world',
+                                       on_press=button_handler)
                   button.style.set(margin=50)
-                  box.add(button)
-                  return box
 
-              app = toga.App('Try App', 'org.proofit404', startup=build)
+              app = toga.App('Try App', startup=build)
               app.main_loop()
         section
           img(src='pic/First-App.png')
@@ -109,7 +108,10 @@ html
           pre
             code.hljs.python.
               from colosseum import CSS, ROW
-              style = CSS(width=1000, height=1000, flex_direction=ROW)
+
+              style = CSS(width=1000, height=1000,
+                          flex_direction=ROW)
+
               style.layout
           h4 Interface
           ul
@@ -140,7 +142,7 @@ html
 
               def build(nodes, parent=None):
                   ...
-              app = toga.App('App Jade', 'org.proofit404', startup=build())
+              app = toga.App('App Jade', startup=build())
         section
           h3 Apple Python Support
           h5 Create XCode Framework from Python distribution
@@ -150,7 +152,9 @@ html
           h4 Objective-C
           pre
             code.hljs.objc.
-              NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+              NSAutoreleasePool *pool = [
+                  [NSAutoreleasePool alloc]
+                init];
           h4 Pure C
           pre
             code.hljs.c.
@@ -193,7 +197,7 @@ html
           h4 Run java class
           pre
             code.hljs.bash.
-              java -classpath ../voc/dist/python-java-support.jar:. #{"\\"}
+              java -classpath python-java-support.jar:. #{"\\"}
                   python.example.__init__
         section
           h3 Source code
@@ -226,7 +230,7 @@ html
         section
           h5 java -classpath python-java-support.jar:. python.example.__init__
           pre
-            code.
+            code.small.
               Exception in thread "main" ZeroDivisionError: division by zero
                 at org.python.types.Int.__truediv__(Int.java:285)
                 at python.example.example$invoke$z.invoke(example.py:7)
@@ -238,7 +242,7 @@ html
         section
           h4 Java part
           pre
-            code.hljs.java.
+            code.hljs.java.small.
               public class Generator extends org.python.types.Object
                 implements org.python.Iterable {
                   @org.python.Method(__doc__ = "Return repr(self).")
@@ -329,7 +333,7 @@ html
                 Fg0NCj8SfFiEAAAA4w...
               #{"<"}/script#{">"}
         section
-          h4 Replacing python import system with webpack
+          h4 Replacing import system with webpack
           h6
             i Because why not?
           pre
@@ -344,7 +348,7 @@ html
                 }
               });
               window.vm.run('index', []);
-          h4 Pure python implementation of the standard library
+          h4 Python modules as js files
           pre
             code.hljs.js.
               module.exports = 'Fg0NCuBMo1brAwAA4wAAAAAAAAA...'

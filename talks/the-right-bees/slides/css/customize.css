@@ -26,7 +26,6 @@
     align-items: flex-end;
 }
 
-
 .reveal section .container div:last-child {
     align-items: flex-start;
 }
@@ -38,4 +37,23 @@
 
 .photo-corner {
     border-radius: 25px;
+}
+
+.reveal section pre {
+    box-shadow: none;
+}
+
+.reveal section pre code {
+    font-size: 1.3em;
+    line-height: 1.1em;
+    background-color: #F0F1EB;
+}
+
+.reveal section pre code.small {
+    font-size: 0.8em;
+}
+
+mark {
+    color: red;
+    background-color: #F0F1EB;
 }

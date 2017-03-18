@@ -7,14 +7,16 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><
 
 def build(app):
     box = toga.Box()
-    button = toga.Button('Hello world', on_press=button_handler)
+    button = toga.Button('Hello world',
+                         on_press=button_handler)
     button.style.set(margin=50)
-    box.add(button)
-    return box
 
-app = toga.App('Try App', 'org.proofit404', startup=build)
+app = toga.App('Try App', startup=build)
 app.main_loop()</code></pre></section><section><img src="pic/First-App.png"></section><section><h4>Platforms</h4><ul><li>toga-gtk, toga-cocoa, toga-win32</li><li>environment markers</li><li>import hooks</li><li>platform bootstrap</li></ul></section><section><h4>Colosseum</h4><pre><code class="hljs python">from colosseum import CSS, ROW
-style = CSS(width=1000, height=1000, flex_direction=ROW)
+
+style = CSS(width=1000, height=1000,
+            flex_direction=ROW)
+
 style.layout</code></pre><h4>Interface</h4><ul><li>foo.parent</li><li>foo.children</li><li>foo.style</li></ul></section><section><h4>Problems</h4><ul><li>Hand written hierarchy</li><li>Inline CSS</li></ul></section><section><h4>index.jade</h4><pre><code class="hljs pug">Box
   Button(label="Hello world", style="margin: 50",
          on_press=button_handler)</code></pre><h4>app.py</h4><pre><code class="hljs python">import colosseum
@@ -26,7 +28,9 @@ ast = pyjade.Parser(index).parse()
 
 def build(nodes, parent=None):
     ...
-app = toga.App('App Jade', 'org.proofit404', startup=build())</code></pre></section><section><h3>Apple Python Support</h3><h5>Create XCode Framework from Python distribution</h5></section><section><h1>Rubicon</h1></section><section><h4>Objective-C</h4><pre><code class="hljs objc">NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];</code></pre><h4>Pure C</h4><pre><code class="hljs c">#include &lt;CoreFoundation/CoreFoundation.h&gt;
+app = toga.App('App Jade', startup=build())</code></pre></section><section><h3>Apple Python Support</h3><h5>Create XCode Framework from Python distribution</h5></section><section><h1>Rubicon</h1></section><section><h4>Objective-C</h4><pre><code class="hljs objc">NSAutoreleasePool *pool = [
+    [NSAutoreleasePool alloc]
+  init];</code></pre><h4>Pure C</h4><pre><code class="hljs c">#include &lt;CoreFoundation/CoreFoundation.h&gt;
 #include &lt;objc/runtime.h&gt;
 #include &lt;objc/message.h&gt;
 
@@ -43,7 +47,7 @@ pool = NSAutoreleasePool.alloc().init()
 class MyPool(NSAutoreleasePool):
     @objc_method
     def foo(self, bar: int) -&gt; None:
-        pass</code></pre></section><section><h4>Implementation</h4><ul><li>Use ctypes to talk with FFI</li><li>Used in toga-cocoa and toga-ios</li><li>Can expose python methods to the Obj-C runtime</li></ul></section><section><h1>Voc</h1></section><section><h4>Python to Java bytecode transpiler</h4><pre><code class="hljs bash">$ voc -v example.py</code></pre><h4>Run java class</h4><pre><code class="hljs bash">java -classpath ../voc/dist/python-java-support.jar:. \
+        pass</code></pre></section><section><h4>Implementation</h4><ul><li>Use ctypes to talk with FFI</li><li>Used in toga-cocoa and toga-ios</li><li>Can expose python methods to the Obj-C runtime</li></ul></section><section><h1>Voc</h1></section><section><h4>Python to Java bytecode transpiler</h4><pre><code class="hljs bash">$ voc -v example.py</code></pre><h4>Run java class</h4><pre><code class="hljs bash">java -classpath python-java-support.jar:. \
     python.example.__init__</code></pre></section><section><h3>Source code</h3><pre><code class="hljs python">foo(1, 2)</code></pre><h3>Opcode</h3><pre><code>12 LOAD_NAME      0 (foo)
 15 LOAD_CONST     2 (1)
 18 LOAD_CONST     3 (2)
@@ -52,14 +56,14 @@ class MyPool(NSAutoreleasePool):
 0001 7205 00e9 0000 e902  ....r...........
 004e 2901 0000 0100 0000  ...N).r....r....
 0000 0072 0000 0000 00da  r....r....r.....
-6d6f 6475 3e01 0073 0200  .<module>....s..</code></pre></section><section><h4>Implementation</h4><ul><li>Modules packed as java classes</li><li>loadClass, getMethod, reflection and friends</li><li>Traceback to the android.util.Log</li></ul></section><section><h5>java -classpath python-java-support.jar:. python.example.__init__</h5><pre><code>Exception in thread "main" ZeroDivisionError: division by zero
+6d6f 6475 3e01 0073 0200  .<module>....s..</code></pre></section><section><h4>Implementation</h4><ul><li>Modules packed as java classes</li><li>loadClass, getMethod, reflection and friends</li><li>Traceback to the android.util.Log</li></ul></section><section><h5>java -classpath python-java-support.jar:. python.example.__init__</h5><pre><code class="small">Exception in thread "main" ZeroDivisionError: division by zero
   at org.python.types.Int.__truediv__(Int.java:285)
   at python.example.example$invoke$z.invoke(example.py:7)
   at org.python.types.Function.invoke(Function.java:390)
   at python.example.example$x$y.invoke(example.py:9)
   at python.example.__init__.x(example.py:11)
   at python.example.__init__.module$import(example.py:14)
-  at python.example.__init__.main(example.py)</code></pre></section><section><h4>Java part</h4><pre><code class="hljs java">public class Generator extends org.python.types.Object
+  at python.example.__init__.main(example.py)</code></pre></section><section><h4>Java part</h4><pre><code class="hljs java small">public class Generator extends org.python.types.Object
   implements org.python.Iterable {
     @org.python.Method(__doc__ = "Return repr(self).")
     public org.python.Object __repr__() {
@@ -108,7 +112,7 @@ div.innerHTML = <mark style="font-weight: bold;">&lt;h1&gt;</mark>Hello World!<m
 &lt;!-- Our index.py --&gt;
 &lt;script id="batavia-index"&gt;
   Fg0NCj8SfFiEAAAA4w...
-&lt;/script&gt;</code></pre></section><section><h4>Replacing python import system with webpack</h4><h6><i>Because why not?</i></h6><pre><code class="hljs js">window.vm = new batavia.VirtualMachine({
+&lt;/script&gt;</code></pre></section><section><h4>Replacing import system with webpack</h4><h6><i>Because why not?</i></h6><pre><code class="hljs js">window.vm = new batavia.VirtualMachine({
   loader: function(name) {
     var stdlibModule = batavia.stdlib[name];
     return {
@@ -117,7 +121,7 @@ div.innerHTML = <mark style="font-weight: bold;">&lt;h1&gt;</mark>Hello World!<m
     };
   }
 });
-window.vm.run('index', []);</code></pre><h4>Pure python implementation of the standard library</h4><pre><code class="hljs js">module.exports = 'Fg0NCuBMo1brAwAA4wAAAAAAAAA...'</code></pre></section><section data-background="pic/traceback.png" data-background-size="contain"><br></section><section><h3>Ouroboros</h3><h5>Pure python implementation of the standard library</h5></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+window.vm.run('index', []);</code></pre><h4>Python modules as js files</h4><pre><code class="hljs js">module.exports = 'Fg0NCuBMo1brAwAA4wAAAAAAAAA...'</code></pre></section><section data-background="pic/traceback.png" data-background-size="contain"><br></section><section><h3>Ouroboros</h3><h5>Pure python implementation of the standard library</h5></section><section><h2>Python all the things!</h2></section><section><h2>pybee.org</h2></section><section><h1>?</h1></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
