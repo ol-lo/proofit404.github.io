@@ -196,11 +196,45 @@ html
               java -classpath ../voc/dist/python-java-support.jar:. #{"\\"}
                   python.example.__init__
         section
+          h3 Source code
+          pre
+            code.hljs.python.
+              foo(1, 2)
+          h3 Opcode
+          pre
+            code.
+              12 LOAD_NAME      0 (foo)
+              15 LOAD_CONST     2 (1)
+              18 LOAD_CONST     3 (2)
+              21 CALL_FUNCTION  2 (2 positional, 0 keyword)
+              24 POP_TOP
+        section
+          h3 Bytecode
+          pre
+            code.
+              7079 da03 6f01 0073 0200  x.py..foo....s..
+              0001 7205 00e9 0000 e902  ....r...........
+              004e 2901 0000 0100 0000  ...N).r....r....
+              0000 0072 0000 0000 00da  r....r....r.....
+              6d6f 6475 3e01 0073 0200  .<module>....s..
+        section
           h4 Implementation
           ul
             li Modules packed as java classes
             li loadClass, getMethod, reflection and friends
             li Traceback to the android.util.Log
+        section
+          h5 java -classpath python-java-support.jar:. python.example.__init__
+          pre
+            code.
+              Exception in thread "main" ZeroDivisionError: division by zero
+                at org.python.types.Int.__truediv__(Int.java:285)
+                at python.example.example$invoke$z.invoke(example.py:7)
+                at org.python.types.Function.invoke(Function.java:390)
+                at python.example.example$x$y.invoke(example.py:9)
+                at python.example.__init__.x(example.py:11)
+                at python.example.__init__.module$import(example.py:14)
+                at python.example.__init__.main(example.py)
         section
           h4 Java part
           pre
