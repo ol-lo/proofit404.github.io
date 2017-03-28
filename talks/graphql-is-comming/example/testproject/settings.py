@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'graphene_django',
     'poll.apps.PollConfig',
 ]
 
@@ -85,3 +86,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+GRAPHENE = {
+    'SCHEMA': 'poll.schema.schema',
+}
