@@ -40,6 +40,39 @@ html
         section(data-background-color='#FFFFFF')
           h4 What's wrong with REST?
           img(src='pic/server-roundtrips.png')
+          aside.notes
+            p Hyperlinks
+            p To many round trips
+        section
+          h4 Expand relations
+          pre
+            code.json.
+              {
+                  "title": "Finish monthly growth report",
+                  "category": "Growth Team",
+                  "tasks": [
+                      {"order": 1, "title": "Review samples"},
+                      {"order": 2, "title": "Summarize"},
+                      {"order": 3, "title": "Send to customer"},
+                      ...
+                  ],
+              }
+          aside.notes
+            p DRF nested serializers as fields
+            p Overfetching
+        section
+          h4 Custom endpoints
+          pre
+            code.
+              /todos_with_everything_i_need
+
+              /todos_with_everything_i_need_with_author_v2
+
+              /todos_with_everything_i_need_for_samsung_smart_tv
+
+              /tightly_coupled_endpoint_for_a_specific_client
+          aside.notes
+            p Unpleasant to work API
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script(src='lib/js/highlight.min.js')
