@@ -20,3 +20,12 @@ mark {
     color: red;
     background-color: #F0F1EB;
 }
+
+.logo {
+    width: auto;
+    height: 150px;
+}
+
+.reveal section .spacer {
+    padding-right: 125px;
+}

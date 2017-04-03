@@ -20,7 +20,7 @@ html
     .reveal
       .slides
         section
-          img(src='pic/logo.svg' height='150' width='150')
+          img(src='pic/logo.svg').logo
           h2 GraphQL is comming
           h3 Artem Malyshev
           h4 @proofit404
@@ -73,6 +73,14 @@ html
               /tightly_coupled_endpoint_for_a_specific_client
           aside.notes
             p Unpleasant to work API
+        section(data-background='pic/man-data-analytics.jpg' data-background-size='contain' data-background-color='#6F7170')
+          br
+          aside.notes
+            p We do not think in
+            p endpoints or join tables
+        section
+          img(src='pic/facebook.png').logo.spacer
+          img(src='pic/logo.svg').logo
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script(src='lib/js/highlight.min.js')
