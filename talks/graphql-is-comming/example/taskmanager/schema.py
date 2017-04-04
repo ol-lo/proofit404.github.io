@@ -39,10 +39,15 @@ class Task(DjangoObjectType):
 class Query(graphene.ObjectType):
 
     employees = graphene.List(Employee)
+    tasks = graphene.List(Task)
 
     def resolve_employees(self, args, context, info):
 
         return EmployeeModel.objects.all()
+
+    def resolve_tasks(self, args, context, info):
+
+        return TaskModel.objects.all()
 
 
 schema = graphene.Schema(query=Query)
