@@ -40,5 +40,9 @@ class Query(graphene.ObjectType):
 
     employees = graphene.List(Employee)
 
+    def resolve_employees(self, args, context, info):
+
+        return EmployeeModel.objects.all()
+
 
 schema = graphene.Schema(query=Query)
