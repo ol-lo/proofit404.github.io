@@ -30,10 +30,18 @@ mark {
     padding-right: 125px;
 }
 
-.reveal section .white-text {
+.reveal section .graphene-text {
     color: white;
 }
 
 .reveal section .graphene-bg {
     background-color: #DB594C;
+}
+
+.reveal section .relay-text {
+    color: #F26B00;
+}
+
+.reveal section .relay-bg {
+    background-color: #3B3738;
 }

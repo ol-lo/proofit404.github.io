@@ -35,7 +35,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
   assignedTo: Employee!
   statusHistory: [Status]
   comments: [Comment]
-}</code></pre></section><section><img src="pic/magic-cat.png"></section><section data-background-color="#DB594C"><img class="logo graphene-bg" src="pic/graphene.svg"><h3 class="white-text">Graphene</h3></section><section><h4>Schema in Python</h4><pre><code class="python small">type Task {                class Task(ObjectType):
+}</code></pre></section><section><img src="pic/magic-cat.png"></section><section data-background-color="#DB594C"><img class="logo graphene-bg" src="pic/graphene.svg"><h3 class="graphene-text">Graphene</h3></section><section><h4>Schema in Python</h4><pre><code class="python small">type Task {                class Task(ObjectType):
   id: ID!                      id = NonNull(ID)
   title: String!               title = NonNull(String)
   description: String!         description = NonNull(String)
@@ -51,11 +51,11 @@ class Query(ObjectType):
     tasks = List(Task)
 
     def resolve_tasks(self, args, context, info):
-        return TaskModel.objects.all()</code></pre></section><section><h4>Views</h4><pre><code class="python">schema = graphene.Schema(query=Query)
+        return TaskModel.objects.all()</code></pre></section><section><h4>Mutation in Django</h4><pre><code class="python">pass</code></pre></section><section><h4>Views</h4><pre><code class="python">schema = graphene.Schema(query=Query)
 
 view = GraphQLView.as_view(schema, graphiql=True)
 
-urlpatterns = [url(r'^$', view, name='graphql')]</code></pre></section><section><h4>Authorization</h4></section><section><h4>Batching</h4></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+urlpatterns = [url(r'^$', view, name='graphql')]</code></pre></section><section><h4>Authorization</h4></section><section><h4>Batching</h4></section><section data-background-color="#3B3738"><img class="logo relay-bg" src="pic/relay.svg"><h3 class="relay-text">Relay</h3></section><section><h4>Subscriptions</h4></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,

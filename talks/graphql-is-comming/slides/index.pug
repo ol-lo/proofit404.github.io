@@ -118,7 +118,7 @@ html
           img(src='pic/magic-cat.png')
         section(data-background-color='#DB594C')
           img(src='pic/graphene.svg').logo.graphene-bg
-          h3.white-text Graphene
+          h3.graphene-text Graphene
         section
           h4 Schema in Python
           pre
@@ -146,6 +146,11 @@ html
                   def resolve_tasks(self, args, context, info):
                       return TaskModel.objects.all()
         section
+          h4 Mutation in Django
+          pre
+            code.python.
+              pass
+        section
           h4 Views
           pre
             code.python.
@@ -158,6 +163,11 @@ html
           h4 Authorization
         section
           h4 Batching
+        section(data-background-color='#3B3738')
+          img(src='pic/relay.svg').logo.relay-bg
+          h3.relay-text Relay
+        section
+          h4 Subscriptions
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script(src='lib/js/highlight.min.js')
