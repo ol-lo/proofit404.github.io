@@ -27,7 +27,15 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
     name           "name": "Artem"
   }             }
 }            }
-           }</code></pre></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+           }</code></pre></section><section><h4>Schema</h4><pre><code class="graphql">type Task {
+  id: ID!
+  title: String!
+  description: String!
+  createdBy: Employee!
+  assignedTo: Employee!
+  statusHistory: [Status]
+  comments: [Comment]
+}</code></pre></section><section><img src="pic/magic-cat.png"></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,

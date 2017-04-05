@@ -101,6 +101,21 @@ html
                 }             }
               }            }
                          }
+        section
+          h4 Schema
+          pre
+            code.graphql.
+              type Task {
+                id: ID!
+                title: String!
+                description: String!
+                createdBy: Employee!
+                assignedTo: Employee!
+                statusHistory: [Status]
+                comments: [Comment]
+              }
+        section
+          img(src='pic/magic-cat.png')
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script(src='lib/js/highlight.min.js')
