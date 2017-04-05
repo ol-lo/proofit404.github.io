@@ -133,6 +133,19 @@ html
                 comments: [Comment]          comments = List(Comment)
               }
         section
+          h4 Schema in Django
+          pre
+            code.python.
+              class Task(DjangoObjectType):
+                  class Meta:
+                      model = TaskModel
+
+              class Query(ObjectType):
+                  tasks = List(Task)
+
+                  def resolve_tasks(self, args, context, info):
+                      return TaskModel.objects.all()
+        section
           h4 Authorization
         section
           h4 Batching

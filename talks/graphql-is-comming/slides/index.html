@@ -43,7 +43,15 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
   assigned: Employee!          assigned = NonNull(Employee)
   statusHistory: [Status]      status_history = List(Status)
   comments: [Comment]          comments = List(Comment)
-}</code></pre></section><section><h4>Authorization</h4></section><section><h4>Batching</h4></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+}</code></pre></section><section><h4>Schema in Django</h4><pre><code class="python">class Task(DjangoObjectType):
+    class Meta:
+        model = TaskModel
+
+class Query(ObjectType):
+    tasks = List(Task)
+
+    def resolve_tasks(self, args, context, info):
+        return TaskModel.objects.all()</code></pre></section><section><h4>Authorization</h4></section><section><h4>Batching</h4></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
