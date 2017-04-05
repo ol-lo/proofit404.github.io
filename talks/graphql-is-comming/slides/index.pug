@@ -149,12 +149,23 @@ html
           h4 Mutation in Django
           pre
             code.python.
-              pass
+              class CreateTask(Mutation):
+                  class Input:
+                      ...
+                  task = Field(Task)
+
+                  @staticmethod
+                  def mutate(root, args, context, info):
+                      ...
+
+              class Mutation(ObjectType):
+
+                  create_task = CreateTask.Field()
         section
           h4 Views
           pre
             code.python.
-              schema = graphene.Schema(query=Query)
+              schema = graphene.Schema(Query, Mutation)
 
               view = GraphQLView.as_view(schema, graphiql=True)
 

@@ -51,7 +51,18 @@ class Query(ObjectType):
     tasks = List(Task)
 
     def resolve_tasks(self, args, context, info):
-        return TaskModel.objects.all()</code></pre></section><section><h4>Mutation in Django</h4><pre><code class="python">pass</code></pre></section><section><h4>Views</h4><pre><code class="python">schema = graphene.Schema(query=Query)
+        return TaskModel.objects.all()</code></pre></section><section><h4>Mutation in Django</h4><pre><code class="python">class CreateTask(Mutation):
+    class Input:
+        ...
+    task = Field(Task)
+
+    @staticmethod
+    def mutate(root, args, context, info):
+        ...
+
+class Mutation(ObjectType):
+
+    create_task = CreateTask.Field()</code></pre></section><section><h4>Views</h4><pre><code class="python">schema = graphene.Schema(Query, Mutation)
 
 view = GraphQLView.as_view(schema, graphiql=True)
 
