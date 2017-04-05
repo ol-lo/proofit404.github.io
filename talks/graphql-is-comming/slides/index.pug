@@ -119,6 +119,23 @@ html
         section(data-background-color='#DB594C')
           img(src='pic/graphene.svg').logo.graphene-bg
           h3.white-text Graphene
+        section
+          h4 Schema in Python
+          pre
+            code.python.small.
+              type Task {                class Task(ObjectType):
+                id: ID!                      id = NonNull(ID)
+                title: String!               title = NonNull(String)
+                description: String!         description = NonNull(String)
+                created: Employee!           created = NonNull(Employee)
+                assigned: Employee!          assigned = NonNull(Employee)
+                statusHistory: [Status]      status_history = List(Status)
+                comments: [Comment]          comments = List(Comment)
+              }
+        section
+          h4 Authorization
+        section
+          h4 Batching
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script(src='lib/js/highlight.min.js')
