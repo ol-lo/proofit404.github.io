@@ -29,3 +29,11 @@ mark {
 .reveal section .spacer {
     padding-right: 125px;
 }
+
+.reveal section .white-text {
+    color: white;
+}
+
+.reveal section .graphene-bg {
+    background-color: #DB594C;
+}
