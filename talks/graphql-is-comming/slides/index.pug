@@ -146,6 +146,15 @@ html
                   def resolve_tasks(self, args, context, info):
                       return TaskModel.objects.all()
         section
+          h4 Views
+          pre
+            code.python.
+              schema = graphene.Schema(query=Query)
+
+              view = GraphQLView.as_view(schema, graphiql=True)
+
+              urlpatterns = [url(r'^$', view, name='graphql')]
+        section
           h4 Authorization
         section
           h4 Batching
