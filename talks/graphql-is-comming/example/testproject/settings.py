@@ -90,6 +90,9 @@ STATIC_URL = '/static/'
 
 GRAPHENE = {
     'SCHEMA': 'poll.schema.schema',
+    'MIDDLEWARE': [
+        'graphene_django.debug.DjangoDebugMiddleware',
+    ],
 }
 
 AUTH_USER_MODEL = 'taskmanager.Employee'

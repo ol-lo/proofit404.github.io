@@ -1,5 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
+from graphene_django.debug import DjangoDebug
 
 from .models import Comment as CommentModel
 from .models import Employee as EmployeeModel
@@ -40,6 +41,7 @@ class Query(graphene.ObjectType):
 
     employees = graphene.List(Employee)
     tasks = graphene.List(Task)
+    debug = graphene.Field(DjangoDebug, name='__debug')
 
     def resolve_employees(self, args, context, info):
 
