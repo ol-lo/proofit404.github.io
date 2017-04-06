@@ -1,6 +1,8 @@
 import graphene
+from graphene import AbstractType, relay
 from graphene_django import DjangoObjectType
 from graphene_django.debug import DjangoDebug
+from graphene_django.filter import DjangoFilterConnectionField
 
 from .models import Comment as CommentModel
 from .models import Employee as EmployeeModel
@@ -35,9 +37,20 @@ class Task(DjangoObjectType):
     class Meta:
 
         model = TaskModel
+        filter_fields = {
+            'title': ['exact', 'icontains', 'startswith'],
+            'description': ['exact'],
+        }
+        interfaces = (relay.Node,)
 
 
-class Query(graphene.ObjectType):
+class TaskQuery(AbstractType):
+
+    task = relay.Node.Field(Task)
+    all_tasks = DjangoFilterConnectionField(Task)
+
+
+class Query(TaskQuery, graphene.ObjectType):
 
     employees = graphene.List(Employee)
     tasks = graphene.List(Task)
