@@ -225,6 +225,18 @@ html
             li Optimistic updates
         section
           h4 Django Debug Middleware
+          pre
+            code.json.
+              {
+                "__debug": {
+                  "sql": "SELECT \"tasks\".\"id\",
+                                 \"tasks\".\"title\",
+                                 \"tasks\".\"description\",
+                                 \"tasks\".\"created_by_id\",
+                                 \"tasks\".\"assigned_to_id\"
+                          FROM \"tasks\""
+                }
+              }
         section
           h4 Subscriptions
     script(src='lib/js/head.min.js')
