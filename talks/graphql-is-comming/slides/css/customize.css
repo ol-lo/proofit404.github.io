@@ -1,6 +1,7 @@
 .reveal section img {
     border: 0;
     box-shadow: none;
+    background-color: #F0F1EB;
 }
 .reveal section pre {
     box-shadow: none;
