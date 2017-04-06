@@ -239,6 +239,14 @@ html
               }
         section
           h4 Subscriptions
+          pre
+            code.graphql.
+              subscription {
+                taskSubscribe(input: $input) {
+                  task { comments { text } }
+                }
+              }
+          img(src='pic/channels-issue.png')
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
     script(src='lib/js/highlight.min.js')
