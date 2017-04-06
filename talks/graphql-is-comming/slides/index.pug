@@ -172,6 +172,20 @@ html
               urlpatterns = [url(r'^$', view, name='graphql')]
         section
           h4 Authorization
+          pre
+            code.python.
+              class Query(ObjectType):
+
+                  tasks = List(Task)
+
+                  def resolve_tasks(self, args, context, info):
+
+                      if context.user.is_authenticated():
+                          return TaskModel.objects.all()
+                      else:
+                          return TaskModel.objects.none()
+        section
+          h4 Filtration
         section
           h4 Batching
         section
