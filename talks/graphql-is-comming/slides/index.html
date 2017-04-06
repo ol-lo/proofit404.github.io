@@ -75,7 +75,21 @@ urlpatterns = [url(r'^$', view, name='graphql')]</code></pre></section><section>
         if context.user.is_authenticated():
             return TaskModel.objects.all()
         else:
-            return TaskModel.objects.none()</code></pre></section><section><h4>Filtration</h4></section><section><h4>Batching</h4></section><section><h4>Caching</h4></section><section><img src="pic/programmers-at-work.png"></section><section data-background-color="#3B3738"><img class="logo relay-bg" src="pic/relay.svg"><h3 class="relay-text">Relay</h3></section><section data-background="pic/marked-todolist.png" data-background-size="contain"><br></section><section><h4>Django Debug Middleware</h4></section><section><h4>Subscriptions</h4></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
+            return TaskModel.objects.none()</code></pre></section><section><h4>Filtration</h4></section><section><h4>Batching</h4></section><section><h4>Caching</h4></section><section><img src="pic/programmers-at-work.png"></section><section data-background-color="#3B3738"><img class="logo relay-bg" src="pic/relay.svg"><h3 class="relay-text">Relay</h3></section><section data-background="pic/marked-todolist.png" data-background-size="contain"><br></section><section><h4>Frontend :(</h4><pre><code class="jsx small">class Task extends React.Component {
+  render() {
+    return &lt;li key={title}&gt;
+             &lt;b&gt;{title}&lt;/b&gt; {description}
+           &lt;/li&gt;
+  }
+}
+Task = Relay.createContainer(Task, {
+  task: () =&gt; Relay.QL`
+    fragment on Task {
+      title,
+      description,
+    }
+  `,
+});</code></pre></section><section><h4>Django Debug Middleware</h4></section><section><h4>Subscriptions</h4></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script src="lib/js/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,

@@ -198,6 +198,25 @@ html
         section(data-background='pic/marked-todolist.png' data-background-size='contain')
           br
         section
+          h4 Frontend :(
+          pre
+            code.jsx.small.
+              class Task extends React.Component {
+                render() {
+                  return #{"<"}li key={title}#{">"}
+                           #{"<"}b#{">"}{title}#{"<"}/b#{">"} {description}
+                         #{"<"}/li#{">"}
+                }
+              }
+              Task = Relay.createContainer(Task, {
+                task: () =#{">"} Relay.QL`
+                  fragment on Task {
+                    title,
+                    description,
+                  }
+                `,
+              });
+        section
           h4 Django Debug Middleware
         section
           h4 Subscriptions
