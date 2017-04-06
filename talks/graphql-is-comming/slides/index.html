@@ -75,7 +75,25 @@ urlpatterns = [url(r'^$', view, name='graphql')]</code></pre></section><section>
         if context.user.is_authenticated():
             return TaskModel.objects.all()
         else:
-            return TaskModel.objects.none()</code></pre></section><section><h4>Filtration</h4></section><section><h4>Batching</h4></section><section><h4>Caching</h4></section><section><img src="pic/programmers-at-work.png"></section><section data-background-color="#3B3738"><img class="logo relay-bg" src="pic/relay.svg"><h3 class="relay-text">Relay</h3></section><section data-background="pic/marked-todolist.png" data-background-size="contain"><br></section><section><h4>Frontend :(</h4><pre><code class="jsx small">class Task extends React.Component {
+            return TaskModel.objects.none()</code></pre></section><section><h4>Filtration</h4><pre><code class="python">class Task(DjangoObjectType):
+    class Meta:
+        model = TaskModel
+        filter_fields = {
+            'title': ['icontains', 'startswith'],
+            'description': ['exact'],
+        }
+
+class TaskQuery(AbstractType):
+    all_tasks = DjangoFilterConnectionField(Task)</code></pre></section><section><h4>Filtration</h4><pre><code class="graphql">{
+  allTasks(title_Startswith: "to") {
+    edges {
+      node {
+        id
+        title
+      }
+    }
+  }
+}</code></pre></section><section><h4>Batching</h4></section><section><h4>Caching</h4></section><section><img src="pic/programmers-at-work.png"></section><section data-background-color="#3B3738"><img class="logo relay-bg" src="pic/relay.svg"><h3 class="relay-text">Relay</h3></section><section data-background="pic/marked-todolist.png" data-background-size="contain"><br></section><section><h4>Frontend :(</h4><pre><code class="jsx small">class Task extends React.Component {
   render() {
     return &lt;li key={title}&gt;
              &lt;b&gt;{title}&lt;/b&gt; {description}

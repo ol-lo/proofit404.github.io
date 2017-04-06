@@ -186,6 +186,32 @@ html
                           return TaskModel.objects.none()
         section
           h4 Filtration
+          pre
+            code.python.
+              class Task(DjangoObjectType):
+                  class Meta:
+                      model = TaskModel
+                      filter_fields = {
+                          'title': ['icontains', 'startswith'],
+                          'description': ['exact'],
+                      }
+
+              class TaskQuery(AbstractType):
+                  all_tasks = DjangoFilterConnectionField(Task)
+        section
+          h4 Filtration
+          pre
+            code.graphql.
+              {
+                allTasks(title_Startswith: "to") {
+                  edges {
+                    node {
+                      id
+                      title
+                    }
+                  }
+                }
+              }
         section
           h4 Batching
         section
