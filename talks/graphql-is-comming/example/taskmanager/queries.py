@@ -32,7 +32,7 @@ class Status(DjangoObjectType):
         model = StatusModel
 
 
-class Task(DjangoObjectType):
+class TaskNode(DjangoObjectType):
 
     class Meta:
 
@@ -44,10 +44,17 @@ class Task(DjangoObjectType):
         interfaces = (relay.Node,)
 
 
+class Task(DjangoObjectType):
+
+    class Meta:
+
+        model = TaskModel
+
+
 class TaskQuery(AbstractType):
 
-    task = relay.Node.Field(Task)
-    all_tasks = DjangoFilterConnectionField(Task)
+    task = relay.Node.Field(TaskNode)
+    all_tasks = DjangoFilterConnectionField(TaskNode)
 
 
 class Query(TaskQuery, graphene.ObjectType):
