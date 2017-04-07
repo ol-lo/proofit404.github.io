@@ -91,3 +91,36 @@ j('''
   }
 }
 ''')
+
+j('''
+{
+  tasks {
+    title
+    createdBy {
+      firstName
+      subordinates {
+        firstName
+      }
+    }
+  }
+}
+''')
+
+j('''
+{
+  employees {
+    firstName
+  }
+  tasks {
+    title
+  }
+}
+''')
+
+j('''
+{
+  tasks(limit: 1) {
+    title
+  }
+}
+''')
