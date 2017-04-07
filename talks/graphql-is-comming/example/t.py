@@ -24,7 +24,7 @@ query {
 
 j('''
 query {
-  task(id: "VGFzazox") {
+  task(id: 1) {
     title
   }
 }
@@ -78,15 +78,31 @@ j('''
 j('''
 {
   employees {
-    firstName
+    ...EmpAttrs
     subordinates {
-      firstName
+      ...EmpAttrs
+      subordinates {
+        ...EmpAttrs
         subordinates {
-          firstName
-          subordinates {
-            firstName
-          }
+          ...EmpAttrs
         }
+      }
+    }
+  }
+}
+
+fragment EmpAttrs on Employee {
+  firstName
+  assignedTasks {
+    title
+    statusHistory {
+      name
+    }
+    comments {
+      author {
+        firstName
+      }
+      text
     }
   }
 }
