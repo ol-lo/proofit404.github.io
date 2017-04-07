@@ -1,29 +1,36 @@
+import json
+from itertools import count
+
 from taskmanager.schema import schema
 
-print('\n#1\n')
-r = schema.execute('''
+counter = count(1)
+
+
+def j(request):
+    num = next(counter)
+    print('\n#%d\n' % num)
+    result = schema.execute(request)
+    print(json.dumps(result.data, indent=2))
+    print(json.dumps(result.errors, indent=2))
+
+
+j('''
 query {
   tasks {
     title
   }
 }
 ''')
-print(r.data)
-print(r.errors)
 
-print('\n#2\n')
-r = schema.execute('''
+j('''
 query {
   task(id: "VGFzazox") {
     title
   }
 }
 ''')
-print(r.data)
-print(r.errors)
 
-print('\n#3\n')
-r = schema.execute('''
+j('''
 query {
   allTasks {
     edges {
@@ -35,11 +42,8 @@ query {
   }
 }
 ''')
-print(r.data)
-print(r.errors)
 
-print('\n#4\n')
-r = schema.execute('''
+j('''
 query {
   allTasks(title_Startswith: "to") {
     edges {
@@ -51,5 +55,22 @@ query {
   }
 }
 ''')
-print(r.data)
-print(r.errors)
+
+j('''
+{
+  employees {
+    firstName
+  }
+}
+''')
+
+j('''
+{
+  employees {
+    firstName
+    subordinates {
+      firstName
+    }
+  }
+}
+''')
