@@ -14,6 +14,14 @@ def j(request):
     print(json.dumps(result.errors, indent=2))
 
 
+# j("""
+# {
+#   viewer {
+#     firstName
+#   }
+# }
+# """)
+
 j('''
 query {
   tasks {
@@ -26,32 +34,6 @@ j('''
 query {
   task(id: 1) {
     title
-  }
-}
-''')
-
-j('''
-query {
-  allTasks {
-    edges {
-      node {
-        id
-        title
-      }
-    }
-  }
-}
-''')
-
-j('''
-query {
-  allTasks(title_Startswith: "to") {
-    edges {
-      node {
-        id
-        title
-      }
-    }
   }
 }
 ''')

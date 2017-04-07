@@ -32,18 +32,6 @@ class Status(DjangoObjectType):
         model = StatusModel
 
 
-class TaskNode(DjangoObjectType):
-
-    class Meta:
-
-        model = TaskModel
-        filter_fields = {
-            'title': ['exact', 'icontains', 'startswith'],
-            'description': ['exact'],
-        }
-        interfaces = (relay.Node,)
-
-
 class Task(DjangoObjectType):
 
     class Meta:
@@ -51,21 +39,25 @@ class Task(DjangoObjectType):
         model = TaskModel
 
 
-class TaskQuery(AbstractType):
+class Query(graphene.ObjectType):
 
-    task = relay.Node.Field(TaskNode)
-    all_tasks = DjangoFilterConnectionField(TaskNode)
-
-
-class Query(TaskQuery, graphene.ObjectType):
-
+    viewer = graphene.Field(Employee)
     employees = graphene.List(Employee)
-    tasks = graphene.List(Task)
+    task = graphene.Field(Task, id=graphene.Int())
+    tasks = graphene.List(Task, limit=graphene.Int())
     debug = graphene.Field(DjangoDebug, name='__debug')
+
+    def resolve_viewer(self, args, context, info):
+
+        return context.user
 
     def resolve_employees(self, args, context, info):
 
         return EmployeeModel.objects.all()
+
+    def resolve_task(self, args, context, info):
+
+        return TaskModel.objects.get(pk=args.get('id'))
 
     def resolve_tasks(self, args, context, info):
 
