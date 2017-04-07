@@ -74,3 +74,20 @@ j('''
   }
 }
 ''')
+
+j('''
+{
+  employees {
+    firstName
+    subordinates {
+      firstName
+        subordinates {
+          firstName
+          subordinates {
+            firstName
+          }
+        }
+    }
+  }
+}
+''')
