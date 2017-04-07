@@ -213,9 +213,60 @@ html
                 }
               }
         section
-          h4 Batching
+          h3 Batch processing
+          h3 &
+          h3 Server Cache
         section
-          h4 Caching
+          h4 SQL for one GraphQL query
+          pre
+            code.sql.
+              SELECT ... WHERE "employee"."id" = 2;
+              SELECT ... WHERE "employee"."id" = 3;
+              SELECT ... WHERE "employee"."id" = 3;
+              SELECT ... WHERE "employee"."id" = 2;
+              SELECT ... WHERE "employee"."id" = 2;
+              SELECT ... WHERE "employee"."id" = 2;
+              SELECT ... WHERE "employee"."id" = 4;
+              SELECT ... WHERE "employee"."id" = 5;
+              SELECT ... WHERE "employee"."id" = 5;
+              SELECT ... WHERE "employee"."id" = 4;
+              SELECT ... WHERE "employee"."id" = 4;
+        section
+          h4 Data Loader
+          pre
+            code.
+              def resolve_tasks(self, args, context, info):
+
+                  ids = args.get('ids')
+                  return Promise(
+                      DataLoader.load(ids),
+                  ).get()
+        section
+          h4 SQL with Data Loader
+          pre
+            code.sql.
+              SELECT ... WHERE "employee"."id"
+                IN (1, 2, 3, 4, 5);
+              SELECT ... WHERE "employee"."id"
+                IN (1, 2, 3, 6, 7);
+        section
+          h4 Data Loader
+          pre
+            code.
+              def resolve_tasks(self, args, context, info):
+
+                  ids = args.get('ids')
+                  return Promise(
+                      context.data_loader.load(ids),
+                  ).get()
+        section
+          h4 SQL with Caching
+          pre
+            code.sql.
+              SELECT ... WHERE "employee"."id"
+                IN (1, 2, 3, 4, 5);
+              SELECT ... WHERE "employee"."id"
+                IN (         6, 7);
         section
           img(src='pic/programmers-at-work.png')
         section(data-background-color='#3B3738')

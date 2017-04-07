@@ -93,7 +93,33 @@ class TaskQuery(AbstractType):
       }
     }
   }
-}</code></pre></section><section><h4>Batching</h4></section><section><h4>Caching</h4></section><section><img src="pic/programmers-at-work.png"></section><section data-background-color="#3B3738"><img class="logo relay-bg" src="pic/relay.svg"><h3 class="relay-text">Relay</h3></section><section data-background="pic/marked-todolist.png" data-background-size="contain"><br></section><section><h4>Frontend :(</h4><pre><code class="jsx small">class Task extends React.Component {
+}</code></pre></section><section><h3>Batch processing</h3><h3>&</h3><h3>Server Cache</h3></section><section><h4>SQL for one GraphQL query</h4><pre><code class="sql">SELECT ... WHERE "employee"."id" = 2;
+SELECT ... WHERE "employee"."id" = 3;
+SELECT ... WHERE "employee"."id" = 3;
+SELECT ... WHERE "employee"."id" = 2;
+SELECT ... WHERE "employee"."id" = 2;
+SELECT ... WHERE "employee"."id" = 2;
+SELECT ... WHERE "employee"."id" = 4;
+SELECT ... WHERE "employee"."id" = 5;
+SELECT ... WHERE "employee"."id" = 5;
+SELECT ... WHERE "employee"."id" = 4;
+SELECT ... WHERE "employee"."id" = 4;</code></pre></section><section><h4>Data Loader</h4><pre><code>def resolve_tasks(self, args, context, info):
+
+    ids = args.get('ids')
+    return Promise(
+        DataLoader.load(ids),
+    ).get()</code></pre></section><section><h4>SQL with Data Loader</h4><pre><code class="sql">SELECT ... WHERE "employee"."id"
+  IN (1, 2, 3, 4, 5);
+SELECT ... WHERE "employee"."id"
+  IN (1, 2, 3, 6, 7);</code></pre></section><section><h4>Data Loader</h4><pre><code>def resolve_tasks(self, args, context, info):
+
+    ids = args.get('ids')
+    return Promise(
+        context.data_loader.load(ids),
+    ).get()</code></pre></section><section><h4>SQL with Caching</h4><pre><code class="sql">SELECT ... WHERE "employee"."id"
+  IN (1, 2, 3, 4, 5);
+SELECT ... WHERE "employee"."id"
+  IN (         6, 7);</code></pre></section><section><img src="pic/programmers-at-work.png"></section><section data-background-color="#3B3738"><img class="logo relay-bg" src="pic/relay.svg"><h3 class="relay-text">Relay</h3></section><section data-background="pic/marked-todolist.png" data-background-size="contain"><br></section><section><h4>Frontend :(</h4><pre><code class="jsx small">class Task extends React.Component {
   render() {
     return &lt;li key={title}&gt;
              &lt;b&gt;{title}&lt;/b&gt; {description}
