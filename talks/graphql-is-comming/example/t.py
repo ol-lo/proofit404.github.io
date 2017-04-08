@@ -133,3 +133,14 @@ j('''
   }
 }
 ''')
+
+j('''
+{
+  employee(id: 5) {
+    firstName
+    assignedTasks(limit: 1) {
+      title
+    }
+  }
+}
+''')

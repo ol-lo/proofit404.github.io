@@ -39,7 +39,7 @@ class Task(DjangoObjectType):
 
 class Query(graphene.ObjectType):
 
-    employee = graphene.Field(Employee, skip=graphene.Int())
+    employee = graphene.Field(Employee, skip=graphene.Int(), id=graphene.Int())
     employees = graphene.List(Employee)
     task = graphene.Field(Task, id=graphene.Int())
     tasks = graphene.List(Task, limit=graphene.Int())
@@ -47,6 +47,9 @@ class Query(graphene.ObjectType):
 
     def resolve_employee(self, args, context, info):
 
+        pk = args.get('id')
+        if pk:
+            return EmployeeModel.objects.get(pk=pk)
         skip = args.get('skip', 0)
         return EmployeeModel.objects.all()[skip:][0]
 
