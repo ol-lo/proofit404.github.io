@@ -1,8 +1,6 @@
 import graphene
-from graphene import AbstractType, relay
 from graphene_django import DjangoObjectType
 from graphene_django.debug import DjangoDebug
-from graphene_django.filter import DjangoFilterConnectionField
 
 from .models import Comment as CommentModel
 from .models import Employee as EmployeeModel
