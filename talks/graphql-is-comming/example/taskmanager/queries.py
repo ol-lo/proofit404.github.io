@@ -39,15 +39,16 @@ class Task(DjangoObjectType):
 
 class Query(graphene.ObjectType):
 
-    viewer = graphene.Field(Employee)
+    employee = graphene.Field(Employee, skip=graphene.Int())
     employees = graphene.List(Employee)
     task = graphene.Field(Task, id=graphene.Int())
     tasks = graphene.List(Task, limit=graphene.Int())
     debug = graphene.Field(DjangoDebug, name='__debug')
 
-    def resolve_viewer(self, args, context, info):
+    def resolve_employee(self, args, context, info):
 
-        return context.user
+        skip = args.get('skip', 0)
+        return EmployeeModel.objects.all()[skip:][0]
 
     def resolve_employees(self, args, context, info):
 
@@ -55,8 +56,13 @@ class Query(graphene.ObjectType):
 
     def resolve_task(self, args, context, info):
 
-        return TaskModel.objects.get(pk=args.get('id'))
+        pk = args.get('id', 1)
+        return TaskModel.objects.get(pk=pk)
 
     def resolve_tasks(self, args, context, info):
 
-        return TaskModel.objects.all()
+        limit = args.get('limit')
+        queryset = TaskModel.objects.all()
+        if limit:
+            queryset = queryset[:limit]
+        return queryset

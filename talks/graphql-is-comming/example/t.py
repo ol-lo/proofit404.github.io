@@ -14,17 +14,28 @@ def j(request):
     print(json.dumps(result.errors, indent=2))
 
 
-# j("""
-# {
-#   viewer {
-#     firstName
-#   }
-# }
-# """)
+j("""
+{
+  employee {
+    firstName
+  }
+}
+""")
+
+j("""
+{
+  me: employee {
+    firstName
+  }
+  employee(skip: 1) {
+    firstName
+  }
+}
+""")
 
 j('''
 query {
-  tasks {
+  task(id: 2) {
     title
   }
 }
@@ -32,7 +43,7 @@ query {
 
 j('''
 query {
-  task(id: 1) {
+  tasks {
     title
   }
 }
