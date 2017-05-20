@@ -301,30 +301,6 @@ html
             li Pagination
             li Optimistic updates
         section
-          h4 Django Debug Middleware
-          pre
-            code.json.
-              {
-                "__debug": {
-                  "sql": "SELECT \"tasks\".\"id\",
-                                 \"tasks\".\"title\",
-                                 \"tasks\".\"description\",
-                                 \"tasks\".\"created_by_id\",
-                                 \"tasks\".\"assigned_to_id\"
-                          FROM \"tasks\""
-                }
-              }
-        section
-          h4 Subscriptions
-          pre
-            code.graphql.
-              subscription {
-                taskSubscribe(input: $input) {
-                  task { comments { text } }
-                }
-              }
-          img(src='pic/channels-issue.png')
-        section
           h3 Summarize
           h4 Pros
           ul
