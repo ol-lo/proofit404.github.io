@@ -3,7 +3,7 @@
         "model": "taskmanager.employee",
         "pk": 1,
         "fields": {
-            "password": "pbkdf2_sha256$30000$9wv0nGicZ719$4q+7+bBSl1CXzI+yOTPSRbVC0tReF9ueSsB7fHoCvro=",
+            "password": "pbkdf2_sha256$30000$Ck4xYtq8N7sj$gH4Lh9+D1ntxWjdumcoxLV5Qgmft9vq1fBpFJ0hIO7s=",
             "last_login": "2017-04-06T23:23:16Z",
             "is_superuser": true,
             "username": "master",
