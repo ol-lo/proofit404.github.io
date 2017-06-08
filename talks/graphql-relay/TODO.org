@@ -1,0 +1,8 @@
+* DONE Lee Bairon (leebe)
+* First case developed by Facebook
+* Summarize
+** Cons: mutation isn't enough
+* Drop data from cache
+* Core
+  Show how we map on <li /> component and its query correspond to
+  another fragment inside it by name
