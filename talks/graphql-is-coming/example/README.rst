@@ -1,11 +1,9 @@
 Deploy example
 ==============
 
-.. code:: python
+.. code:: bash
 
-    django-admin migrate
-    django-admin loaddata dump.json
-    django-admin runserver
+    make
 
 Open browser at http://localhost:8000/taskmanager::
 
