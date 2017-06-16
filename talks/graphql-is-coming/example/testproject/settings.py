@@ -17,7 +17,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'graphene_django',
     'django_filters',
-    'poll.apps.PollConfig',
     'taskmanager.apps.TaskmanagerConfig',
 ]
 
@@ -90,7 +89,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 GRAPHENE = {
-    'SCHEMA': 'poll.schema.schema',
     'MIDDLEWARE': [
         'graphene_django.debug.DjangoDebugMiddleware',
     ],
