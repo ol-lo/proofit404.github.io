@@ -148,7 +148,18 @@ html
           h4 Conditional fetching
           pre
             code.jsx.
-              // TODO
+              Relay.createContainer(Task, {
+                initialVariables: { showComments: false },
+                task: () =#{">"} Relay.QL`
+                  fragment on Task {
+                    title,
+                    description,
+                    comments #[mark(style='font-weight: bold;') @include(if: $showComments)] {
+                      author
+                      text
+                    }
+                  }
+                `});
         section
           h4 Cache
           pre
