@@ -49,6 +49,17 @@ Task = Relay.createContainer(Task, {
       description,
     }
   `,
+});</code></pre></section><section><h4>Nesting</h4><pre><code class="jsx small">class TaskList extends React.Component {
+  render() {
+    return &lt;ul&gt; {this.props.tasks.map(
+      task => &lt;Task name={name} /&gt;
+    )} &lt;/ul&gt;;
+  }
+}</code></pre><pre><code class="jsx small">TaskList = Relay.createContainer(TaskList, {
+  tasks: () =&gt; Relay.QL`
+    tasks {
+      <mark style="font-weight: bold;">${Task.getFragment('task')}</mark>
+    }`,
 });</code></pre></section><section><h4>Conditional fetching</h4><pre><code class="jsx">Relay.createContainer(Task, {
   initialVariables: { showComments: false },
   task: () =&gt; Relay.QL`

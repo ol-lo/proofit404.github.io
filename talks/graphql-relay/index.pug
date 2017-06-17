@@ -134,6 +134,25 @@ html
                 `,
               });
         section
+          h4 Nesting
+          pre
+            code.jsx.small.
+              class TaskList extends React.Component {
+                render() {
+                  return #{"<"}ul#{">"} {this.props.tasks.map(
+                    task => #{"<"}Task name={name} /#{">"}
+                  )} #{"<"}/ul#{">"};
+                }
+              }
+          pre
+            code.jsx.small.
+              TaskList = Relay.createContainer(TaskList, {
+                tasks: () =#{">"} Relay.QL`
+                  tasks {
+                    #[mark(style='font-weight: bold;') ${Task.getFragment('task')}]
+                  }`,
+              });
+        section
           h4 Conditional fetching
           pre
             code.jsx.
