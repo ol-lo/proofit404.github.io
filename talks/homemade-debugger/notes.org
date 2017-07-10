@@ -41,6 +41,7 @@
 
   Does trace function corresponds to the scoping rules in python?
   Describe what is scoping in python, when we speak about locals.
+* TODO What is threading.set_trace function?
 * TODO exceptions inside the trace function
 * TODO what "function call" actually is?
 * TODO Draw virtual machine state in the pictures
@@ -97,7 +98,7 @@
    - Jimmy decides to white improved debugger version (named Manhole
      and Hunter).
    - Jimmy digs into definitions of the fork and pty_fork.
-   - Jimmy digs into s... (telnet alternative)
+   - Jimmy digs into socat (telnet alternative)
      + Mention readline from previous chapters.
 ** Chapter 5: Convenience.
    - Jimmy want nice autocompletion in the Pdb prompt.
