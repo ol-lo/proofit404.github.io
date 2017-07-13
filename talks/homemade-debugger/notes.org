@@ -1,3 +1,10 @@
+* I need to talk about
+** Trace mode
+** postmortem mode
+** -c continue mode
+* TODO How the hell "up" and "down" and "!" works?!
+* TODO What the hell is "debug" and "jump"?
+* TODO How "interact" command was implemented?
 * TODO Main implementation principle
 ** set_trace implementation
 *** what does "frame.f_trace = self.trace_dispatch" mean?
@@ -34,6 +41,7 @@
 ** How inspect.findsource works?
 * TODO What is about ": " prompt?
 * TODO How can I skip execution to the end of huge dict literal
+  Does until do this?
 * Set trace
   Looks like trace function doesn't applies to the nested function
   calls.  We need to return "local" trace function (or nested tracer)
