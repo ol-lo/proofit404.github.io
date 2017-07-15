@@ -52,7 +52,16 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
 <b>def</b> dispatch(frame, event, arg):
     <b>print</b>(event)
     <b>print</b>(<b>dir</b>(frame))
-    <mark class="black"><b>return</b> dispatch</mark></code></pre></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h2>Chapter 5</h2><h4>Smart Tracing</h4></section><section><h3>What if you even don't know where to start</h3><img class="comics" src="pic/reviewing.png"></section><section><h2>Chapter 6</h2><h4>Many years after...</h4></section><section><h3>A lot of cool tools were developed</h3><img class="comics" src="pic/antigravity.png"></section><section><h4>ipdb, pdb++, winpdb</h4><h4>BeeWare bugjar</h4><h4>JetBrains PyCharm debugger</h4><h4>GDB python extensions</h4></section><section><h2>The End</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+    <mark class="black"><b>return</b> dispatch</mark></code></pre></section><section><h3>Print code lines</h3><pre><code class="gray"><b>import</b> sys                                       <mark class="black"><b>$ python simple.py</b></mark>
+<mark class="black"><b>import</b> linecache</mark>                               <mark class="black"><b>def</b> foo(a, b):</mark>
+                                                       <mark class="black"><b>return</b> a + b</mark>
+<b>def</b> dispatch(frame, event, arg):        <mark class="black"><b>return</b> a + b</mark>
+    <mark class="black">line = linecache.getline(</mark>
+        <mark class="black">frame.f_code.co_filename,</mark>
+        <mark class="black">frame.f_lineno,</mark>
+    <mark class="black">)</mark>
+    <mark class="black"><b>print</b>(line)</mark>
+    <b>return</b> dispatch</code></pre></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h2>Chapter 5</h2><h4>Smart Tracing</h4></section><section><h3>What if you even don't know where to start</h3><img class="comics" src="pic/reviewing.png"></section><section><h2>Chapter 6</h2><h4>Many years after...</h4></section><section><h3>A lot of cool tools were developed</h3><img class="comics" src="pic/antigravity.png"></section><section><h4>ipdb, pdb++, winpdb</h4><h4>BeeWare bugjar</h4><h4>JetBrains PyCharm debugger</h4><h4>GDB python extensions</h4></section><section><h2>The End</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,

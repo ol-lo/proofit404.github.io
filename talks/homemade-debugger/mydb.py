@@ -1,4 +1,5 @@
 import sys
+import linecache
 
 
 def set_trace():
@@ -6,5 +7,9 @@ def set_trace():
 
 
 def dispatch(frame, event, arg):
-    print(event, list([x for x in dir(frame) if not x.startswith('__')]))
+    line = linecache.getline(
+        frame.f_code.co_filename,
+        frame.f_lineno,
+    )
+    print(line.strip())
     return dispatch

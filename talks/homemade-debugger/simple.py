@@ -5,7 +5,7 @@ def foo(a, b):
 
 
 def bar():
-    pass
+    None
 
 
 import mydb

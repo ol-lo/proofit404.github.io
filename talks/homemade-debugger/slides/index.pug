@@ -148,6 +148,20 @@ html
                   #[b print](#[b dir](frame))
                   #[mark.black #[b return] dispatch]
         section
+          h3 Print code lines
+          pre
+            code.gray.
+              #[b import] sys                                       #[mark.black #[b $ python simple.py]]
+              #[mark.black #[b import] linecache]                               #[mark.black #[b def] foo(a, b):]
+                                                                     #[mark.black #[b return] a + b]
+              #[b def] dispatch(frame, event, arg):        #[mark.black #[b return] a + b]
+                  #[mark.black line = linecache.getline(]
+                      #[mark.black frame.f_code.co_filename,]
+                      #[mark.black frame.f_lineno,]
+                  #[mark.black )]
+                  #[mark.black #[b print](line)]
+                  #[b return] dispatch
+        section
           h2 Chapter 3
           h4 Threads and Multiprocessing
         section
