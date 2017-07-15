@@ -2,3 +2,15 @@
     width: auto;
     height: 300px;
 }
+
+.gray {
+    color: gray;
+}
+
+.black {
+    color: black;
+}
+
+mark {
+    background-color: white;
+}

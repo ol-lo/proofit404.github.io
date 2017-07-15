@@ -81,6 +81,20 @@ html
           h3 Python 1.4 Changelog
           img(src='pic/changelog.png').comics
         section
+          h3 Trace function
+          pre
+            code.gray.
+              _PyEval_EvalFrameDefault(#[b PyFrameObject] *f, #[b int] throwflag) {
+                   #[b switch] (opcode) {
+                        TARGET(CALL_FUNCTION) {
+                             #[b PyObject] **sp, *res;
+                             res = call_function(&sp, oparg, NULL);
+                             #[mark.black call_trace(tracefunc, frame);]
+                             #[mark.black JUMPTO(frame->f_lasti);]
+                             PUSH(res);
+                        }
+              }
+        section
           h2 Chapter 2
           h4 Pdb implementation
         section
@@ -98,10 +112,6 @@ html
             tr
               td 'exception'
               td After an exception occurs.
-        section
-          pre
-            code.
-              #[b print] "statements"
         section
           h2 Chapter 3
           h4 Threads and Multiprocessing

@@ -23,7 +23,16 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
                PUSH(res);
           }
      }
-}</code></pre></section><section><h3>Python 1.4 Changelog</h3><img class="comics" src="pic/changelog.png"></section><section><h2>Chapter 2</h2><h4>Pdb implementation</h4></section><section><h3>Settrace event table</h3><table><tr><td>'call'</td><td>Before a function is executed.</td></tr><tr><td>'line'</td><td>Before a line is executed.</td></tr><tr><td>'return'</td><td>Before a function returns.</td></tr><tr><td>'exception'</td><td>After an exception occurs.</td></tr></table></section><section><pre><code><b>print</b> "statements"</code></pre></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h2>Chapter 5</h2><h4>Smart Tracing</h4></section><section><h3>What if you even don't know where to start</h3><img class="comics" src="pic/reviewing.png"></section><section><h2>Chapter 6</h2><h4>Many years after...</h4></section><section><h3>A lot of cool tools were developed</h3><img class="comics" src="pic/antigravity.png"></section><section><h4>ipdb, pdb++, winpdb</h4><h4>BeeWare bugjar</h4><h4>JetBrains PyCharm debugger</h4><h4>GDB python extensions</h4></section><section><h2>The End</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+}</code></pre></section><section><h3>Python 1.4 Changelog</h3><img class="comics" src="pic/changelog.png"></section><section><h3>Trace function</h3><pre><code class="gray">_PyEval_EvalFrameDefault(<b>PyFrameObject</b> *f, <b>int</b> throwflag) {
+     <b>switch</b> (opcode) {
+          TARGET(CALL_FUNCTION) {
+               <b>PyObject</b> **sp, *res;
+               res = call_function(&sp, oparg, NULL);
+               <mark class="black">call_trace(tracefunc, frame);</mark>
+               <mark class="black">JUMPTO(frame->f_lasti);</mark>
+               PUSH(res);
+          }
+}</code></pre></section><section><h2>Chapter 2</h2><h4>Pdb implementation</h4></section><section><h3>Settrace event table</h3><table><tr><td>'call'</td><td>Before a function is executed.</td></tr><tr><td>'line'</td><td>Before a line is executed.</td></tr><tr><td>'return'</td><td>Before a function returns.</td></tr><tr><td>'exception'</td><td>After an exception occurs.</td></tr></table></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h2>Chapter 5</h2><h4>Smart Tracing</h4></section><section><h3>What if you even don't know where to start</h3><img class="comics" src="pic/reviewing.png"></section><section><h2>Chapter 6</h2><h4>Many years after...</h4></section><section><h3>A lot of cool tools were developed</h3><img class="comics" src="pic/antigravity.png"></section><section><h4>ipdb, pdb++, winpdb</h4><h4>BeeWare bugjar</h4><h4>JetBrains PyCharm debugger</h4><h4>GDB python extensions</h4></section><section><h2>The End</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
