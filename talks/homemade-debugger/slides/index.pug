@@ -43,6 +43,29 @@ html
           h2 Chapter 1
           h4 Inside a Python interpreter
         section
+          pre
+            code.
+              #[b def] foo(a, b):
+                  #[b return] a + b
+
+              #[b if] __name__ == '__main__':
+                  #[b print](foo(1, 2))
+        section
+          pre
+            code.
+              #[b $ python -m dis simple.py]
+                 0 LOAD_CONST        (#{"<"}code object foo#{">"})
+                ...
+                16 LOAD_NAME         (print)
+                18 LOAD_NAME         (foo)
+                20 LOAD_CONST        (1)
+                22 LOAD_CONST        (2)
+                24 CALL_FUNCTION
+                26 CALL_FUNCTION
+        section
+          h2 Chapter 2
+          h4 Pdb implementation
+        section
           h3 Settrace event table
           table
             tr
@@ -57,9 +80,6 @@ html
             tr
               td 'exception'
               td After an exception occurs.
-        section
-          h2 Chapter 2
-          h4 Pdb implementation
         section
           pre
             code.
