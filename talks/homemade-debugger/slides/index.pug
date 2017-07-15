@@ -192,6 +192,32 @@ html
           h2 Chapter 4
           h4 Coroutines and asyncio
         section
+          h3 Generator based concurrency
+          pre
+            code.
+              #[b (Mydbg)] list
+                1     #[b def] view():
+                2           mydbg.set_trace()
+                3  ->     cache = #[b yield] access_cache()
+                4           data = #[b yield] access_db()
+                5
+              #[b (Mydbg)] next
+              --Return--
+              #[b (Mydbg)] # Hello event loop internals :'(
+        section
+          h3 Coroutines based concurrency
+          pre
+            code.
+              #[b (Mydbg)] list
+                1     #[b async def] view():
+                2           mydbg.set_trace()
+                3  ->     cache = #[b await] access_cache()
+                4           data = #[b await] access_db()
+                5
+              #[b (Mydbg)] next
+              -> data = await access_db()
+              #[b (Mydbg)]
+        section
           h2 Chapter 5
           h4 Smart Tracing
         section
