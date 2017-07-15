@@ -113,6 +113,41 @@ html
               td 'exception'
               td After an exception occurs.
         section
+          h3 Setup debugger
+          pre
+            code.gray.
+              #[b def] foo(a, b):
+                  #[b return] a + b
+
+              #[b if] __name__ == '__main__':
+                  #[mark.black #[b import] mydbg.set_trace()]
+                  #[b print](foo(1, 2))
+        section
+          h3 Naive usage
+          pre
+            code.
+              #[b import] sys                                   #[b $ python simple.py]
+                                                                 call
+              #[b def] set_trace():                           ['f_back', 'f_code', 'f_locals']
+                  sys.settrace(dispatch)
+
+              #[b def] dispatch(frame, event, arg):
+                  #[b print](event)
+                  #[b print](#[b dir](frame))
+        section
+          h3 Nested calls
+          pre
+            code.gray.
+              #[b import] sys                                   #[mark.black #[b $ python simple.py]]
+                                                                 #[mark.black call]
+              #[b def] set_trace():                           #[mark.black ['f_back', 'f_code', 'f_locals']]
+                  sys.settrace(dispatch)                #[mark.black line]
+                                                                 #[mark.black ['f_back', 'f_code', 'f_locals']]
+              #[b def] dispatch(frame, event, arg):
+                  #[b print](event)
+                  #[b print](#[b dir](frame))
+                  #[mark.black #[b return] dispatch]
+        section
           h2 Chapter 3
           h4 Threads and Multiprocessing
         section

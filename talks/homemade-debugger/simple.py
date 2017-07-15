@@ -1,5 +1,16 @@
 def foo(a, b):
-    return a + b
+    c = a + b
+    d = c + a
+    e = d + a
 
-if __name__ == '__main__':
-    print(foo(1, 2))
+
+def bar():
+    pass
+
+
+import mydb
+mydb.set_trace()
+foo(1, 2)
+pass
+pass
+bar()
