@@ -162,6 +162,27 @@ html
                   #[mark.black #[b print](line)]
                   #[b return] dispatch
         section
+          h3 Interactive prompt
+          pre
+            code.gray.
+                      frame.f_lineno,                      #[mark.black $ #[b python simple.py]]
+                  )                                               #[mark.black #[b def] foo(a, b):]
+                  #[b print](line)                                 #[mark.black #[b (Mydbg)] foo]
+                  #[mark.black cmd = #[b True]]                               #[mark.black #{"<"}function foo at 0x7f153b061e18#{">"}]
+                  #[mark.black #[b while] cmd:]                                 #[mark.black #[b (Mydbg)] b]
+                      #[mark.black cmd = #[b input]('(Mydbg) ')]           #[mark.black 2]
+                      #[mark.black run_cmd(cmd, frame)]             #[mark.black #[b (Mydbg)]]
+                  #[b return] dispatch                         #[mark.black #[b return] a + b]
+                                                                  #[mark.black #[b (Mydbg)]]
+              #[mark.black def run_cmd(cmd, frame):]
+                  #[mark.black if cmd in frame.f_locals:]
+                      #[mark.black print(frame.f_locals[cmd])]
+        section
+          h3 Commands
+          h4 next, step in, contunue
+          h4 up, down, where
+          h4 expression eval
+        section
           h2 Chapter 3
           h4 Threads and Multiprocessing
         section
