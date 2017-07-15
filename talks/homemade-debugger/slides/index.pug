@@ -4,7 +4,6 @@ html
     meta(charset='utf-8')
     link(rel='stylesheet' type='text/css' href='css/reveal.css')
     link(rel='stylesheet' type='text/css' href='css/theme/white.css' id='theme')
-    //- link(rel='stylesheet' type='text/css' href='lib/css/github-gist.min.css')
     link(rel='stylesheet' type='text/css' href='css/customize.css')
     title Homemade debugger
     script.
@@ -130,9 +129,6 @@ html
           h2 The End
     script(src='lib/js/head.min.js')
     script(src='js/reveal.js')
-    //- script(src='lib/js/highlight.min.js')
-    //- script.
-    //-   hljs.initHighlightingOnLoad();
     script.
       Reveal.initialize({
           controls: false,
@@ -141,8 +137,7 @@ html
           history: true,
           transition: 'none',
           dependencies: [
-              { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-              { src: 'plugin/notes/notes.js', async: true }
+              { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } }
           ]
       });
 //- Local Variables:
