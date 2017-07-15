@@ -43,6 +43,7 @@ html
           h2 Chapter 1
           h4 Inside a Python interpreter
         section
+          h3 Source code
           pre
             code.
               #[b def] foo(a, b):
@@ -51,6 +52,7 @@ html
               #[b if] __name__ == '__main__':
                   #[b print](foo(1, 2))
         section
+          h3 Bytecode
           pre
             code.
               #[b $ python -m dis simple.py]
@@ -62,6 +64,23 @@ html
                 22 LOAD_CONST        (2)
                 24 CALL_FUNCTION
                 26 CALL_FUNCTION
+        section
+          h3 Frame evaluation
+          pre
+            code.
+              _PyEval_EvalFrameDefault(#[b PyFrameObject] *f, #[b int] throwflag) {
+                   #[b switch] (opcode) {
+                        TARGET(CALL_FUNCTION) {
+                             #[b PyObject] **sp, *res;
+                             res = call_function(&sp, oparg, NULL);
+                             stack_pointer = sp;
+                             PUSH(res);
+                        }
+                   }
+              }
+        section
+          h3 Python 1.4 Changelog
+          img(src='pic/changelog.png').comics
         section
           h2 Chapter 2
           h4 Pdb implementation
