@@ -6,7 +6,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
     <b>return</b> a + b
 
 <b>if</b> __name__ == '__main__':
-    <b>print</b>(foo(1, 2))</code></pre></section><section><h3>Bytecode</h3><pre><code><b>$ python -m dis simple.py</b>
+    <b>print</b>(foo(1, 2))</code></pre></section><section><h3>Bytecode</h3><pre><code># <b>python -m dis simple.py</b>
    0 LOAD_CONST        (&lt;code object foo&gt;)
   ...
   16 LOAD_NAME         (print)
@@ -37,22 +37,22 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
 
 <b>if</b> __name__ == '__main__':
     <mark class="black"><b>import</b> mydbg.set_trace()</mark>
-    <b>print</b>(foo(1, 2))</code></pre></section><section><h3>Naive usage</h3><pre><code><b>import</b> sys                                   <b>$ python simple.py</b>
+    <b>print</b>(foo(1, 2))</code></pre></section><section><h3>Naive usage</h3><pre><code><b>import</b> sys                                   # <b>python simple.py</b>
                                                    call
 <b>def</b> set_trace():                           ['f_back', 'f_code', 'f_locals']
     sys.settrace(dispatch)
 
 <b>def</b> dispatch(frame, event, arg):
     <b>print</b>(event)
-    <b>print</b>(<b>dir</b>(frame))</code></pre></section><section><h3>Nested calls</h3><pre><code class="gray"><b>import</b> sys                                   <mark class="black"><b>$ python simple.py</b></mark>
+    <b>print</b>(<b>dir</b>(frame))</code></pre></section><section><h3>Nested calls</h3><pre><code class="gray"><b>import</b> sys                                   <mark class="black"># <b>python simple.py</b></mark>
                                                    <mark class="black">call</mark>
-<b>def</b> set_trace():                           <mark class="black">['f_back', 'f_code', 'f_locals'</mark>]
+<b>def</b> set_trace():                           <mark class="black">['f_back', 'f_code', 'f_locals']</mark>
     sys.settrace(dispatch)                <mark class="black">line</mark>
-                                                   <mark class="black">['f_back', 'f_code', 'f_locals'</mark>]
+                                                   <mark class="black">['f_back', 'f_code', 'f_locals']</mark>
 <b>def</b> dispatch(frame, event, arg):
     <b>print</b>(event)
     <b>print</b>(<b>dir</b>(frame))
-    <mark class="black"><b>return</b> dispatch</mark></code></pre></section><section><h3>Print code lines</h3><pre><code class="gray"><b>import</b> sys                                       <mark class="black"><b>$ python simple.py</b></mark>
+    <mark class="black"><b>return</b> dispatch</mark></code></pre></section><section><h3>Print code lines</h3><pre><code class="gray"><b>import</b> sys                                       <mark class="black"># <b>python simple.py</b></mark>
 <mark class="black"><b>import</b> linecache</mark>                               <mark class="black"><b>def</b> foo(a, b):</mark>
                                                        <mark class="black"><b>return</b> a + b</mark>
 <b>def</b> dispatch(frame, event, arg):        <mark class="black"><b>return</b> a + b</mark>
@@ -72,7 +72,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
                                                     <mark class="black"><b>(Mydbg)</b></mark>
 <mark class="black">def run_cmd(cmd, frame):</mark>
     <mark class="black">if cmd in frame.f_locals:</mark>
-        <mark class="black">print(frame.f_locals[cmd</mark>)]</code></pre></section><section><h3>Commands</h3><h4>next, step in, contunue</h4><h4>up, down, where</h4><h4>expression eval</h4></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h2>Chapter 5</h2><h4>Smart Tracing</h4></section><section><h3>What if you even don't know where to start</h3><img class="comics" src="pic/reviewing.png"></section><section><h2>Chapter 6</h2><h4>Many years after...</h4></section><section><h3>A lot of cool tools were developed</h3><img class="comics" src="pic/antigravity.png"></section><section><h4>ipdb, pdb++, winpdb</h4><h4>BeeWare bugjar</h4><h4>JetBrains PyCharm debugger</h4><h4>GDB python extensions</h4></section><section><h2>The End</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+        <mark class="black">print(frame.f_locals[cmd</mark>)]</code></pre></section><section><h3>Commands</h3><h4>next, step in, contunue</h4><h4>up, down, where</h4><h4>expression eval, post mortem</h4></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h2>Chapter 5</h2><h4>Smart Tracing</h4></section><section><h3>What if you even don't know where to start</h3><img class="comics" src="pic/reviewing.png"></section><section><h2>Chapter 6</h2><h4>Many years after...</h4></section><section><h3>A lot of cool tools were developed</h3><img class="comics" src="pic/antigravity.png"></section><section><h4>ipdb, pdb++, winpdb</h4><h4>BeeWare bugjar</h4><h4>JetBrains PyCharm debugger</h4><h4>GDB python extensions</h4></section><section><h2>The End</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
