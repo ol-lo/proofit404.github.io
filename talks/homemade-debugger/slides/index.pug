@@ -67,11 +67,11 @@ html
           h3 Frame evaluation
           pre
             code.
-              _PyEval_EvalFrameDefault(#[b PyFrameObject] *f, #[b int] throwflag) {
+              _PyEval_EvalFrame(#[b PyFrameObject] *f, #[b int] throwflag) {
                    #[b switch] (opcode) {
-                        TARGET(CALL_FUNCTION) {
+                        TARGET(CALL_FUNCTION) { #[b /* <- */]
                              #[b PyObject] **sp, *res;
-                             res = call_function(&sp, oparg, NULL);
+                             res = call_function(&sp, oparg, NULL); #[b /* <- */]
                              stack_pointer = sp;
                              PUSH(res);
                         }
@@ -84,7 +84,7 @@ html
           h3 Trace function
           pre
             code.gray.
-              _PyEval_EvalFrameDefault(#[b PyFrameObject] *f, #[b int] throwflag) {
+              _PyEval_EvalFrame(#[b PyFrameObject] *f, #[b int] throwflag) {
                    #[b switch] (opcode) {
                         TARGET(CALL_FUNCTION) {
                              #[b PyObject] **sp, *res;
@@ -93,6 +93,7 @@ html
                              #[mark.black JUMPTO(frame->f_lasti);]
                              PUSH(res);
                         }
+                  }
               }
         section
           h2 Chapter 2
@@ -127,7 +128,7 @@ html
           pre
             code.
               #[b import] sys                                   # #[b python simple.py]
-                                                                 call
+                                                                  call
               #[b def] set_trace():                           ['f_back', 'f_code', 'f_locals']
                   sys.settrace(dispatch)
 
@@ -139,10 +140,10 @@ html
           pre
             code.gray.
               #[b import] sys                                   #[mark.black # #[b python simple.py]]
-                                                                 #[mark.black call]
+                                                                  #[mark.black call]
               #[b def] set_trace():                           #[mark.black ['f_back', 'f_code', 'f_locals'#{"]"}]
-                  sys.settrace(dispatch)                #[mark.black line]
-                                                                 #[mark.black ['f_back', 'f_code', 'f_locals'#{"]"}]
+                  sys.settrace(dispatch)               #[mark.black line]
+                                                                  #[mark.black ['f_back', 'f_code', 'f_locals'#{"]"}]
               #[b def] dispatch(frame, event, arg):
                   #[b print](event)
                   #[b print](#[b dir](frame))
@@ -153,8 +154,8 @@ html
             code.gray.
               #[b import] sys                                       #[mark.black # #[b python simple.py]]
               #[mark.black #[b import] linecache]                               #[mark.black #[b def] foo(a, b):]
-                                                                     #[mark.black #[b return] a + b]
-              #[b def] dispatch(frame, event, arg):        #[mark.black #[b return] a + b]
+                                                                      #[mark.black #[b return] a + b]
+              #[b def] dispatch(frame, event, arg):       #[mark.black #[b return] a + b]
                   #[mark.black line = linecache.getline(]
                       #[mark.black frame.f_code.co_filename,]
                       #[mark.black frame.f_lineno,]
@@ -166,14 +167,14 @@ html
           pre
             code.gray.
                       frame.f_lineno,                      #[mark.black # #[b python simple.py]]
-                  )                                               #[mark.black #[b def] foo(a, b):]
-                  #[b print](line)                                 #[mark.black #[b (Mydbg)] foo]
-                  #[mark.black cmd = #[b True]]                               #[mark.black #{"<"}function foo at 0x7f153b061e18#{">"}]
-                  #[mark.black #[b while] cmd:]                                 #[mark.black #[b (Mydbg)] b]
+                  )                                                #[mark.black #[b def] foo(a, b):]
+                  #[b print](line)                                  #[mark.black #[b (Mydbg)] foo]
+                  #[mark.black cmd = #[b True]]                               #[mark.black #{"<"}function foo at 0x7f153b#{">"}]
+                  #[mark.black #[b while] cmd:]                                  #[mark.black #[b (Mydbg)] b]
                       #[mark.black cmd = #[b input]('(Mydbg) ')]           #[mark.black 2]
                       #[mark.black run_cmd(cmd, frame)]             #[mark.black #[b (Mydbg)]]
                   #[b return] dispatch                         #[mark.black #[b return] a + b]
-                                                                  #[mark.black #[b (Mydbg)]]
+                                                                   #[mark.black #[b (Mydbg)]]
               #[mark.black #[b def] run_cmd(cmd, frame):]
                   #[mark.black #[b if] cmd #[b in] frame.f_locals:]
                       #[mark.black #[b print](frame.f_locals[cmd#{"]"})]
@@ -202,7 +203,7 @@ html
           pre
             code.
               #[b (Mydbg)] list
-                1     #[b def] view():
+                 1     #[b def] view():
                 2           mydbg.set_trace()
                 3  ->     cache = #[b yield] access_cache()
                 4           data = #[b yield] access_db()
@@ -215,7 +216,7 @@ html
           pre
             code.
               #[b (Mydbg)] list
-                1     #[b async def] view():
+                 1     #[b async def] view():
                 2           mydbg.set_trace()
                 3  ->     cache = #[b await] access_cache()
                 4           data = #[b await] access_db()
@@ -241,7 +242,7 @@ html
                 raise value.with_traceback(tb)
               File "django/db/backends/utils.py", line 63, in execute
                 return self.cursor.execute(sql)
-              django.db.utils.DatabaseError: server closed the connection unexpectedly
+              django.db.utils.DatabaseError: server closed the connection
                     This probably means the server terminated abnormally
                     before or while processing the request.
         section
