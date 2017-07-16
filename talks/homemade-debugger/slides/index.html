@@ -36,7 +36,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
     <b>return</b> a + b
 
 <b>if</b> __name__ == '__main__':
-    <mark class="black"><b>import</b> mydbg.set_trace()</mark>
+    <mark class="black"><b>import</b> mydbg; mydbg.set_trace()</mark>
     <b>print</b>(foo(1, 2))</code></pre></section><section><h3>Naive usage</h3><pre><code><b>import</b> sys                                   # <b>python simple.py</b>
                                                    call
 <b>def</b> set_trace():                           ['f_back', 'f_code', 'f_locals']
@@ -61,7 +61,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
         <mark class="black">frame.f_lineno,</mark>
     <mark class="black">)</mark>
     <mark class="black"><b>print</b>(line)</mark>
-    <b>return</b> dispatch</code></pre></section><section><h3>Interactive prompt</h3><pre><code class="gray">        frame.f_lineno,                      <mark class="black">$ <b>python simple.py</b></mark>
+    <b>return</b> dispatch</code></pre></section><section><h3>Interactive prompt</h3><pre><code class="gray">        frame.f_lineno,                      <mark class="black"># <b>python simple.py</b></mark>
     )                                               <mark class="black"><b>def</b> foo(a, b):</mark>
     <b>print</b>(line)                                 <mark class="black"><b>(Mydbg)</b> foo</mark>
     <mark class="black">cmd = <b>True</b></mark>                               <mark class="black">&lt;function foo at 0x7f153b061e18&gt;</mark>
@@ -70,9 +70,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
         <mark class="black">run_cmd(cmd, frame)</mark>             <mark class="black"><b>(Mydbg)</b></mark>
     <b>return</b> dispatch                         <mark class="black"><b>return</b> a + b</mark>
                                                     <mark class="black"><b>(Mydbg)</b></mark>
-<mark class="black">def run_cmd(cmd, frame):</mark>
-    <mark class="black">if cmd in frame.f_locals:</mark>
-        <mark class="black">print(frame.f_locals[cmd</mark>)]</code></pre></section><section><h3>Commands</h3><h4>next, step in, contunue</h4><h4>up, down, where</h4><h4>expression eval, post mortem</h4></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h3>Things are way more interesting in the concurrent world</h3><img class="comics" src="pic/server.png"></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h3>Generator based concurrency</h3><pre><code><b>(Mydbg)</b> list
+<mark class="black"><b>def</b> run_cmd(cmd, frame):</mark>
+    <mark class="black"><b>if</b> cmd <b>in</b> frame.f_locals:</mark>
+        <mark class="black"><b>print</b>(frame.f_locals[cmd])</mark></code></pre></section><section><h3>Commands</h3><h4>next, step in, contunue</h4><h4>up, down, where</h4><h4>expression eval, post mortem</h4></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h3>Things are way more interesting in the concurrent world</h3><img class="comics" src="pic/server.png"></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h3>Generator based concurrency</h3><pre><code><b>(Mydbg)</b> list
   1     <b>def</b> view():
   2           mydbg.set_trace()
   3  ->     cache = <b>yield</b> access_cache()

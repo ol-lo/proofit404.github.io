@@ -120,7 +120,7 @@ html
                   #[b return] a + b
 
               #[b if] __name__ == '__main__':
-                  #[mark.black #[b import] mydbg.set_trace()]
+                  #[mark.black #[b import] mydbg; mydbg.set_trace()]
                   #[b print](foo(1, 2))
         section
           h3 Naive usage
@@ -165,7 +165,7 @@ html
           h3 Interactive prompt
           pre
             code.gray.
-                      frame.f_lineno,                      #[mark.black $ #[b python simple.py]]
+                      frame.f_lineno,                      #[mark.black # #[b python simple.py]]
                   )                                               #[mark.black #[b def] foo(a, b):]
                   #[b print](line)                                 #[mark.black #[b (Mydbg)] foo]
                   #[mark.black cmd = #[b True]]                               #[mark.black #{"<"}function foo at 0x7f153b061e18#{">"}]
@@ -174,9 +174,9 @@ html
                       #[mark.black run_cmd(cmd, frame)]             #[mark.black #[b (Mydbg)]]
                   #[b return] dispatch                         #[mark.black #[b return] a + b]
                                                                   #[mark.black #[b (Mydbg)]]
-              #[mark.black def run_cmd(cmd, frame):]
-                  #[mark.black if cmd in frame.f_locals:]
-                      #[mark.black print(frame.f_locals[cmd])]
+              #[mark.black #[b def] run_cmd(cmd, frame):]
+                  #[mark.black #[b if] cmd #[b in] frame.f_locals:]
+                      #[mark.black #[b print](frame.f_locals[cmd#{"]"})]
         section
           h3 Commands
           h4 next, step in, contunue
@@ -215,7 +215,7 @@ html
                 4           data = #[b await] access_db()
                 5
               #[b (Mydbg)] next
-              -> data = await access_db()
+              -> data = #[b await] access_db()
               #[b (Mydbg)]
         section
           h2 Chapter 5
