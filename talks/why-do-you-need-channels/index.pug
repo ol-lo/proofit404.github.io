@@ -1,0 +1,58 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    link(rel='stylesheet' type='text/css' href='css/reveal.css')
+    link(rel='stylesheet' type='text/css' href='css/theme/league.css')
+    title Why do you need Channels
+    script.
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+  body
+    .reveal
+      .slides
+        section
+          h1 Why do you need Channels
+          h2 Artem Malyshev
+          h3 @proofit404
+        section
+          h2 Solution for network
+        section
+          h2 Groups
+        section
+          h2 Authentication
+        section
+          h2 Session
+        section
+          h2 Generic consumers
+        section
+          h2 Multiplexing
+        section
+          h2 Data-binding
+        section
+          h2 Test framework integration
+        section
+          h2 Let's talk!
+    script(src='lib/js/head.min.js')
+    script(src='js/reveal.js')
+    script(src='lib/js/highlight.min.js')
+    script.
+      hljs.initHighlightingOnLoad();
+    script.
+      Reveal.initialize({
+          controls: false,
+          progress: false,
+          slideNumber: true,
+          history: true,
+          dependencies: [
+              { src: 'plugin/notes/notes.js', async: true }
+          ]
+      });
+//- Local Variables:
+//- eval: (add-hook (quote after-save-hook) (function (lambda nil (let ((proc (start-process-shell-command "pug" "*Pug*" (format "pug %s" (buffer-file-name))))) (set-process-sentinel proc (function (lambda (proc status) (if (zerop (process-exit-status proc)) (and (buffer-file-name) (message "Pug: rendered %s" (file-name-nondirectory (buffer-file-name)))) (message "Pug: error")))))))) nil t)
+//- eval: (start-process-shell-command "http.server" "*http.server*" "python -m http.server --bind localhost 4001")
+//- eval: (run-at-time 2 nil (function browse-url) "http://localhost:4001")
+//- End:
