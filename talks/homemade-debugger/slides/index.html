@@ -72,7 +72,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
                                                     <mark class="black"><b>(Mydbg)</b></mark>
 <mark class="black"><b>def</b> run_cmd(cmd, frame):</mark>
     <mark class="black"><b>if</b> cmd <b>in</b> frame.f_locals:</mark>
-        <mark class="black"><b>print</b>(frame.f_locals[cmd])</mark></code></pre></section><section><h3>Commands</h3><h4>next, step in, contunue</h4><h4>up, down, where</h4><h4>expression eval, post mortem</h4></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h3>Things are way more interesting in the concurrent world</h3><img class="comics" src="pic/server.png"></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h3>Generator based concurrency</h3><pre><code><b>(Mydbg)</b> list
+        <mark class="black"><b>print</b>(frame.f_locals[cmd])</mark></code></pre></section><section><h3>Commands</h3><h4>next, step in, contunue</h4><h4>up, down, where</h4><h4>expression eval, post mortem</h4></section><section><h2>Chapter 3</h2><h4>Threads and Multiprocessing</h4></section><section><h3>Things are way more interesting in the concurrent world</h3><img class="comics" src="pic/server.png"></section><section><h3>Problems</h3><h4>Install tracer for all threads</h4><h4>Fight for the GIL</h4><h4>Reinstall tracer after fork</h4><h4>Stdin is not available</h4></section><section><h2>Chapter 4</h2><h4>Coroutines and asyncio</h4></section><section><h3>Generator based concurrency</h3><pre><code><b>(Mydbg)</b> list
   1     <b>def</b> view():
   2           mydbg.set_trace()
   3  ->     cache = <b>yield</b> access_cache()
