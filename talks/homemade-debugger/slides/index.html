@@ -87,8 +87,28 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
   4           data = <b>await</b> access_db()
   5
 <b>(Mydbg)</b> next
--> data = await access_db()
-<b>(Mydbg)</b></code></pre></section><section><h2>Chapter 5</h2><h4>Smart Tracing</h4></section><section><h3>What if you even don't know where to start</h3><img class="comics" src="pic/reviewing.png"></section><section><h2>Chapter 6</h2><h4>Many years after...</h4></section><section><h3>A lot of cool tools were developed</h3><img class="comics" src="pic/antigravity.png"></section><section><h4>ipdb, pdb++, winpdb</h4><h4>BeeWare bugjar</h4><h4>JetBrains PyCharm debugger</h4><h4>GDB python extensions</h4></section><section><h3>10x engineer path</h3><img class="comics" src="pic/tenx.png"></section><section><h2>The End</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+-> data = <b>await</b> access_db()
+<b>(Mydbg)</b></code></pre></section><section><h2>Chapter 5</h2><h4>Smart Tracing</h4></section><section><h3>What if you even don't know where to start</h3><img class="comics" src="pic/reviewing.png"></section><section><h3>Something goes wrong</h3><pre><code>File "django/db/backends/utils.py", line 65, in execute
+  return self.cursor.execute(sql, params)
+File "django/db/utils.py", line 94, in __exit__
+  six.reraise(dj_exc_type, dj_exc_value, traceback)
+File "django/utils/six.py", line 685, in reraise
+  raise value.with_traceback(tb)
+File "django/db/backends/utils.py", line 63, in execute
+  return self.cursor.execute(sql)
+django.db.utils.DatabaseError: server closed the connection unexpectedly
+      This probably means the server terminated abnormally
+      before or while processing the request.</code></pre></section><section><h3>Let's track it down</h3><pre><code><b>from</b> hunter <b>import</b> trace, Q
+<b>import</b> mydbg
+
+trace(
+    Q(
+        module="django.db.utils",
+        function="close",
+        kind="call",
+        action=mydbg.set_trace,
+    )
+)</code></pre></section><section><h2>Chapter 6</h2><h4>Many years after...</h4></section><section><h3>A lot of cool tools were developed</h3><img class="comics" src="pic/antigravity.png"></section><section><h4>ipdb, pdb++, winpdb</h4><h4>BeeWare bugjar</h4><h4>JetBrains PyCharm debugger</h4><h4>GDB python extensions</h4></section><section><h3>10x engineer path</h3><img class="comics" src="pic/tenx.png"></section><section><h2>The End</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,

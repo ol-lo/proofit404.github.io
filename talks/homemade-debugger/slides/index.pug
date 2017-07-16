@@ -224,6 +224,36 @@ html
           h3 What if you even don't know where to start
           img(src='pic/reviewing.png').comics
         section
+          h3 Something goes wrong
+          pre
+            code.
+              File "django/db/backends/utils.py", line 65, in execute
+                return self.cursor.execute(sql, params)
+              File "django/db/utils.py", line 94, in __exit__
+                six.reraise(dj_exc_type, dj_exc_value, traceback)
+              File "django/utils/six.py", line 685, in reraise
+                raise value.with_traceback(tb)
+              File "django/db/backends/utils.py", line 63, in execute
+                return self.cursor.execute(sql)
+              django.db.utils.DatabaseError: server closed the connection unexpectedly
+                    This probably means the server terminated abnormally
+                    before or while processing the request.
+        section
+          h3 Let's track it down
+          pre
+            code.
+              #[b from] hunter #[b import] trace, Q
+              #[b import] mydbg
+
+              trace(
+                  Q(
+                      module="django.db.utils",
+                      function="close",
+                      kind="call",
+                      action=mydbg.set_trace,
+                  )
+              )
+        section
           h2 Chapter 6
           h4 Many years after...
         section
