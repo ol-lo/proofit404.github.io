@@ -33,7 +33,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
                PUSH(res);
           }
     }
-}</code></pre></section><section><h2>Chapter 2</h2><h4>Pdb implementation</h4></section><section><h3>Settrace event table</h3><table><tr><td>'call'</td><td>Before a function is executed.</td></tr><tr><td>'line'</td><td>Before a line is executed.</td></tr><tr><td>'return'</td><td>Before a function returns.</td></tr><tr><td>'exception'</td><td>After an exception occurs.</td></tr></table></section><section><h3>Setup debugger</h3><pre><code class="gray"><b>def</b> foo(a, b):
+}</code></pre></section><section><h3>Settrace event table</h3><table><tr><td>'call'</td><td>Before a function is executed.</td></tr><tr><td>'line'</td><td>Before a line is executed.</td></tr><tr><td>'return'</td><td>Before a function returns.</td></tr><tr><td>'exception'</td><td>After an exception occurs.</td></tr></table></section><section><h2>Chapter 2</h2><h4>Pdb implementation</h4></section><section><h3>Setup debugger</h3><pre><code class="gray"><b>def</b> foo(a, b):
     <b>return</b> a + b
 
 <b>if</b> __name__ == '__main__':
