@@ -54,13 +54,22 @@ html
         section
           h1 our example
         section
+          h2 Generating TLS sert
+          pre
+            code.bash.
+              openssl req -x509  \
+                -newkey rsa:4096 \
+                -days 365 -nodes \
+                -keyout key.pem  \
+                -out cert.pem
+        section
           h1 twisted
         section
           h1 mitmproxy
         section
           img(src='pics/django-channels.png')
         section
-          h3 Running Daphne
+          h2 Running Daphne
           pre
             code.bash.
               daphne                 \
