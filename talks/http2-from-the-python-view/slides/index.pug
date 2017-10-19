@@ -39,12 +39,38 @@ html
           h1 HTTP/2
           p principles
         section
+          h1 Implementations
+          p nghttp2
+        section
           h1 Python
         section
           h2 Cory Benfield
           img(src='pics/Cory.jpg').face-photo.photo-corner
+          aside.notes
+            p Former HPE
+            p Now Apple
+            p requests, urllib3, hyper, pyopenssl
+            p IETF’s HTTPBis Working Group
         section
-          h1 Django Channels
+          h1 our example
+        section
+          h1 twisted
+        section
+          h1 mitmproxy
+        section
+          img(src='pics/django-channels.png')
+        section
+          h3 Running Daphne
+          pre
+            code.bash.
+              daphne                 \
+                --ssl                \
+                --port=8000          \
+                --privateKey=key.pem \
+                --certKey=cert.pem   \
+                project.asgi:channel_layer
+        section(data-background='pics/channels-worked.png' data-background-size='contain')
+          br
         section
           h1 xkcd
         section
