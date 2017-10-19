@@ -21,23 +21,44 @@ html
           h2 Artem Malyshev
           h3 @proofit404
         section
-          h1 Why?
-          h3 HTTP/1
-          h3 is the power
-          h3 running Internet
+          h2 Why?
+          p HTTP/1 is the power
+          p running Internet
+          aside.notes
+            p it's simle popular protocol
         section
-          h1 HTTP/1 problems
+          h2 HTTP/1 problems
           ul
-            li 6 RFC
-            li text based
-            li incomplete implementation
-            li not optimal connection usage
+            li Designed over 20 years ago
+            li Have 6 RFC at that moment
+            li Network inefficient
+            li Text based
+          aside.notes
+            ul
+              li complex (chunk encoding bug)
+              li parsers memony usage
+              li mostly open new tcp connection
+              li Can't open too many connections at the same time
+              li http pipelining not work
+              li http cache not work
         section
-          h1 Techniques we use
-          p frontend optimization
+          h2 But we like workarounds
+          ul
+            li Image sprites
+            li Custom fonts
+            li Inline resources
+            li Resource concatenation
+            li Sharding
+          aside.notes
+            p base64 images
+            p JS bundles
+            p different domains
+            p CDN whole business
         section
           h1 HTTP/2
           p principles
+        section(data-background='pics/caniuse.png' data-background-size='contain' data-background-color='#F2E8D5')
+          br
         section
           h2 Implementations
           p.
@@ -48,6 +69,8 @@ html
             Firefox Netty nghttp2 Radware node-http2 OkHttp River Sasazka
             second-transfer ShimmerCat SuaveIO Swoole Trusterd Twitter Undertow
             Vert.x WASD Warp Wireshark WKWebView cashpack proxygen firefly
+          aside.notes
+            p nginx curl twitter google wireshark
         section
           h1 Python
         section
