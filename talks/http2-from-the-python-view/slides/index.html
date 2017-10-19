@@ -2,7 +2,13 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>HTTP/2</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>Why?</h1><h3>HTTP/1</h3><h3>is the power</h3><h3>running Internet</h3></section><section><h1>HTTP/1 problems</h1><ul><li>6 RFC</li><li>text based</li><li>incomplete implementation</li><li>not optimal connection usage</li></ul></section><section><h1>Techniques we use</h1><p>frontend optimization</p></section><section><h1>HTTP/2</h1><p>principles</p></section><section><h1>Implementations</h1><p>nghttp2</p></section><section><h1>Python</h1></section><section><h2>Cory Benfield</h2><img class="face-photo photo-corner" src="pics/Cory.jpg"><aside class="notes"><p>Former HPE</p><p>Now Apple</p><p>requests, urllib3, hyper, pyopenssl</p><p>IETF’s HTTPBis Working Group</p></aside></section><section><h1>our example</h1></section><section><h2>Generating TLS sert</h2><pre><code class="bash">openssl req -x509  \
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script></head><body><div class="reveal"><div class="slides"><section><h1>HTTP/2</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h1>Why?</h1><h3>HTTP/1</h3><h3>is the power</h3><h3>running Internet</h3></section><section><h1>HTTP/1 problems</h1><ul><li>6 RFC</li><li>text based</li><li>incomplete implementation</li><li>not optimal connection usage</li></ul></section><section><h1>Techniques we use</h1><p>frontend optimization</p></section><section><h1>HTTP/2</h1><p>principles</p></section><section><h2>Implementations</h2><p>Ace Aerys Akamai GHost Apache Tomcat http4s-blaze Brocade Traffic
+Manager Chatterbox Chromium libcurl Deuterium E2 Systems PATH Ericsson
+MSP F5 GFE H2O hpack http2dotnet HttpTwo httpbis hyper Shaka Jetty
+LiteSpeed Enterprise Microsoft Internet Explorer mod_h2 Mozilla
+Firefox Netty nghttp2 Radware node-http2 OkHttp River Sasazka
+second-transfer ShimmerCat SuaveIO Swoole Trusterd Twitter Undertow
+Vert.x WASD Warp Wireshark WKWebView cashpack proxygen firefly</p></section><section><h1>Python</h1></section><section><h2>Cory Benfield</h2><img class="face-photo photo-corner" src="pics/Cory.jpg"><aside class="notes"><p>Former HPE</p><p>Now Apple</p><p>requests, urllib3, hyper, pyopenssl</p><p>IETF’s HTTPBis Working Group</p></aside></section><section><h1>our example</h1></section><section><h2>Generating TLS sert</h2><pre><code class="bash">openssl req -x509  \
   -newkey rsa:4096 \
   -days 365 -nodes \
   -keyout key.pem  \
