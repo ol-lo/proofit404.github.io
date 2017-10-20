@@ -101,7 +101,16 @@ html
             p requests, urllib3, hyper, pyopenssl
             p IETF’s HTTPBis Working Group
         section
-          h2 H2 example
+          h2 Generating TLS sert
+          pre
+            code.bash.
+              openssl req -x509  \
+                -newkey rsa:4096 \
+                -days 365 -nodes \
+                -keyout key.pem  \
+                -out cert.pem
+        section
+          h2 H2
           pre
             code.python.
               from h2.connection import H2Connection
@@ -115,16 +124,39 @@ html
               for event in events:
                   ...
         section
-          h2 Generating TLS sert
+          h2 Quart
           pre
-            code.bash.
-              openssl req -x509  \
-                -newkey rsa:4096 \
-                -days 365 -nodes \
-                -keyout key.pem  \
-                -out cert.pem
+            code.python.
+              from quart import *
+
+              app = Quart(__name__)
+
+              @app.route('/')
+              async def index():
+                  result = await render_template('index.html')
+                  response = await make_response(result)
+                  response.push_promises.update([
+                      url_for('static', 'bootstrap.min.css'),
+                      url_for('static', 'bootstrap.min.js'),
+                      url_for('static', 'jquery.min.js'),
+                  ])
+                  return response
         section
-          h1 twisted
+          h2 twisted
+          pre
+            code.python.
+              from twisted import *
+
+              root = Resource()
+              root.putChild(b'', File('index.html'))
+              root.putChild(b'static', File('static'))
+              site = server.Site(root)
+              server = endpoints.serverFromString(
+                  reactor,
+                  "ssl:privateKey=key.pem:certKey=cert.pem",
+              )
+              server.listen(site)
+              reactor.run()
         section
           h1 mitmproxy
         section

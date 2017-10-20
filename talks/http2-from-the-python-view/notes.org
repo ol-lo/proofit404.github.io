@@ -58,8 +58,8 @@
   - https://lukasa.co.uk/
 * TODO XKCD
   "We have 14 incomplete protocols now" at the end of the slides.
-* TODO How to serve HTTP/2 using Python
+* DONE How to serve HTTP/2 using Python
   https://medium.com/python-pandemonium/how-to-serve-http-2-using-python-5e5bbd1e7ff1
 * TODO txacme for lets encrypt and Daphne
-* TODO SPDY
-* TODO caniuse
+* DONE SPDY
+* DONE caniuse

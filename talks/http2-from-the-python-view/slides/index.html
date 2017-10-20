@@ -8,7 +8,11 @@ MSP F5 GFE H2O hpack http2dotnet HttpTwo httpbis hyper Shaka Jetty
 LiteSpeed Enterprise Microsoft Internet Explorer mod_h2 Mozilla
 Firefox Netty nghttp2 Radware node-http2 OkHttp River Sasazka
 second-transfer ShimmerCat SuaveIO Swoole Trusterd Twitter Undertow
-Vert.x WASD Warp Wireshark WKWebView cashpack proxygen firefly</p><aside class="notes"><p>nginx curl twitter google wireshark hyper</p></aside></section><section><img src="pics/hyper.png"></section><section><h2>Cory Benfield</h2><img class="face-photo photo-corner" src="pics/Cory.jpg"><aside class="notes"><p>Former HPE</p><p>Now Apple</p><p>requests, urllib3, hyper, pyopenssl</p><p>IETF’s HTTPBis Working Group</p></aside></section><section><h2>H2 example</h2><pre><code class="python">from h2.connection import H2Connection
+Vert.x WASD Warp Wireshark WKWebView cashpack proxygen firefly</p><aside class="notes"><p>nginx curl twitter google wireshark hyper</p></aside></section><section><img src="pics/hyper.png"></section><section><h2>Cory Benfield</h2><img class="face-photo photo-corner" src="pics/Cory.jpg"><aside class="notes"><p>Former HPE</p><p>Now Apple</p><p>requests, urllib3, hyper, pyopenssl</p><p>IETF’s HTTPBis Working Group</p></aside></section><section><h2>Generating TLS sert</h2><pre><code class="bash">openssl req -x509  \
+  -newkey rsa:4096 \
+  -days 365 -nodes \
+  -keyout key.pem  \
+  -out cert.pem</code></pre></section><section><h2>H2</h2><pre><code class="python">from h2.connection import H2Connection
 
 conn = H2Connection(client_side=False)
 conn.initiate_connection()
@@ -17,11 +21,31 @@ sock.sendall(conn.data_to_send())
 data = sock.recv(65535)
 events = conn.receive_data(data)
 for event in events:
-    ...</code></pre></section><section><h2>Generating TLS sert</h2><pre><code class="bash">openssl req -x509  \
-  -newkey rsa:4096 \
-  -days 365 -nodes \
-  -keyout key.pem  \
-  -out cert.pem</code></pre></section><section><h1>twisted</h1></section><section><h1>mitmproxy</h1></section><section><img src="pics/django-channels.png"></section><section><h2>Running Daphne</h2><pre><code class="bash">daphne                 \
+    ...</code></pre></section><section><h2>Quart</h2><pre><code class="python">from quart import *
+
+app = Quart(__name__)
+
+@app.route('/')
+async def index():
+    result = await render_template('index.html')
+    response = await make_response(result)
+    response.push_promises.update([
+        url_for('static', 'bootstrap.min.css'),
+        url_for('static', 'bootstrap.min.js'),
+        url_for('static', 'jquery.min.js'),
+    ])
+    return response</code></pre></section><section><h2>twisted</h2><pre><code class="python">from twisted import *
+
+root = Resource()
+root.putChild(b'', File('index.html'))
+root.putChild(b'static', File('static'))
+site = server.Site(root)
+server = endpoints.serverFromString(
+    reactor,
+    "ssl:privateKey=key.pem:certKey=cert.pem",
+)
+server.listen(site)
+reactor.run()</code></pre></section><section><h1>mitmproxy</h1></section><section><img src="pics/django-channels.png"></section><section><h2>Running Daphne</h2><pre><code class="bash">daphne                 \
   --ssl                \
   --port=8000          \
   --privateKey=key.pem \
