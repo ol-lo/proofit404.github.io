@@ -75,6 +75,7 @@ html
           aside.notes
             p Binary framing layer
             p Stream
+            p HPACK
         section(data-background='pics/caniuse.png' data-background-size='contain' data-background-color='#F2E8D5')
           br
         section
@@ -88,9 +89,9 @@ html
             second-transfer ShimmerCat SuaveIO Swoole Trusterd Twitter Undertow
             Vert.x WASD Warp Wireshark WKWebView cashpack proxygen firefly
           aside.notes
-            p nginx curl twitter google wireshark
+            p nginx curl twitter google wireshark hyper
         section
-          h1 Python
+          img(src='pics/hyper.png')
         section
           h2 Cory Benfield
           img(src='pics/Cory.jpg').face-photo.photo-corner
@@ -100,7 +101,19 @@ html
             p requests, urllib3, hyper, pyopenssl
             p IETF’s HTTPBis Working Group
         section
-          h1 our example
+          h2 H2 example
+          pre
+            code.python.
+              from h2.connection import H2Connection
+
+              conn = H2Connection(client_side=False)
+              conn.initiate_connection()
+              sock.sendall(conn.data_to_send())
+
+              data = sock.recv(65535)
+              events = conn.receive_data(data)
+              for event in events:
+                  ...
         section
           h2 Generating TLS sert
           pre
