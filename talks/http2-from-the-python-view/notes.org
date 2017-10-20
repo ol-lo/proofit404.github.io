@@ -14,11 +14,11 @@
    top of h2 library.
 ** curl support
    Curl now have --http2 flag.
-*** TODO how it works?
+*** DONE how it works?
 * other tools support
 ** TODO aiohttp
 ** TODO tornado
-* TODO Django channels
+* DONE Django channels
 * PyCon UK 2014: HTTP/2: Because The Web Was Too Easy
   https://www.youtube.com/watch?v=IpwOiucVlIo
 ** HTTP/1.1 floss
