@@ -45,7 +45,7 @@ server = endpoints.serverFromString(
     "ssl:privateKey=key.pem:certKey=cert.pem",
 )
 server.listen(site)
-reactor.run()</code></pre></section><section><h1>mitmproxy</h1></section><section><img src="pics/django-channels.png"></section><section><h2>Running Daphne</h2><pre><code class="bash">daphne                 \
+reactor.run()</code></pre></section><section><h2>mitmproxy</h2><img src="pics/mitmproxy.png"></section><section><img src="pics/django-channels.png"></section><section><h2>Running Daphne</h2><pre><code class="bash">daphne                 \
   --ssl                \
   --port=8000          \
   --privateKey=key.pem \

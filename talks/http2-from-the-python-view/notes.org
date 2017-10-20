@@ -51,12 +51,12 @@
   - server push may be implemented for nghttp2 with extra headers
 * TODO An overview of HTTP/2 with Daniel Sommermann (Sourcegraph Hacker Meetup)
   https://www.youtube.com/watch?v=-yxQIRl6Qic&t=6
-* TODO Sites who use it
-* TODO Cory Benfield
+* DONE Sites who use it
+* DONE Cory Benfield
   Former HPE, now Apple.  Member of IETF HTTPBis Working group.
   - https://avatars2.githubusercontent.com/u/1382556?s=400&v=4
   - https://lukasa.co.uk/
-* TODO XKCD
+* DONE XKCD
   "We have 14 incomplete protocols now" at the end of the slides.
 * DONE How to serve HTTP/2 using Python
   https://medium.com/python-pandemonium/how-to-serve-http-2-using-python-5e5bbd1e7ff1
