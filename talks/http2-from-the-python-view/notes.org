@@ -16,8 +16,8 @@
    Curl now have --http2 flag.
 *** DONE how it works?
 * other tools support
-** TODO aiohttp
-** TODO tornado
+** DONE aiohttp
+** DONE tornado
 * DONE Django channels
 * PyCon UK 2014: HTTP/2: Because The Web Was Too Easy
   https://www.youtube.com/watch?v=IpwOiucVlIo
