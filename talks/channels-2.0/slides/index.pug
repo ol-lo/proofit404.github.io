@@ -1,0 +1,50 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title Channels 2.0
+    meta(name="description" content="Django Channels 2.0 in depth overview")
+    meta(name="author" content="Artem Malyshev")
+    meta(name="apple-mobile-web-app-capable" content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    link(rel="stylesheet" href="css/reveal.css")
+    link(rel="stylesheet" href="css/theme/black.css" id="theme")
+    link(rel="stylesheet" href="lib/css/zenburn.css")
+    script.
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    <!--[if lt IE 9]>
+    script(src='lib/js/html5shiv.js')
+    <![endif]-->
+  body
+    .reveal
+      .slides
+        section
+          h1 Channels 2.0
+          h2 Artem Malyshev
+          h3 @proofit404
+        section
+          h2 To be continued
+    script(src="lib/js/head.min.js")
+    script(src="js/reveal.js")
+    script.
+      Reveal.initialize({
+          controls: false,
+          progress: false,
+          slideNumber: true,
+          history: true,
+          center: true,
+          transition: 'none',
+          dependencies: [
+              { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: 'plugin/notes/notes.js', async: true }
+          ]
+      });
+//- Local Variables:
+//- eval: (add-hook (quote after-save-hook) (function (lambda nil (let ((proc (start-process-shell-command "pug" "*Pug*" (format "pug %s" (buffer-file-name))))) (set-process-sentinel proc (function (lambda (proc status) (and (buffer-file-name) (message "Pug: rendered %s" (file-name-nondirectory (buffer-file-name)))))))))) nil t)
+//- End:
