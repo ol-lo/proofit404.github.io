@@ -9,7 +9,7 @@ html
     meta(name="apple-mobile-web-app-status-bar-style" content="black-translucent")
     meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
     link(rel="stylesheet" href="css/reveal.css")
-    link(rel="stylesheet" href="css/theme/black.css" id="theme")
+    link(rel="stylesheet" href="css/theme/beige.css" id="theme")
     link(rel="stylesheet" href="lib/css/zenburn.css")
     script.
       var link = document.createElement( 'link' );
@@ -27,6 +27,25 @@ html
           h1 Channels 2.0
           h2 Artem Malyshev
           h3 @proofit404
+        section
+          h3 ASGI Application
+          pre
+            code.hljs.python.
+              application = ProtocolTypeRouter({
+                  "http": URLRouter([
+                      url("^", DjangoViewSystem),
+                  ]),
+                  "websocket": URLRouter([
+                      url("^chat/$", AsyncChatConsumer),
+                  ]),
+                  "mqtt": MqttTemperatureConsumer,
+                  "email": EmailToRouter([
+                      regex("@support.org", SupportTicketHandler),
+                  ]),
+                  "sms": SMSFromRouter([
+                      phone("+1", USTextHandler),
+                  ]),
+              })
         section
           h2 To be continued
     script(src="lib/js/head.min.js")
