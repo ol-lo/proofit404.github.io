@@ -492,6 +492,4 @@ html
       });
 //- Local Variables:
 //- eval: (add-hook (quote after-save-hook) (function (lambda nil (let ((proc (start-process-shell-command "pug" "*Pug*" (format "pug %s" (buffer-file-name))))) (set-process-sentinel proc (function (lambda (proc status) (and (buffer-file-name) (message "Pug: rendered %s" (file-name-nondirectory (buffer-file-name)))))))))) nil t)
-//- eval: (start-process-shell-command "http.server" "*http.server*" "python -m http.server --bind localhost 4000")
-//- eval: (run-at-time 2 nil (function browse-url) "http://localhost:4000")
 //- End:
