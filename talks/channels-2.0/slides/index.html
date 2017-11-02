@@ -2,7 +2,7 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="lib/js/html5shiv.js"></script><![endif]--></head><body><div class="reveal"><div class="slides"><section><h1>Channels 2.0</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h3>ASGI Application</h3><pre><code class="hljs python">application = ProtocolTypeRouter({
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="lib/js/html5shiv.js"></script><![endif]--></head><body><div class="reveal"><div class="slides"><section><h1>Channels 2.0</h1><h2>Artem Malyshev</h2><h3>@proofit404</h3></section><section><h3>Channels 1.0</h3><p class="fragment">3 years old design</p><p class="fragment">no standard interface like WSGI</p><p class="fragment">push <i><b>everything</b></i> over network</p><p class="fragment">django session abuse</p><p class="fragment">tricky deploy</p></section><section><h3>ASGI Application</h3><pre><code class="hljs python">application = ProtocolTypeRouter({
     "http": URLRouter([
         url("^", DjangoViewSystem),
     ]),
@@ -16,7 +16,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
     "sms": SMSFromRouter([
         phone("+1", USTextHandler),
     ]),
-})</code></pre></section><section><h2>To be continued</h2></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
+})</code></pre></section><section><h3>To be continued</h3></section></div></div><script src="lib/js/head.min.js"></script><script src="js/reveal.js"></script><script>Reveal.initialize({
     controls: false,
     progress: false,
     slideNumber: true,
