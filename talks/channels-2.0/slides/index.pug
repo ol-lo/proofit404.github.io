@@ -58,6 +58,7 @@ html
           aside.notes
             p Gunicorn -> Middlewares -> Django
             p Multiplexer logic needs to be implemented everywhere
+            p Passing #[b reply channel] every where
         section
           h3 Push everything over network
           blockquote
@@ -140,12 +141,30 @@ html
           br
         section
           h3 Actual requirements
+          p.fragment Send to channel from everywhere
+          p.fragment Simultaneous usage of sync and async code
+          p.fragment React on websocket events on another machine
+          p.fragment Cross-socket and cross-process communication
+          aside.notes
+            p To handle stateful long living connections in the sync code
+        section
+          h3 Moving the line
+          p.fragment Run workers and Daphne in the same process
+          p.fragment Store socket state locally
+          p.fragment Remove "send-to-layer" conventions
+          aside.notes
+            p Use threadpool for interact between sync and async
+            p In memory storage instead of session backend
+            p Consumers instead of raw sockets
         section
           h3 Hello world deploy
           img(src="pic/deploy3.png")
         section
           h3 Chat deploy
           img(src="pic/deploy4.png")
+          notes.aside
+            p busy server will have much worth performance
+            p we will randomly close websockets
         section
           h3 ASGI Application
           pre
@@ -165,6 +184,13 @@ html
                       phone("+1", USTextHandler),
                   ]),
               })
+        section
+          h3 Results
+          p.fragment Removes a lot of handshaking traffic
+          p.fragment Groups are be hidden in the consumer
+          aside.notes
+            p No need for redis local channel implementation
+            p Broadcasting usage only
         section
           h3 Links
           a(href="http://channels.readthedocs.io/en/2.0/") Channels 2.0 Docs
