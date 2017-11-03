@@ -32,21 +32,57 @@ html
           p.fragment 3 years old design
           p.fragment no standard interface like WSGI
           p.fragment push #[i #[b everything]] over network
-          p.fragment django session abuse
           p.fragment tricky deploy
+          p.fragment django session abuse
         section
-          h3 Network layout
-          p FIXME
+          h3 3 years of experience
+          p 800+ commits
+          p 450+ issues closed
+          p 100+ contributors
+          p 40+ releases
+          aside.notes
+            p Official django project
         section
           h3 No standard interface
           a(href="https://www.python.org/dev/peps/pep-0333/") PEP 333
           p This wide variety of choices can be a problem for new Python users, because generally speaking, their choice of web framework will limit their choice of usable web servers, and vice versa.
+          aside.notes
+            p Gunicorn -> Middlewares -> Django
+            p Multiplexer logic needs to be implemented everywhere
         section
           h3 Push everything over network
           blockquote
             p TBH, the main reason I like microservices is that I feel like my method calls are too fast and I’d prefer to throw in some latency.
             p Aaron Patterson (@tenderlove)
             a(href="https://twitter.com/tenderlove/status/573907559871971328?ref_src=twsrc%5Etfw") March 6, 2015
+          aside.notes
+            p Tonns of handshaking request response traffic
+            p Scaling issues
+        section
+          h3 Tricky deploy
+          p FIXME
+        section
+          h3 Session usage
+          pre.fragment
+            code.hljs.python.
+              @channel_session
+          pre.fragment
+            code.hljs.python.
+              @http_session
+          pre.fragment
+            code.hljs.python.
+              @channel_and_http_session
+          pre.fragment
+            code.hljs.python.
+              @channel_and_http_session_user_from_http
+          pre.fragment
+            code.hljs.python.
+              @enforce_ordering
+          aside.notes
+            p Latency
+            p Single point of failure
+            p Scaling issues
+            p Used as distributed Lock
         section
           h3 ASGI Application
           pre
@@ -66,6 +102,15 @@ html
                       phone("+1", USTextHandler),
                   ]),
               })
+        section
+          h3 Links
+          a(href="http://channels.readthedocs.io/en/2.0/") Channels 2.0 Docs
+          br
+          a(href="http://www.aeracode.org/2017/07/11/towards-channels-20/") Towards Channels 2.0
+          br
+          a(href="http://www.aeracode.org/2017/10/18/channels-2-october/") Channels 2: October
+          br
+          a(href="http://www.uvicorn.org/") Uvicorn: The lightning-fast asyncio server.
         section
           h3 To be continued
     script(src="lib/js/head.min.js")
