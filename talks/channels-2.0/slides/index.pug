@@ -162,11 +162,97 @@ html
         section
           h3 Chat deploy
           img(src="pic/deploy4.png")
-          notes.aside
+          aside.notes
             p busy server will have much worth performance
             p we will randomly close websockets
         section
-          h3 ASGI Application
+          h3 Implementation
+          p.fragment Sync <=> async bridge
+          p.fragment Twisted over asyncio
+          p.fragment Remove Python 2 support
+          p.fragment Consumers as first class citizens
+          p.fragment Routing is a consumer too
+          aside.notes
+            p You can write async code in your Django project
+            p Modern twisted for modern days
+            p Django 2.0
+            p Explicit abstractions like views
+            p Routing is a complex dispatching consumer
+        section
+          h3 Sync to async
+          pre
+            code.hljs.python.
+              class SyncToAsync:
+
+                  threadpool = ThreadPoolExecutor()
+
+                  def __init__(self, func):
+                      self.func = func
+
+                  async def __call__(self, *args, **kwargs):
+                      loop = asyncio.get_event_loop()
+                      future = loop.run_in_executor(
+                          self.threadpool,
+                          partial(self.func, *args, **kwargs),
+                      )
+                      return await asyncio.wait_for(future)
+          aside.notes
+            p Turn synchronous code into awaitable
+        section
+          h3 Async to sync
+          pre
+            code.hljs.python.
+              class AsyncToSync:
+
+                  def __init__(self, awaitable):
+                      self.awaitable = awaitable
+
+                  def __call__(self, *args, **kwargs):
+                      call_result = Future()
+                      event_loop.call_soon_threadsafe(
+                          asyncio.ensure_future,
+                          wrap(self.awaitable args, kwargs),
+                      )
+                      call_result.result()
+          aside.notes
+            p Turn awaitable into synchronous code
+        section
+          h3 Modern Twisted
+          pre
+            code.hljs.python.
+              @router.route("/gethostbyname/<name>")
+              async def hostname(self, request: IRequest) -> IResponse:
+                  try:
+                      address = await getHostName()
+                  except DNSNameError:
+                      request.setResponseCode(http.NOT_FOUND)
+                      return "no such host"
+                  except DNSLookupError:
+                      request.setResponseCode(http.NOT_FOUND)
+                      return "lookup error"
+                  return address
+        section
+          h3 Consumers
+          pre
+            code.hljs.python.
+              class AsyncChatConsumer(AsyncConsumer):
+
+                  async def websocket_connect(self, message):
+
+                      await self.send({
+                          "type": "websocket.accept",
+                      })
+
+                      self.username = "Anonymous"
+
+                      await self.send({
+                          "type": "websocket.send",
+                          "text": "[Welcome %s!]" % self.username,
+                      })
+          aside.notes
+            p You can await from Django ORM now!
+        section
+          h3 Routing
           pre
             code.hljs.python.
               application = ProtocolTypeRouter({
@@ -184,10 +270,13 @@ html
                       phone("+1", USTextHandler),
                   ]),
               })
+          aside.notes
+            p SMS reply codes or whatever you want
         section
           h3 Results
           p.fragment Removes a lot of handshaking traffic
           p.fragment Groups are be hidden in the consumer
+          p.fragment First steps to async Django
           aside.notes
             p No need for redis local channel implementation
             p Broadcasting usage only
