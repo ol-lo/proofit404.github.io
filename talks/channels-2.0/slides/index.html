@@ -33,7 +33,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
             asyncio.ensure_future,
             wrap(self.awaitable args, kwargs),
         )
-        call_result.result()</code></pre><aside class="notes"><p>Turn awaitable into synchronous code</p></aside></section><section><h3>Modern Twisted</h3><pre><code class="hljs python">@router.route("/gethostbyname/<name>")
+        call_result.result()</code></pre><aside class="notes"><p>Turn awaitable into synchronous code</p></aside></section><section><h3>Modern Twisted</h3><pre><code class="hljs python">@router.route("/gethostbyname/&lt;name&gt;")
 async def hostname(self, request: IRequest) -> IResponse:
     try:
         address = await getHostName()

@@ -220,7 +220,7 @@ html
           h3 Modern Twisted
           pre
             code.hljs.python.
-              @router.route("/gethostbyname/<name>")
+              @router.route("#{"/gethostbyname/<name>"}")
               async def hostname(self, request: IRequest) -> IResponse:
                   try:
                       address = await getHostName()
